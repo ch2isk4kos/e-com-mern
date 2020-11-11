@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../../api/firebase/firebaseConfig";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const REDIRECT_URL = process.env.REACT_APP_SIGNUP_REDIRECT_URL;
 
