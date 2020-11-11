@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import {
   LoginOutlined,
@@ -21,15 +22,15 @@ const Header = () => {
     <Menu onClick={handleOnClick} selectedKeys={[current]} mode="horizontal">
       {/* Brand */}
       <Item key="thunderbolt" icon={<ThunderboltTwoTone />}>
-        Brand
+        <Link to={"/home"}>Brand</Link>
       </Item>
       {/* Products */}
       <Item key="products" icon={<TagsOutlined />}>
-        Products
+        <Link to={"/products"}>Products</Link>
       </Item>
       {/* Login */}
       <Item key="login" icon={<LoginOutlined />}>
-        Login
+        <Link to={"/login"}>Login</Link>
       </Item>
       {/* Profile */}
       <SubMenu
