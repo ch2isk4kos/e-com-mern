@@ -1,46 +1,62 @@
 import React, { useState } from "react";
 import { Menu } from "antd";
 import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
+  LoginOutlined,
+  ShoppingCartOutlined,
+  TagsOutlined,
+  ThunderboltTwoTone,
+  UserOutlined,
 } from "@ant-design/icons";
 
-const { SubMenu } = Menu;
+const { SubMenu, Item, ItemGroup } = Menu;
 
 const Header = () => {
-  const [current, setCurrent] = useState(null);
+  const [current, setCurrent] = useState("");
 
-  const handleOnClick = () => {};
+  const handleOnClick = (e) => {
+    setCurrent({ current: e.key });
+  };
 
   return (
     <Menu onClick={handleOnClick} selectedKeys={[current]} mode="horizontal">
-      {/* Mail */}
-      <Menu.Item key="mail" icon={<MailOutlined />}>
-        MERN
-      </Menu.Item>
-      {/* Store */}
-      <Menu.Item key="app" icon={<AppstoreOutlined />}>
-        Navigation Two
-      </Menu.Item>
-      {/* Sub Menu */}
-      <SubMenu key="SubMenu" icon={<SettingOutlined />} title="Cart">
-        {/* Sub Menu Item 1 */}
-        <Menu.ItemGroup title="Checkout">
-          <Menu.Item key="setting:1">Option 1</Menu.Item>
-          <Menu.Item key="setting:2">Option 2</Menu.Item>
-        </Menu.ItemGroup>
-        {/* Sub Menu Item 2 */}
-        <Menu.ItemGroup title="Something Else">
-          <Menu.Item key="setting:3">Option 3</Menu.Item>
-          <Menu.Item key="setting:4">Option 4</Menu.Item>
-        </Menu.ItemGroup>
+      {/* Brand */}
+      <Item key="thunderbolt" icon={<ThunderboltTwoTone />}>
+        Brand
+      </Item>
+      {/* Products */}
+      <Item key="products" icon={<TagsOutlined />}>
+        Products
+      </Item>
+      {/* Login */}
+      <Item key="login" icon={<LoginOutlined />}>
+        Login
+      </Item>
+      {/* Profile */}
+      <SubMenu
+        className="float-right"
+        key="profile"
+        icon={<UserOutlined />}
+        title="Profile"
+      >
+        {/* Profile Sub Menu */}
+        <ItemGroup title="Menu">
+          <Item key="settings">Settings</Item>
+          <Item key="signout">Sign Out</Item>
+        </ItemGroup>
       </SubMenu>
-      <Menu.Item key="alipay">
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          Navigation Four - Link
-        </a>
-      </Menu.Item>
+      {/* Cart */}
+      <SubMenu
+        className="float-right"
+        key="cart"
+        icon={<ShoppingCartOutlined />}
+        title="Cart"
+      >
+        {/* Cart Sub Menu */}
+        <ItemGroup title="Menu">
+          <Item key="checkout">Check Out</Item>
+          <Item key="saved">Saved Items</Item>
+        </ItemGroup>
+      </SubMenu>
     </Menu>
   );
 };
