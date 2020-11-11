@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { auth } from "../../api/firebase/firebaseConfig";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
