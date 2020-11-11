@@ -26,7 +26,6 @@ const Signup = () => {
       <div className="row">
         <div className="col-md-6 offset-md-3">
           <h3>Sign Up.</h3>
-          <ToastContainer />
           <form onSubmit={handleOnSubmit}>
             <input
               className="form-control"
