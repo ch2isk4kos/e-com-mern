@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { auth } from "../../api/firebase/firebaseConfig";
+import { auth } from "../../api/firebase";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
