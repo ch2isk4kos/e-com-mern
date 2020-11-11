@@ -1,13 +1,13 @@
-import React from 'react';
-import { Carousel } from 'antd';
+import React from "react";
+import { Carousel } from "antd";
 
 const Landing = () => {
   const contentStyle = {
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
+    height: "160px",
+    color: "#fff",
+    lineHeight: "160px",
+    textAlign: "center",
+    background: "#364d79",
   };
   return (
     // <div>
@@ -100,7 +100,7 @@ const Landing = () => {
         <h3 style={contentStyle}>4</h3>
       </div>
     </Carousel>
-  )
-}
+  );
+};
 
 export default Landing;
