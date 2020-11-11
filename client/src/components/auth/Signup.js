@@ -25,12 +25,12 @@ const Signup = () => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h3>Sign Up.</h3>
+          <h3>Verify Email</h3>
           <form onSubmit={handleOnSubmit}>
             <input
               className="form-control"
               type="email"
-              placeholder="email"
+              placeholder="enter a valid email address"
               value={email}
               onChange={handleOnChange}
               autoFocus
