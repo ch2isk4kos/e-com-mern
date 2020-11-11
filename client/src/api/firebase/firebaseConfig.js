@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import * as firebase from "firebase/firebase";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -14,7 +14,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
 // Exports
 export const auth = firebase.auth();
