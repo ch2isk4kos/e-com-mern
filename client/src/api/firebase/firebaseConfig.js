@@ -1,5 +1,7 @@
+import * as firebase from "firebase";
+
 // Firebase Configuration
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDfFQcQUDC_rMQmpir0n1DSLHzIP3JkMVo",
   authDomain: "e-com-mern.firebaseapp.com",
   databaseURL: "https://e-com-mern.firebaseio.com",
@@ -13,3 +15,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+// Exports
+export const auth = firebase.auth();
+export const googleOAuth = new firebase.auth.GoogleAuthProvider();
