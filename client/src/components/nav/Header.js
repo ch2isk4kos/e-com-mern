@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import {
+  BookOutlined,
+  BuildOutlined,
+  FireOutlined,
   LoginOutlined,
+  SelectOutlined,
+  SettingOutlined,
   ShoppingCartOutlined,
   TagsOutlined,
-  ThunderboltTwoTone,
   UserOutlined,
+  WalletOutlined,
 } from "@ant-design/icons";
 
 const { SubMenu, Item, ItemGroup } = Menu;
@@ -21,8 +26,8 @@ const Header = () => {
   return (
     <Menu onClick={handleOnClick} selectedKeys={[current]} mode="horizontal">
       {/* Brand */}
-      <Item key="thunderbolt" icon={<ThunderboltTwoTone />}>
-        <Link to={"/home"}>Brand</Link>
+      <Item key="thunderbolt" icon={<FireOutlined />}>
+        <Link to={"/home"}>Yard Sale</Link>
       </Item>
       {/* Products */}
       <Item key="products" icon={<TagsOutlined />}>
@@ -31,6 +36,10 @@ const Header = () => {
       {/* Login */}
       <Item key="login" icon={<LoginOutlined />}>
         <Link to={"/login"}>Login</Link>
+      </Item>
+      {/* Signup */}
+      <Item key="signup" icon={<BuildOutlined />}>
+        <Link to={"/signup"}>Sign Up</Link>
       </Item>
       {/* Profile */}
       <SubMenu
@@ -41,8 +50,12 @@ const Header = () => {
       >
         {/* Profile Sub Menu */}
         <ItemGroup title="Menu">
-          <Item key="settings">Settings</Item>
-          <Item key="signout">Sign Out</Item>
+          <Item key="settings" icon={<SettingOutlined />}>
+            Settings
+          </Item>
+          <Item key="signout" icon={<SelectOutlined />}>
+            Sign Out
+          </Item>
         </ItemGroup>
       </SubMenu>
       {/* Cart */}
@@ -54,8 +67,12 @@ const Header = () => {
       >
         {/* Cart Sub Menu */}
         <ItemGroup title="Menu">
-          <Item key="checkout">Check Out</Item>
-          <Item key="saved">Saved Items</Item>
+          <Item key="checkout" icon={<WalletOutlined />}>
+            Check Out
+          </Item>
+          <Item key="saved" icon={<BookOutlined />}>
+            Saved Items
+          </Item>
         </ItemGroup>
       </SubMenu>
     </Menu>
