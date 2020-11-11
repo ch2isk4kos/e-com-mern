@@ -12,6 +12,7 @@ const App = () => {
   return (
     <div className="App">
       <Header />
+      <ToastContainer />
       <Switch>
         <Route exact path={"/"} component={Landing} />
         <Route exact path={"/home"} component={Home} />
