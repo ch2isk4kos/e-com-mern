@@ -14,7 +14,6 @@ const App = () => {
     <div className="App">
       <Header />
       <ToastContainer />
-      <Verified />
       <Switch>
         <Route exact path={"/"} component={Landing} />
         <Route exact path={"/home"} component={Home} />
