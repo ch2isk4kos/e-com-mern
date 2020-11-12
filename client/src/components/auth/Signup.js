@@ -17,8 +17,8 @@ const Signup = () => {
       handleCodeInApp: true,
     };
     await auth.sendSignInLinkToEmail(email, config);
-    toast.success(`Verification email sent to: ${email}`);
     window.localStorage.setItem("registrationEmail", email); // save email to localStorage
+    toast.success(`Verification email sent to: ${email}`);
     setEmail("");
   };
   return (

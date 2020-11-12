@@ -3,7 +3,7 @@ import Header from "./components/nav/Header";
 import Landing from "./components/Landing";
 import Home from "./components/Home";
 import Signup from "./components/auth/Signup";
-import Verified from "./components/auth/Verified";
+import SignupVerified from "./components/auth/SignupVerified";
 import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { auth } from "./api/firebase/firebaseConfig";
@@ -39,7 +39,7 @@ const App = () => {
         <Route exact path={"/"} component={Landing} />
         <Route exact path={"/home"} component={Home} />
         <Route exact path={"/signup"} component={Signup} />
-        <Route exact path={"/signup/verified"} component={Verified} />
+        <Route exact path={"/signup/verified"} component={SignupVerified} />
       </Switch>
     </div>
   );

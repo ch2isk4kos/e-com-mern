@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../../api/firebase/firebaseConfig";
 import { toast } from "react-toastify";
 
-const Verified = ({ history }) => {
+const SignupVerified = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   useEffect(() => {
@@ -78,4 +78,4 @@ const Verified = ({ history }) => {
   );
 };
 
-export default Verified;
+export default SignupVerified;
