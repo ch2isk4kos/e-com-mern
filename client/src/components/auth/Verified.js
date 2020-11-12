@@ -7,13 +7,46 @@ const Verified = ({ history }) => {
   const [password, setPassword] = useState("");
   useEffect(() => {
     setEmail(window.localStorage.getItem("registrationEmail"));
+    // console.log(window.localStorage.getItem("registrationEmail"));
+    // console.log(window.location.href);
   }, []);
   const handleOnChange = (e) => {
-    console.log(e.target.value);
-    setEmail(e.target.value);
+    console.log("password", e.target.value);
+    setPassword(e.target.value);
   };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    // valid email and pw
+    if (!email || !password) {
+      toast.error("Email and Passwowd required");
+      return;
+    }
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+    // authenticate user in firebase
+    try {
+      const firebaseAuthenticate = await auth.signInWithEmailLink(
+        email,
+        window.location.href
+      );
+      if (firebaseAuthenticate.user.emailVerified) {
+        // remove user email from localStorage
+        window.localStorage.removeItem("registrationEmail");
+        // get user id - update pw - and get jwt
+        let user = auth.currentUser;
+        await user.updatePassword(password);
+        const idToken = await user.getIdTokenResult();
+        // redux store
+
+        // redirect user
+        history.push("/home");
+        // clear password input field
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
   return (
     <div className="container p-5">
