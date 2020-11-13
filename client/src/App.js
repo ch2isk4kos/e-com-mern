@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Signup from "./components/auth/Signup";
 import SignupVerified from "./components/auth/SignupVerified";
 import Login from "./components/auth/Login";
+import PasswordReset from "./components/auth/PasswordReset";
 import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { auth } from "./api/firebase/firebaseConfig";
@@ -42,6 +43,7 @@ const App = () => {
         <Route exact path={"/signup"} component={Signup} />
         <Route exact path={"/signup/verified"} component={SignupVerified} />
         <Route exact path={"/login"} component={Login} />
+        <Route exact path={"/password-reset"} component={PasswordReset} />
       </Switch>
     </div>
   );
