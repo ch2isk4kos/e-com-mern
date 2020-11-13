@@ -6,10 +6,12 @@ const REDIRECT_URL = process.env.REACT_APP_SIGNUP_REDIRECT_URL;
 
 const Signup = () => {
   const [email, setEmail] = useState("");
+
   const handleOnChange = (e) => {
     console.log(e.target.value);
     setEmail(e.target.value);
   };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const config = {
