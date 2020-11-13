@@ -6,9 +6,16 @@ import { Button } from "antd";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const btnDisabled = !email || password.length < 6;
+  // const [loadings, setLoadings] = useState([]);
   // const handleOnChange = (e) => {
   //   console.log(e.target.value);
   //   setEmail(e.target.value);
+  // };
+  // const enterLoading = (index) => {
+  //   const load = [...loadings];
+  //   load[index] = true;
+  //   setLoadings(load);
   // };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +42,12 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button className="btn btn-raised" type="primary" block>
+            <Button
+              className="mb-3"
+              type="primary"
+              disabled={btnDisabled}
+              block
+            >
               Sign In
             </Button>
           </form>
