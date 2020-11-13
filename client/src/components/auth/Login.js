@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { auth, googleOAuthProvider } from "../../api/firebase/firebaseConfig";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
@@ -11,6 +11,7 @@ const Login = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const btnDisabled = !email || password.length < 6;
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => ({ ...state }));
   // const handleOnChange = (e) => {
   //   console.log(e.target.value);
   //   setEmail(e.target.value);
@@ -20,6 +21,13 @@ const Login = ({ history }) => {
   //   load[index] = true;
   //   setLoadings(load);
   // };
+
+  useEffect(() => {
+    if (user && user.token) {
+      history.push("/home");
+    }
+  }, []);
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.table("EMAIL:", email, "PASS:", password);
@@ -38,6 +46,8 @@ const Login = ({ history }) => {
           token: id.token,
         },
       });
+      setEmail("");
+      setPassword("");
       toast.info(`Welcome Back ${username}!`);
       history.push("/home");
     } catch (err) {
