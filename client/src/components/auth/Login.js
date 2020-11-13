@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { auth, googleOAuthProvider } from "../../api/firebase/firebaseConfig";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 import { Button } from "antd";
 
 const Login = ({ history }) => {
@@ -112,6 +113,7 @@ const Login = ({ history }) => {
             >
               Sign In with Google
             </Button>
+            <Link to="/password-reset">Forgot My Password</Link>
           </form>
         </div>
       </div>
