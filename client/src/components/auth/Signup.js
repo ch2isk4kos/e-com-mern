@@ -30,7 +30,7 @@ const Signup = () => {
             <input
               className="form-control"
               type="email"
-              placeholder="enter a valid email address"
+              placeholder="verify your email address"
               value={email}
               onChange={handleOnChange}
               autoFocus
