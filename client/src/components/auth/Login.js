@@ -23,10 +23,8 @@ const Login = ({ history }) => {
   // };
 
   useEffect(() => {
-    if (user && user.token) {
-      history.push("/home");
-    }
-  }, []);
+    if (user && user.token) history.push("/home");
+  });
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
