@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { auth } from "../../api/firebase/firebaseConfig";
 import { toast } from "react-toastify";
 
 const SignupVerified = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { user } = useSelector((state) => ({ ...state }));
+
   useEffect(() => {
     setEmail(window.localStorage.getItem("registrationEmail"));
-    // console.log(window.localStorage.getItem("registrationEmail"));
-    // console.log(window.location.href);
   }, []);
+
+  useEffect(() => {
+    if (user && user.token) history.push("/home");
+  });
+
   const handleOnChange = (e) => {
     console.log("password", e.target.value);
     setPassword(e.target.value);
   };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     // valid email and pw
@@ -37,12 +44,15 @@ const SignupVerified = ({ history }) => {
         // get user id - update pw - and get jwt
         let user = auth.currentUser;
         await user.updatePassword(password);
-        const idToken = await user.getIdTokenResult();
+        // const id =
+        await user.getIdTokenResult();
         // redux store
+
+        // clear password input field
+        setPassword(undefined);
 
         // redirect user
         history.push("/home");
-        // clear password input field
       }
     } catch (err) {
       toast.error(err.message);

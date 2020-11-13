@@ -9,6 +9,11 @@ const REDIRECT_URL = process.env.REACT_APP_PASSWORD_REDIRECT_URL;
 const PasswordReseet = ({ history }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) history.push("/home");
+  }, [user]);
 
   const handleOnChange = (e) => {
     console.log(e.target.value);
