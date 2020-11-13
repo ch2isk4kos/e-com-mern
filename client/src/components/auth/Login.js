@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { auth } from "../../api/firebase/firebaseConfig";
+import { auth, googleOAuthProvider } from "../../api/firebase/firebaseConfig";
 import { toast } from "react-toastify";
 import { Button } from "antd";
 
 const Login = ({ history }) => {
-  const [email, setEmail] = useState("wwworkspaces@gmail.com");
-  const [password, setPassword] = useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const btnDisabled = !email || password.length < 6;
   const dispatch = useDispatch();
@@ -43,12 +43,39 @@ const Login = ({ history }) => {
       setLoading(false);
     }
   };
+
+  const handleOnGoogleOAuth = async (e) => {
+    e.preventDefault();
+    console.log("Signin with Google");
+    const google = auth.signInWithPopup(googleOAuthProvider);
+    google
+      .then(async (login) => {
+        const { user } = login;
+        const id = await user.getIdTokenResult();
+        dispatch({
+          type: "USER_LOGIN",
+          payload: {
+            email: user.email,
+            token: id.token,
+          },
+        });
+        history.push("/home");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
+  };
   return (
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h3>Login.</h3>
-          <form onSubmit={handleOnSubmit}>
+          {loading ? (
+            <h3 className="text-danger">Logging In...</h3>
+          ) : (
+            <h3>Login.</h3>
+          )}
+          <form>
             <input
               className="form-control"
               type="email"
@@ -64,6 +91,7 @@ const Login = ({ history }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {/* Local */}
             <Button
               className="mb-3"
               type="primary"
@@ -72,6 +100,15 @@ const Login = ({ history }) => {
               block
             >
               Sign In
+            </Button>
+            {/* Google OAuth */}
+            <Button
+              className="mb-3"
+              type="submit"
+              onClick={handleOnGoogleOAuth}
+              block
+            >
+              Sign In with Google
             </Button>
           </form>
         </div>
