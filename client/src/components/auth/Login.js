@@ -28,6 +28,7 @@ const Login = ({ history }) => {
       const login = await auth.signInWithEmailAndPassword(email, password);
       console.log("LOGIN:", login);
       const { user } = login;
+      const username = user.email.split("@")[0];
       const id = await user.getIdTokenResult();
       dispatch({
         type: "USER_LOGIN",
@@ -36,6 +37,7 @@ const Login = ({ history }) => {
           token: id.token,
         },
       });
+      toast.info(`Welcome Back ${username}!`);
       history.push("/home");
     } catch (err) {
       console.log(err);
