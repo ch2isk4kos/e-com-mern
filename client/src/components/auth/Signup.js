@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { auth } from "../../api/firebase/firebaseConfig";
 import { toast } from "react-toastify";
 
 const REDIRECT_URL = process.env.REACT_APP_SIGNUP_REDIRECT_URL;
 
-const Signup = () => {
+const Signup = ({ history }) => {
   const [email, setEmail] = useState("");
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) history.push("/home");
+  });
 
   const handleOnChange = (e) => {
     console.log(e.target.value);
