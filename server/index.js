@@ -8,23 +8,24 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const mongooseConfigOptions = {
-	useNewUrlParser = true,
-	useCreateIndex = true,
-	useFindAndModify = true,
-}
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: true,
+  useUnifiedTopology: true,
+};
 
 // env
 const MONGODB_URI = process.env.MONGODB_ATLAS_URI;
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 // client entry point
 const app = express();
 
 // database
 mongoose
-.connect(MONGODB_URI, mongooseConfigOptions)
-.then(() => console.log("Connected to MongoDB Atlas"))
-.catch(err => console.log(`MongoDB Atlas Error: ${err.message}`);
+  .connect(MONGODB_URI, mongooseConfigOptions)
+  .then(() => console.log("Connected to MongoDB Atlas"))
+  .catch((err) => console.log(`MongoDB Atlas Error: ${err.message}`));
 
 // middleware
 app.use(morgan("dev"));
@@ -33,9 +34,9 @@ app.use(cors());
 
 // routes
 app.get("/api", (req, res) => {
-	res.json({
-		data: "Hello from NodeAPI"
-	})
+  res.json({
+    data: "Hello from NodeAPI",
+  });
 });
 
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
