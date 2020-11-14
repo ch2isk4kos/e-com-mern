@@ -4,7 +4,7 @@
   "description": "```txt $ npm init ```",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "author": "Chris Kakos",
   "license": "MIT",
@@ -16,9 +16,7 @@
     "express-jwt": "^6.0.0",
     "firebase-admin": "^9.4.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.14"
-  },
-  "devDependencies": {
+    "mongoose": "^5.10.14",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6"
   }
