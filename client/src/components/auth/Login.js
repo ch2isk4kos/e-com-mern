@@ -53,11 +53,9 @@ const Login = ({ history }) => {
       const userId = await user.getIdTokenResult();
       // const username = user.email.split("@")[0];
 
-      createOrUpdateUser(userId.token).then((res) =>
-        console
-          .log(`And then a response: ${res}`)
-          .catch((err) => console.log(`Authenticatoin Error: ${err.messsage}`))
-      );
+      createOrUpdateUser(userId.token)
+        .then((res) => console.log(`And then a response: ${res}`))
+        .catch((err) => console.log(`Authenticatoin Error: ${err.messsage}`));
 
       // dispatch({
       //   type: "USER_LOGIN",
