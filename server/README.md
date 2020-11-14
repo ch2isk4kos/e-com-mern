@@ -50,7 +50,7 @@ mongoose
 
 ## Validate Firebase Authentication Token
 
-1. verify the validation of user token
+1. verify the validation of user token sent from client side
 2. access user object from firebase using the verified user token
 
 ## Create User Instance with MongoDB
