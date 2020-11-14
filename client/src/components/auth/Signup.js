@@ -26,7 +26,7 @@ const Signup = ({ history }) => {
     };
     await auth.sendSignInLinkToEmail(email, config);
     window.localStorage.setItem("registrationEmail", email); // save email to localStorage
-    toast.success(`Verification email sent to: ${email}`);
+    toast.info(`Verification email sent to: ${email}`);
     setEmail("");
   };
   return (
