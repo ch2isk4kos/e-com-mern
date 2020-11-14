@@ -5,3 +5,5 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://e-com-mern.firebaseio.com",
 });
+
+module.exports = admin;
