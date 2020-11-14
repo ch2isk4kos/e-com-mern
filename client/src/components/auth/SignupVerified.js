@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../api/firebase/firebaseConfig";
 import { toast } from "react-toastify";
+import axios from "axios";
+
+const NODE_API = process.env.REACT_APP_NODE_API_URL;
+
+const createOrUpdateUser = async (token) => {
+  return await axios.post(
+    `${NODE_API}/create-or-update-user`,
+    {},
+    {
+      headers: {
+        auth: token,
+      },
+    }
+  );
+};
 
 const SignupVerified = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("registrationEmail"));
+    setPassword("");
   }, []);
 
   useEffect(() => {
@@ -19,13 +36,14 @@ const SignupVerified = ({ history }) => {
   const handleOnChange = (e) => {
     console.log("password", e.target.value);
     setPassword(e.target.value);
+    setEmail(email);
   };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    // valid email and pw
+    // validate email and pw
     if (!email || !password) {
-      toast.error("Email and Passwowd required");
+      toast.error("Email and Password required");
       return;
     }
     if (password.length < 6) {
@@ -41,18 +59,36 @@ const SignupVerified = ({ history }) => {
       if (firebaseAuthenticate.user.emailVerified) {
         // remove user email from localStorage
         window.localStorage.removeItem("registrationEmail");
-        // get user id - update pw - and get jwt
+        // get user
         let user = auth.currentUser;
+        // update pw
         await user.updatePassword(password);
-        // const id =
-        await user.getIdTokenResult();
-        // redux store
-
-        // clear password input field
-        setPassword(undefined);
-
+        // get user id from jwt
+        const userId = user.getIdTokenResult();
+        console.log("USER:", user, "ID:", userId);
+        // dispatch to redux store
+        createOrUpdateUser(userId.token)
+          .then((res) => {
+            dispatch({
+              type: "USER_LOGIN",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                picture: res.data.picture,
+                token: userId.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((err) => console.log(`Authenticatoin Error: ${err.messsage}`));
         // redirect user
         history.push("/home");
+        // successful toast
+        const username = user.email.split("@")[0];
+        toast.success(
+          `Welcome, Sign Up Completed. Happy to Have You ${username}!`
+        );
       }
     } catch (err) {
       toast.error(err.message);
@@ -68,6 +104,7 @@ const SignupVerified = ({ history }) => {
               className="form-control"
               type="email"
               value={email}
+              onChange={handleOnChange}
               disabled
             />
             <input
