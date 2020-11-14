@@ -4,6 +4,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 
+// import routes
+const authRoutes = require("./routes/auth");
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -27,16 +30,19 @@ mongoose
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.log(`MongoDB Atlas Error: ${err.message}`));
 
-// middleware
+// external middleware
 app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: "2mb" }));
 app.use(cors());
 
+// internal middleware
+app.use("/api", authRoutes);
+
 // routes
-app.get("/api", (req, res) => {
-  res.json({
-    data: "Hello from NodeAPI",
-  });
-});
+// app.get("/api", (req, res) => {
+//   res.json({
+//     data: "Hello from NodeAPI",
+//   });
+// });
 
 app.listen(PORT, () => console.log(`Express Listening on ${PORT}`));
