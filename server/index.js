@@ -23,5 +23,19 @@ const app = express();
 // database
 mongoose
 .connect(MONGODB_URI, mongooseConfigOptions)
-.then(() => console.log(`Listening on ${PORT}`))
+.then(() => console.log("Connected to MongoDB Atlas"))
 .catch(err => console.log(`MongoDB Atlas Error: ${err.message}`);
+
+// middleware
+app.use(morgan("dev"));
+app.use(bodyParser.json({ limit: "2mb" }));
+app.use(cors());
+
+// routes
+app.get("/api", (req, res) => {
+	res.json({
+		data: "Hello from NodeAPI"
+	})
+});
+
+app.listen(PORT, () => console.log(`listening on ${PORT}`));
