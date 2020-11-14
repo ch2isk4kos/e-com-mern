@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 
 // import routes
-const authRoutes = require("./routes/auth");
+// const authRoutes = require("./routes/auth");
 
 const dotenv = require("dotenv");
 dotenv.config();
