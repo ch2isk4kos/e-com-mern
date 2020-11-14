@@ -39,8 +39,11 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (user && user.token) history.push("/home");
-  }, [user]);
+    setEmail("");
+    setPassword("");
+  }, [user, history]);
 
+  // INTERNAL LOGIN FORM SUBMISSION
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.table("EMAIL:", email, "PASS:", password);
@@ -51,25 +54,28 @@ const Login = ({ history }) => {
       console.log("LOGIN:", login);
       const { user } = login;
       const userId = await user.getIdTokenResult();
-      // const username = user.email.split("@")[0];
+      const username = user.email.split("@")[0];
 
       createOrUpdateUser(userId.token)
-        .then((res) => console.log(`And then a response: ${res}`))
+        .then((res) => {
+          console.log(`And then a response: ${res}`);
+
+          dispatch({
+            type: "USER_LOGIN",
+            payload: {
+              name: res.data.name,
+              email: res.data.email,
+              picture: res.data.picture,
+              token: userId.token,
+              role: res.data.role,
+              _id: res.data._id,
+            },
+          });
+        })
         .catch((err) => console.log(`Authenticatoin Error: ${err.messsage}`));
 
-      // dispatch({
-      //   type: "USER_LOGIN",
-      //   payload: {
-      //     email: user.email,
-      //     token: id.token,
-      //   },
-      // });
-
-      // setEmail("");
-      // setPassword("");
-
-      // toast.info(`Welcome Back ${username}!`);
-      // history.push("/home");
+      toast.info(`Welcome Back ${username}!`);
+      history.push("/home");
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -77,24 +83,29 @@ const Login = ({ history }) => {
     }
   };
 
+  // GOOGLE OAUTH
   const handleOnGoogleOAuth = async (e) => {
     e.preventDefault();
-    console.log("Signin with Google");
     const google = auth.signInWithPopup(googleOAuthProvider);
-
     google
       .then(async (login) => {
         const { user } = login;
-        const id = await user.getIdTokenResult();
-
-        dispatch({
-          type: "USER_LOGIN",
-          payload: {
-            email: user.email,
-            token: id.token,
-          },
-        });
-
+        const userId = await user.getIdTokenResult();
+        createOrUpdateUser(userId.token)
+          .then((res) => {
+            dispatch({
+              type: "USER_LOGIN",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                picture: res.data.picture,
+                token: userId.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((err) => console.log(`Authenticatoin Error: ${err.messsage}`));
         history.push("/home");
       })
       .catch((err) => {
