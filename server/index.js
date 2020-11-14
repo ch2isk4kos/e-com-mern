@@ -1,6 +1,7 @@
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
+const fileSystem = require("fs"); // nodejs package
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 
@@ -36,7 +37,10 @@ app.use(bodyParser.json({ limit: "2mb" }));
 app.use(cors());
 
 // internal middleware
-app.use("/api", authRoutes);
+// app.use("/api", authRoutes);
+fileSystem
+  .readdirSync("./routes")
+  .map((route) => app.use("/api", require(`./routes/${route}`)));
 
 // routes
 // app.get("/api", (req, res) => {
