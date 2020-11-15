@@ -43,13 +43,11 @@ const Login = ({ history }) => {
       console.log("LOGIN:", login);
       const { user } = login;
       const userId = await user.getIdTokenResult();
+      const username = user.email.split("@")[0];
       // const username = user.email.split("@")[0];
-      const username = user.name;
 
       createOrUpdateUser(userId.token)
         .then((res) => {
-          console.log("And then a response:", res.data);
-
           dispatch({
             type: "USER_LOGIN",
             payload: {

@@ -52,6 +52,7 @@ const SignupVerified = ({ history }) => {
         await user.updatePassword(password);
         // get user id from jwt
         const userId = await user.getIdTokenResult();
+        const username = user.email.split("@")[0];
 
         console.log("USER:", user, "USER_ID:", userId);
 
@@ -63,6 +64,7 @@ const SignupVerified = ({ history }) => {
               payload: {
                 name: res.data.name,
                 email: res.data.email,
+                picture: res.data.picture,
                 token: userId.token,
                 role: res.data.role,
                 _id: res.data._id,
@@ -73,7 +75,7 @@ const SignupVerified = ({ history }) => {
             console.log(`SignUp Verified Authentication ${err.messsage}`)
           );
         // successful toast
-        toast.success(`Welcome. Happy to Have You ${user.email}!`);
+        toast.success(`Welcome. Happy to Have You ${username}!`);
         // redirect user
         history.push("/home");
       }
