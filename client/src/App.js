@@ -7,9 +7,10 @@ import SignupVerified from "./components/auth/SignupVerified";
 import Login from "./components/auth/Login";
 import PasswordReset from "./components/auth/PasswordReset";
 import { Switch, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import { auth } from "./api/firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
+import { auth } from "./api/firebase/firebaseConfig";
+import { currentUser } from "./api/firebase/firebaseFunctions";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -20,15 +21,23 @@ const App = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userId = await user.getIdTokenResult();
-        console.log("user:", user);
+
         // dispatch to userReducer
-        dispatch({
-          type: "USER_LOGIN",
-          payload: {
-            email: user.email,
-            token: userId.token,
-          },
-        });
+        currentUser(userId.token)
+          .then((res) => {
+            dispatch({
+              type: "USER_LOGIN",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                picture: res.data.picture,
+                token: userId.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+          })
+          .catch((err) => console.log(`App Authentication ${err.messsage}`));
       }
     });
     return () => unsubscribe();

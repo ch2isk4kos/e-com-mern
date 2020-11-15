@@ -13,3 +13,15 @@ export const createOrUpdateUser = async (token) => {
     }
   );
 };
+
+export const currentUser = async (token) => {
+  return await axios.post(
+    `${NODE_API}/current-user`,
+    {},
+    {
+      headers: {
+        auth: token,
+      },
+    }
+  );
+};
