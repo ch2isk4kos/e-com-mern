@@ -52,6 +52,7 @@ const SignupVerified = ({ history }) => {
         await user.updatePassword(password);
         // get user id from jwt
         const userId = await user.getIdTokenResult();
+
         console.log("USER:", user, "USER_ID:", userId);
 
         // call custom func. && dispatch payload to action creator (redux store)
