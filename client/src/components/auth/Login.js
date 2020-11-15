@@ -16,6 +16,7 @@ const Login = ({ history }) => {
   const btnDisabled = !email || password.length < 6;
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
+
   // const handleOnChange = (e) => {
   //   console.log(e.target.value);
   //   setEmail(e.target.value);
@@ -35,12 +36,10 @@ const Login = ({ history }) => {
   // INTERNAL LOGIN FORM SUBMISSION
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.table("EMAIL:", email, "PASS:", password);
     setLoading(true);
 
     try {
       const login = await auth.signInWithEmailAndPassword(email, password);
-      console.log("LOGIN:", login);
       const { user } = login;
       const userId = await user.getIdTokenResult();
       const username = user.email.split("@")[0];
@@ -78,7 +77,6 @@ const Login = ({ history }) => {
     google
       .then(async (login) => {
         const { user } = login;
-        console.log("LOGIN:", user);
         const userId = await user.getIdTokenResult();
         createOrUpdateUser(userId.token)
           .then((res) => {

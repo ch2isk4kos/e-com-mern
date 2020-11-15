@@ -13,16 +13,14 @@ const PasswordReseet = ({ history }) => {
 
   useEffect(() => {
     if (user && user.token) history.push("/home");
-  }, [user]);
+  }, [user, history]);
 
   const handleOnChange = (e) => {
-    console.log(e.target.value);
     setEmail(e.target.value);
   };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log("LOADING...");
     setLoading(true);
     const config = {
       url: REDIRECT_URL,
