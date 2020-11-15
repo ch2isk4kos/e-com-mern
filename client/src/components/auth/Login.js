@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth, googleOAuthProvider } from "../../api/firebase/firebaseConfig";
+import { createOrUpdateUser } from "../../api/firebase/firebaseFunctions";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
-import axios from "axios";
+// import axios from "axios";
 
-const NODE_API = process.env.REACT_APP_NODE_API_URL;
+// const NODE_API = process.env.REACT_APP_NODE_API_URL;
 
-const createOrUpdateUser = async (token) => {
-  return await axios.post(
-    `${NODE_API}/create-or-update-user`,
-    {},
-    {
-      headers: {
-        auth: token,
-      },
-    }
-  );
-};
+// const createOrUpdateUser = async (token) => {
+//   return await axios.post(
+//     `${NODE_API}/create-or-update-user`,
+//     {},
+//     {
+//       headers: {
+//         auth: token,
+//       },
+//     }
+//   );
+// };
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -58,7 +59,7 @@ const Login = ({ history }) => {
 
       createOrUpdateUser(userId.token)
         .then((res) => {
-          console.log(`And then a response: ${res}`);
+          console.log("And then a response:", res.data);
 
           dispatch({
             type: "USER_LOGIN",
@@ -90,6 +91,7 @@ const Login = ({ history }) => {
     google
       .then(async (login) => {
         const { user } = login;
+        console.log("LOGIN:", user);
         const userId = await user.getIdTokenResult();
         createOrUpdateUser(userId.token)
           .then((res) => {

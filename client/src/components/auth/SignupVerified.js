@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../api/firebase/firebaseConfig";
+import { createOrUpdateUser } from "../../api/firebase/firebaseFunctions";
 import { toast } from "react-toastify";
-import axios from "axios";
+// import axios from "axios";
 
-const NODE_API = process.env.REACT_APP_NODE_API_URL;
+// const NODE_API = process.env.REACT_APP_NODE_API_URL;
 
-const createOrUpdateUser = async (token) => {
-  return await axios.post(
-    `${NODE_API}/create-or-update-user`,
-    {},
-    {
-      headers: {
-        auth: token,
-      },
-    }
-  );
-};
+// const createOrUpdateUser = async (token) => {
+//   return await axios.post(
+//     `${NODE_API}/create-or-update-user`,
+//     {},
+//     {
+//       headers: {
+//         auth: token,
+//       },
+//     }
+//   );
+// };
 
 const SignupVerified = ({ history }) => {
   const [email, setEmail] = useState("");
