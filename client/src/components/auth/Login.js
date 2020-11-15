@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { auth, googleOAuthProvider } from "../../api/firebase/firebaseConfig";
-import { createOrUpdateUser } from "../../api/firebase/firebaseFunctions";
+import {
+  auth,
+  googleOAuthProvider,
+} from "../../api/firebase/firebaseConfig.js";
+import { createOrUpdateUser } from "../../api/firebase/firebaseFunctions.js";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
-// import axios from "axios";
-
-// const NODE_API = process.env.REACT_APP_NODE_API_URL;
-
-// const createOrUpdateUser = async (token) => {
-//   return await axios.post(
-//     `${NODE_API}/create-or-update-user`,
-//     {},
-//     {
-//       headers: {
-//         auth: token,
-//       },
-//     }
-//   );
-// };
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -55,7 +43,8 @@ const Login = ({ history }) => {
       console.log("LOGIN:", login);
       const { user } = login;
       const userId = await user.getIdTokenResult();
-      const username = user.email.split("@")[0];
+      // const username = user.email.split("@")[0];
+      const username = user.name;
 
       createOrUpdateUser(userId.token)
         .then((res) => {
