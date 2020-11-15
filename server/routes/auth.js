@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 // middleware
-const { authenticate } = require("../middleware/auth");
+const { authenticateToken } = require("../middleware/auth.js");
 
 // authentication controller
-const { createOrUpdateUser } = require("../controllers/auth");
+const { createOrUpdateUser } = require("../controllers/auth.js");
 
-router.post("/create-or-update-user", authenticate, createOrUpdateUser);
+router.post("/create-or-update-user", authenticateToken, createOrUpdateUser);
 
 module.exports = router;
