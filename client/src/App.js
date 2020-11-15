@@ -19,14 +19,14 @@ const App = () => {
     // check firebase auth state
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        const idToken = await user.getIdTokenResult();
+        const userId = await user.getIdTokenResult();
         console.log("user:", user);
         // dispatch to userReducer
         dispatch({
           type: "USER_LOGIN",
           payload: {
             email: user.email,
-            token: idToken.token,
+            token: userId.token,
           },
         });
       }
