@@ -1,47 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../api/firebase/firebaseConfig";
-import { createOrUpdateUser } from "../../api/firebase/firebaseFunctions";
+import { createOrUpdateUser } from "../../api/firebase/firebaseFunctions.js";
 import { toast } from "react-toastify";
-// import axios from "axios";
-
-// const NODE_API = process.env.REACT_APP_NODE_API_URL;
-
-// const createOrUpdateUser = async (token) => {
-//   return await axios.post(
-//     `${NODE_API}/create-or-update-user`,
-//     {},
-//     {
-//       headers: {
-//         auth: token,
-//       },
-//     }
-//   );
-// };
 
 const SignupVerified = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const { user } = useSelector((state) => ({ ...state }));
-  const dispatch = useDispatch();
+  let dispatch = useDispatch();
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("registrationEmail"));
-    setPassword("");
   }, []);
 
-  useEffect(() => {
-    if (user && user.token) history.push("/home");
-  });
+  // useEffect(() => {
+  //   if (user && user.token) history.push("/home");
+  // }, [user, history]);
 
-  const handleOnChange = (e) => {
-    console.log("password", e.target.value);
-    setPassword(e.target.value);
-    setEmail(email);
-  };
+  // const handleOnChange = (e) => {
+  //   console.log("password", e.target.value);
+  //   setPassword(e.target.value);
+  // };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+
     // validate email and pw
     if (!email || !password) {
       toast.error("Email and Password required");
@@ -51,6 +36,7 @@ const SignupVerified = ({ history }) => {
       toast.error("Password must be at least 6 characters");
       return;
     }
+
     // authenticate user in firebase
     try {
       const firebaseAuthenticate = await auth.signInWithEmailLink(
@@ -65,9 +51,10 @@ const SignupVerified = ({ history }) => {
         // update pw
         await user.updatePassword(password);
         // get user id from jwt
-        const userId = user.getIdTokenResult();
-        console.log("USER:", user, "ID:", userId);
-        // dispatch to redux store
+        const userId = await user.getIdTokenResult();
+        console.log("USER:", user, "USER_ID:", userId);
+
+        // call custom func. && dispatch payload to action creator (redux store)
         createOrUpdateUser(userId.token)
           .then((res) => {
             dispatch({
@@ -75,21 +62,19 @@ const SignupVerified = ({ history }) => {
               payload: {
                 name: res.data.name,
                 email: res.data.email,
-                picture: res.data.picture,
                 token: userId.token,
                 role: res.data.role,
                 _id: res.data._id,
               },
             });
           })
-          .catch((err) => console.log(`Authenticatoin Error: ${err.messsage}`));
+          .catch((err) =>
+            console.log(`SignUp Verified Authentication ${err.messsage}`)
+          );
+        // successful toast
+        toast.success(`Welcome. Happy to Have You ${user.email}!`);
         // redirect user
         history.push("/home");
-        // successful toast
-        const username = user.email.split("@")[0];
-        toast.success(
-          `Welcome, Sign Up Completed. Happy to Have You ${username}!`
-        );
       }
     } catch (err) {
       toast.error(err.message);
@@ -105,7 +90,6 @@ const SignupVerified = ({ history }) => {
               className="form-control"
               type="email"
               value={email}
-              onChange={handleOnChange}
               disabled
             />
             <input
@@ -113,7 +97,8 @@ const SignupVerified = ({ history }) => {
               type="password"
               placeholder="create password"
               value={password}
-              onChange={handleOnChange}
+              // onChange={handleOnChange}
+              onChange={(e) => setPassword(e.target.value)}
               autoFocus
             />
             <button className="btn btn-raised" type="submit">
