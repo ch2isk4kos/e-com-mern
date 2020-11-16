@@ -7,7 +7,7 @@ import SignupVerified from "./components/auth/SignupVerified";
 import Login from "./components/auth/Login";
 import PasswordReset from "./components/auth/PasswordReset";
 import History from "./components/user/History";
-import UserRoute from "./routes/userRoute";
+import UserRoute from "./components/routes/userRoute";
 import { Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { auth } from "./api/firebase/firebaseConfig";
