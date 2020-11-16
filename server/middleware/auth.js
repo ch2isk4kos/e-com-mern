@@ -2,7 +2,6 @@ const admin = require("../firebase");
 const User = require("../models/User");
 
 exports.authenticateToken = async (req, res, next) => {
-  // console.log("HEADERS:", req.headers); // token
   try {
     const firebaseUser = await admin
       .auth()
@@ -21,7 +20,7 @@ exports.authenticateToken = async (req, res, next) => {
 
 exports.authenticateAdmin = async (req, res, next) => {
   const { email } = req.user;
-  const admin = await (await User.findOne({ email: email })).exec();
+  const admin = await User.findOne({ email: email }).exec();
   if (admin.role !== "admin") {
     res.status(403).json({
       err: "User Access Denied.",
