@@ -20,7 +20,7 @@ router.post(
   "/current-admin",
   authenticateToken,
   authenticateAdmin,
-  createOrUpdateUser
+  currentUser
 );
 
 module.exports = router;
