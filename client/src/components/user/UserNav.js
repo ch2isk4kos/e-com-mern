@@ -11,7 +11,7 @@ const UserNav = () => {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/user/history" className="nav-link">
+          <Link to="/user/cart" className="nav-link">
             Cart
           </Link>
         </li>
