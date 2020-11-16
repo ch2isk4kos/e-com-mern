@@ -10,6 +10,8 @@ import UserRoute from "./components/routes/userRoute";
 import History from "./components/user/History";
 import Main from "./components/user/profile/Main";
 import EditPassword from "./components/user/profile/EditPassword";
+import Cart from "./components/user/Cart";
+import Wishlist from "./components/user/Wishlist";
 import { Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { auth } from "./api/firebase/firebaseConfig";
@@ -60,6 +62,8 @@ const App = () => {
         {/* Custom */}
         <UserRoute>
           <Route exact path={"/user/history"} component={History} />
+          <Route exact path={"/user/cart"} component={Cart} />
+          <Route exact path={"/user/wishlist"} component={Wishlist} />
           <Route exact path={"/user/profile"} component={Main} />
           <Route exact path={"/user/edit-password"} component={EditPassword} />
         </UserRoute>
