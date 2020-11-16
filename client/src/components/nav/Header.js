@@ -54,6 +54,12 @@ const Header = () => {
       <Item key="products" icon={<TagsOutlined />}>
         <Link to={"/products"}>New Products</Link>
       </Item>
+      {/* User History */}
+      {user && (
+        <Item key="login" icon={<AppstoreOutlined />}>
+          <Link to={"/user/history"}>History</Link>
+        </Item>
+      )}
       {/* Login */}
       {!user && (
         <Item className="float-right" key="login" icon={<LoginOutlined />}>
