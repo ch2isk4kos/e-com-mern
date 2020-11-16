@@ -7,7 +7,7 @@ import SignupVerified from "./components/auth/SignupVerified";
 import Login from "./components/auth/Login";
 import PasswordReset from "./components/auth/PasswordReset";
 import History from "./components/user/History";
-import UserRoute from "./components/routes/UserRoute";
+import UserRoute from "./routes/userRoute";
 import { Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { auth } from "./api/firebase/firebaseConfig";
@@ -56,7 +56,9 @@ const App = () => {
         <Route exact path={"/login"} component={Login} />
         <Route exact path={"/password-reset"} component={PasswordReset} />
         {/* Custom */}
-        <UserRoute exact path={"/user/history"} component={History} />
+        <UserRoute>
+          <Route exact path={"/user/history"} component={History} />
+        </UserRoute>
       </Switch>
     </div>
   );
