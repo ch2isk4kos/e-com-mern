@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const UserRoute = ({ children, ...rest }) => {
   const { user } = useSelector((state) => ({ ...state }));
   return user && user.token ? (
-    <Route {...rest} render={() => children} />
+    <Route {...rest} />
   ) : (
     <h1 className="text-danger">insert modal</h1>
   );
