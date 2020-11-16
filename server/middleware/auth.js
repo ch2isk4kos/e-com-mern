@@ -1,4 +1,5 @@
 const admin = require("../firebase");
+const User = require("../models/User");
 
 exports.authenticateToken = async (req, res, next) => {
   // console.log("HEADERS:", req.headers); // token
@@ -15,5 +16,17 @@ exports.authenticateToken = async (req, res, next) => {
       err: "Invalid or Expired Token",
     });
     console.log(`Auth Middleware Authentication ${err}`);
+  }
+};
+
+exports.authenticateAdmin = async (req, res, next) => {
+  const { email } = req.user;
+  const admin = await (await User.findOne({ email: email })).exec();
+  if (admin.role !== "admin") {
+    res.status(403).json({
+      err: "User Access Denied.",
+    });
+  } else {
+    next();
   }
 };
