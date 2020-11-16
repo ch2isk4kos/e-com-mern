@@ -77,7 +77,7 @@ const Header = () => {
           {/* Profile Sub Menu */}
           <ItemGroup title={user.email.split("@")[0]}>
             <Item key="profile" icon={<AuditOutlined />}>
-              Profile
+              <Link to={"/user/profile"}>Profile</Link>
             </Item>
             <Item key="settings" icon={<SettingOutlined />}>
               Settings
