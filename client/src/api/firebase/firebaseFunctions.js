@@ -25,3 +25,15 @@ export const currentUser = async (token) => {
     }
   );
 };
+
+export const currentAdmin = async (token) => {
+  return await axios.post(
+    `${NODE_API}/current-admin`,
+    {},
+    {
+      headers: {
+        auth: token,
+      },
+    }
+  );
+};
