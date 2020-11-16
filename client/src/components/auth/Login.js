@@ -33,7 +33,15 @@ const Login = ({ history }) => {
     setPassword("");
   }, [user, history]);
 
-  // INTERNAL LOGIN FORM SUBMISSION
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === "admin") {
+      history.push("/admin/dashboard");
+    } else {
+      history.push("/user/history");
+    }
+  };
+
+  // LOCAL LOGIN FORM SUBMISSION
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -42,8 +50,6 @@ const Login = ({ history }) => {
       const login = await auth.signInWithEmailAndPassword(email, password);
       const { user } = login;
       const userId = await user.getIdTokenResult();
-      const username = user.email.split("@")[0];
-      // const username = user.email.split("@")[0];
 
       createOrUpdateUser(userId.token)
         .then((res) => {
@@ -58,11 +64,10 @@ const Login = ({ history }) => {
               _id: res.data._id,
             },
           });
+          roleBasedRedirect(res);
+          toast.info(`Welcome Back ${res.data.email.split("@")[0]}!`);
         })
         .catch((err) => console.log(`Authenticatoin Error: ${err.messsage}`));
-
-      toast.info(`Welcome Back ${username}!`);
-      history.push("/home");
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -70,7 +75,7 @@ const Login = ({ history }) => {
     }
   };
 
-  // GOOGLE OAUTH
+  // GOOGLE OAUTH LOGIN
   const handleOnGoogleOAuth = async (e) => {
     e.preventDefault();
     const google = auth.signInWithPopup(googleOAuthProvider);
@@ -91,9 +96,10 @@ const Login = ({ history }) => {
                 _id: res.data._id,
               },
             });
+            roleBasedRedirect(res);
+            toast.info(`Welcome Back ${res.data.email.split("@")[0]}!`);
           })
           .catch((err) => console.log(`Authenticatoin Error: ${err.messsage}`));
-        history.push("/home");
       })
       .catch((err) => {
         console.log(err);
