@@ -34,4 +34,12 @@ exports.read = async (req, res) => {
 
 exports.update = async (req, res) => {};
 
-exports.remove = async (req, res) => {};
+exports.remove = async (req, res) => {
+  try {
+    // mongoose also has 'findIdAndDelete()` if you're working with id's
+    const c = await Category.findOneAndDelete({ slug: req.params.slug });
+    res.json(c);
+  } catch (err) {
+    res.status(400).send("Category Deletion Failed");
+  }
+};
