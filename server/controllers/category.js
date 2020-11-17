@@ -27,7 +27,10 @@ exports.create = async (req, res) => {
   }
 };
 
-exports.read = async (req, res) => {};
+exports.read = async (req, res) => {
+  let c = await Category.findOne({ slug: req.params.slug }).exec();
+  res.json(c);
+};
 
 exports.update = async (req, res) => {};
 
