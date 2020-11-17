@@ -1,7 +1,10 @@
 const Category = require("../models/Category");
 const slugify = require("slugify");
 
-exports.index = async (req, res) => {};
+exports.index = async (req, res) => {
+  const c = await Category.find({}).sort({ createdAt: -1 }).exec();
+  res.json(c);
+};
 
 exports.create = async (req, res) => {
   try {
