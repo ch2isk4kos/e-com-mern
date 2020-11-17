@@ -20,7 +20,7 @@ const {
 // Category Routes
 router.get("/categories", index);
 router.post("/category", authenticateToken, authenticateAdmin, create);
-router.get("/category/:slug", authenticateToken, authenticateAdmin, read);
+router.get("/category/:slug", read);
 router.put("/category/:slug", authenticateToken, authenticateAdmin, update);
 router.delete("/category/:slug", authenticateToken, authenticateAdmin, remove);
 
