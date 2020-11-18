@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { updateCategory } from "../../../api/nodejs/categories";
+import { getCategory, updateCategory } from "../../../api/nodejs/categories";
 import AdminNav from "../AdminNav";
 import { toast } from "react-toastify";
 
-const UpdateCategory = () => {
-  const [name, setName] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+const UpdateCategory = ({ history, match }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
-  const loadCategories = async () => {
-    const c = await getCategories();
-    return setCategories(c.data);
-  };
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOnChange = (e) => {
     setName(e.target.value);
@@ -26,13 +22,12 @@ const UpdateCategory = () => {
       .then((res) => {
         setIsLoading(false);
         setName("");
-        loadCategories();
-        toast.success(`${res.data.name} succressfully created`);
+        toast.success(`${res.data.name} succressfully updated`);
       })
       .catch((err) => {
-        setIsLoading(true);
+        setIsLoading(false);
         if (err.response.status === 400)
-          toast.error("Create Category Error:", err.response.data);
+          toast.error("Update Category Error:", err.response.data);
       });
   };
 
@@ -43,14 +38,14 @@ const UpdateCategory = () => {
           <AdminNav />
         </div>
         <div className="col">
-          {isLoading ? <h1>Loading...</h1> : <h1>Create Category</h1>}
+          {isLoading ? <h1>Loading...</h1> : <h1>Update Category</h1>}
           <form onSubmit={handleOnSubmit}>
             <div className="form-group">
               <div className="col-md-6 offset-md-3">
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="input category name"
+                  placeholder={(e) => getCategory(e.target.value)}
                   value={name}
                   onChange={handleOnChange}
                   autoFocus

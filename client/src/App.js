@@ -16,6 +16,7 @@ import Cart from "./components/user/Cart";
 import Wishlist from "./components/user/Wishlist";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import CreateCategory from "./components/admin/category/CreateCategory";
+import UpdateCategory from "./components/admin/category/UpdateCategory";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -79,6 +80,11 @@ const App = () => {
           component={AdminDashboard}
         />
         <AdminRoute exact path={"/admin/category"} component={CreateCategory} />
+        <AdminRoute
+          exact
+          path={"/admin/category/:slug"}
+          component={UpdateCategory}
+        />
       </Switch>
     </div>
   );
