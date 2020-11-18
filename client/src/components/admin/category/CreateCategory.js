@@ -35,6 +35,7 @@ const CreateCategory = () => {
       removeCategory(slug, user.token)
         .then((res) => {
           setIsLoading(false);
+          loadCategories();
           toast.success(`${res.data.name} Deleted Succesfully`);
         })
         .catch((err) => {
