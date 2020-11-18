@@ -38,13 +38,9 @@ export const updateCategory = async (slug, category, token) => {
 
 // delete
 export const removeCategory = async (slug, token) => {
-  return await axios.delete(
-    `${NODE_API}/category/${slug}`,
-    {},
-    {
-      headers: {
-        auth: token,
-      },
-    }
-  );
+  return await axios.delete(`${NODE_API}/category/${slug}`, {
+    headers: {
+      auth: token,
+    },
+  });
 };
