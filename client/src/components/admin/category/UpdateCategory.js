@@ -4,7 +4,7 @@ import { updateCategory } from "../../../api/nodejs/categories";
 import AdminNav from "../AdminNav";
 import { toast } from "react-toastify";
 
-const CreateCategory = () => {
+const UpdateCategory = () => {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
@@ -22,7 +22,7 @@ const CreateCategory = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    createCategory({ name }, user.token)
+    updateCategory({ name }, user.token)
       .then((res) => {
         setIsLoading(false);
         setName("");
@@ -68,4 +68,4 @@ const CreateCategory = () => {
   );
 };
 
-export default CreateCategory;
+export default UpdateCategory;
