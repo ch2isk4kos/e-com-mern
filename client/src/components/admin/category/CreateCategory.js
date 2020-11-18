@@ -28,6 +28,25 @@ const CreateCategory = () => {
     setName(e.target.value);
   };
 
+  const handleOnDelete = async (slug) => {
+    console.log("DELETING", slug);
+    if (window.confirm("Are You Sure?")) {
+      setIsLoading(true);
+      removeCategory(slug, user.token)
+        .then((res) => {
+          setIsLoading(false);
+          toast.success(`${res.data.name} Deleted Succesfully`);
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
+            console.log("DELETION ERROR!!!");
+            setIsLoading(true);
+            toast.error("DELETE", err.response.data);
+          }
+        });
+    }
+  };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log("Creating:", name);
@@ -80,12 +99,12 @@ const CreateCategory = () => {
               categories.map((category) => (
                 <div className="alert alert-primary" key={category._id}>
                   {category.name}
-                  <Link
+                  <button
                     className="btn btn-sm btn-danger ml-1 float-right"
-                    to={`/admin/category/${category.slug}`}
+                    onClick={() => handleOnDelete(category.slug)}
                   >
                     Delete
-                  </Link>
+                  </button>
                   <Link
                     className="btn btn-sm btn-primary mr-1 float-right"
                     to={`/admin/category/${category.slug}`}
