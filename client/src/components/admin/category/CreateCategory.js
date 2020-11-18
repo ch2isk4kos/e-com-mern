@@ -29,7 +29,6 @@ const CreateCategory = () => {
   };
 
   const handleOnDelete = async (slug) => {
-    console.log("DELETING", slug);
     if (window.confirm("Are You Sure?")) {
       setIsLoading(true);
       removeCategory(slug, user.token)
@@ -49,8 +48,6 @@ const CreateCategory = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log("Creating:", name);
-
     setIsLoading(true);
 
     createCategory({ name }, user.token)
@@ -66,6 +63,7 @@ const CreateCategory = () => {
           toast.error("Create Category Error:", err.response.data);
       });
   };
+
   return (
     <div className="container-fluid">
       <div className="row">
