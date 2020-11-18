@@ -9,9 +9,19 @@ import AdminNav from "../AdminNav";
 import { toast } from "react-toastify";
 
 const CreateCategory = () => {
+  const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    const c = await getCategories();
+    return setCategories(c.data);
+  };
 
   const handleOnChange = (e) => {
     setName(e.target.value);
@@ -43,7 +53,7 @@ const CreateCategory = () => {
           <AdminNav />
         </div>
         <div className="col">
-          <h1>Create Category</h1>
+          {isLoading ? <h1>Loading...</h1> : <h1>Create Category</h1>}
           <form onSubmit={handleOnSubmit}>
             <div className="form-group">
               <div className="col-md-6 offset-md-3">
@@ -62,6 +72,8 @@ const CreateCategory = () => {
               </div>
             </div>
           </form>
+          <hr />
+          {categories.length}
         </div>
       </div>
     </div>
