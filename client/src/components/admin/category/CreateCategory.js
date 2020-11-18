@@ -57,14 +57,14 @@ const CreateCategory = () => {
     createCategory({ name }, user.token)
       .then((res) => {
         setIsLoading(false);
-        toast.success(`${res.data.name} succressfully created`);
         setName("");
+        loadCategories();
+        toast.success(`${res.data.name} succressfully created`);
       })
       .catch((err) => {
         setIsLoading(true);
-        console.log("Create Category", err);
         if (err.response.status === 400)
-          toast.error("Create Category", err.response.data);
+          toast.error("Create Category Error:", err.response.data);
       });
   };
   return (
