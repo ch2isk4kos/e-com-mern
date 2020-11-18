@@ -36,13 +36,12 @@ const CreateCategory = () => {
         .then((res) => {
           setIsLoading(false);
           loadCategories();
-          toast.success(`${res.data.name} Deleted Succesfully`);
+          toast.error(`${res.data.name} Deleted`);
         })
         .catch((err) => {
           if (err.response.status === 400) {
-            console.log("DELETION ERROR!!!");
             setIsLoading(true);
-            toast.error("DELETE", err.response.data);
+            toast.error("DELETE ERROR:", err.response.data);
           }
         });
     }
