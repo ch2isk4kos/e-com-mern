@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getCategory, updateCategory } from "../../../api/nodejs/categories";
 import AdminNav from "../AdminNav";
@@ -9,6 +9,14 @@ const UpdateCategory = ({ history, match }) => {
 
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    loadCategory();
+  }, []);
+
+  const loadCategory = () => {
+    getCategory(match.params.slug).then((res) => setName(res.data.name));
+  };
 
   const handleOnChange = (e) => {
     setName(e.target.value);
@@ -45,7 +53,6 @@ const UpdateCategory = ({ history, match }) => {
                 <input
                   className="form-control"
                   type="text"
-                  placeholder={(e) => getCategory(e.target.value)}
                   value={name}
                   onChange={handleOnChange}
                   autoFocus
