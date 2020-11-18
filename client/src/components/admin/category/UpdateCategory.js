@@ -14,9 +14,8 @@ const UpdateCategory = ({ history, match }) => {
     loadCategory();
   }, []);
 
-  const loadCategory = () => {
+  const loadCategory = () =>
     getCategory(match.params.slug).then((res) => setName(res.data.name));
-  };
 
   const handleOnChange = (e) => {
     setName(e.target.value);
@@ -30,6 +29,7 @@ const UpdateCategory = ({ history, match }) => {
       .then((res) => {
         setIsLoading(false);
         setName("");
+        // history.push("/amin/category");
         toast.success(`${res.data.name} succressfully updated`);
       })
       .catch((err) => {
@@ -55,6 +55,7 @@ const UpdateCategory = ({ history, match }) => {
                   type="text"
                   value={name}
                   onChange={handleOnChange}
+                  // onChange={(e) => setName(e.target.value)}
                   autoFocus
                   required
                 />
