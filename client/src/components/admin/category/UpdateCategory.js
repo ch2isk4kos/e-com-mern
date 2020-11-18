@@ -25,17 +25,16 @@ const UpdateCategory = ({ history, match }) => {
     e.preventDefault();
     setIsLoading(true);
 
-    updateCategory({ name }, user.token)
+    updateCategory(match.params.slug, { name }, user.token)
       .then((res) => {
         setIsLoading(false);
         setName("");
-        // history.push("/amin/category");
+        history.push("/admin/category");
         toast.success(`${res.data.name} succressfully updated`);
       })
       .catch((err) => {
         setIsLoading(false);
-        if (err.response.status === 400)
-          toast.error("Update Category Error:", err.response.data);
+        if (err.response.status === 400) toast.error(err.response.data);
       });
   };
 
