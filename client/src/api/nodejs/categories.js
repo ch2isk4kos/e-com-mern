@@ -23,17 +23,11 @@ export const getCategory = async (slug) => {
 
 // update
 export const updateCategory = async (slug, category, token) => {
-  return await axios.put(
-    `${NODE_API}/category/${slug}`,
-    {
-      name: `${category}`,
+  return await axios.put(`${NODE_API}/category/${slug}`, category, {
+    headers: {
+      auth: token,
     },
-    {
-      headers: {
-        auth: token,
-      },
-    }
-  );
+  });
 };
 
 // delete
