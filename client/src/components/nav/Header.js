@@ -55,7 +55,7 @@ const Header = () => {
         <Link to={"/products"}>New Products</Link>
       </Item>
       {/* User History */}
-      {user && (
+      {user && user.role === "subscriber" && (
         <Item key="login" icon={<AppstoreOutlined />}>
           <Link to={"/user/history"}>History</Link>
         </Item>
@@ -72,8 +72,8 @@ const Header = () => {
           <Link to={"/signup"}>Sign Up</Link>
         </Item>
       )}
-      {/* Account */}
-      {user && (
+      {/* User Account */}
+      {user && user.role === "subscriber" && (
         <SubMenu
           className="float-right"
           key="account"
@@ -84,6 +84,32 @@ const Header = () => {
           <ItemGroup title={user.email.split("@")[0]}>
             <Item key="profile" icon={<AuditOutlined />}>
               <Link to={"/user/profile"}>Profile</Link>
+            </Item>
+            <Item key="settings" icon={<SettingOutlined />}>
+              Settings
+            </Item>
+            <Item
+              key="signout"
+              icon={<SelectOutlined />}
+              onClick={handleOnSignOut}
+            >
+              Sign Out
+            </Item>
+          </ItemGroup>
+        </SubMenu>
+      )}
+      {/* Admin Account */}
+      {user && user.role === "admin" && (
+        <SubMenu
+          className="float-right"
+          key="account"
+          title="Admin"
+          icon={<UserOutlined />}
+        >
+          {/* Profile Sub Menu */}
+          <ItemGroup title={user.email.split("@")[0]}>
+            <Item key="profile" icon={<AuditOutlined />}>
+              <Link to={"/admin/dashboard"}>Dashboard</Link>
             </Item>
             <Item key="settings" icon={<SettingOutlined />}>
               Settings
