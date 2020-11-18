@@ -10,10 +10,12 @@ import AdminNav from "../AdminNav";
 import { toast } from "react-toastify";
 
 const CreateCategory = () => {
+  const { user } = useSelector((state) => ({ ...state }));
+
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { user } = useSelector((state) => ({ ...state }));
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     loadCategories();
@@ -27,6 +29,8 @@ const CreateCategory = () => {
   const handleOnChange = (e) => {
     setName(e.target.value);
   };
+
+  const handleOnSearch = () => {};
 
   const handleOnDelete = async (slug) => {
     if (window.confirm("Are You Sure?")) {
@@ -72,13 +76,14 @@ const CreateCategory = () => {
         </div>
         <div className="col">
           {isLoading ? <h1>Loading...</h1> : <h1>Create Category</h1>}
+          {/* Create Category Form */}
           <form onSubmit={handleOnSubmit}>
             <div className="form-group">
               <div className="col-md-6 offset-md-3">
                 <input
                   className="form-control"
                   type="text"
-                  placeholder="input category name"
+                  placeholder="new category name"
                   value={name}
                   onChange={handleOnChange}
                   autoFocus
@@ -91,7 +96,17 @@ const CreateCategory = () => {
             </div>
           </form>
           <hr />
-          <h3>Categories: {categories.length}</h3>
+          {/* Search Bar */}
+          <div className="col-md-3 ml-3">
+            <input
+              className="form-control mb-3"
+              type="search"
+              placeholder={`search category name: ${categories.length}`}
+              value={query}
+              onChange={handleOnSearch}
+            />
+          </div>
+          {/* Categories */}
           <div className="container">
             {categories &&
               categories.map((category) => (
