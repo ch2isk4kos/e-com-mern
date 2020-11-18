@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getCategories,
   createCategory,
@@ -73,7 +74,27 @@ const CreateCategory = () => {
             </div>
           </form>
           <hr />
-          {categories.length}
+          <h3>Categories: {categories.length}</h3>
+          <div className="container">
+            {categories &&
+              categories.map((category) => (
+                <div className="alert alert-primary" key={category._id}>
+                  {category.name}
+                  <Link
+                    className="btn btn-sm btn-danger ml-1 float-right"
+                    to={`/admin/category/${category.slug}`}
+                  >
+                    Delete
+                  </Link>
+                  <Link
+                    className="btn btn-sm btn-primary mr-1 float-right"
+                    to={`/admin/category/${category.slug}`}
+                  >
+                    Edit
+                  </Link>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </div>
