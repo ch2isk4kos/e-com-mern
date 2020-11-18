@@ -109,7 +109,7 @@ const CreateCategory = () => {
             <input
               className="form-control mb-3"
               type="search"
-              placeholder={`search category name: ${categories.length}`}
+              placeholder={`search category: ${categories.length}`}
               value={query}
               onChange={handleOnSearch}
             />
