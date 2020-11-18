@@ -15,6 +15,7 @@ import EditPassword from "./components/user/profile/EditPassword";
 import Cart from "./components/user/Cart";
 import Wishlist from "./components/user/Wishlist";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import CreateCategory from "./components/admin/category/CreateCategory";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -77,6 +78,7 @@ const App = () => {
           path={"/admin/dashboard"}
           component={AdminDashboard}
         />
+        <AdminRoute exact path={"/admin/category"} component={CreateCategory} />
       </Switch>
     </div>
   );
