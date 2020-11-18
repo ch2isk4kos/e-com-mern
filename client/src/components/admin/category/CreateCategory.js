@@ -30,7 +30,15 @@ const CreateCategory = () => {
     setName(e.target.value);
   };
 
-  const handleOnSearch = () => {};
+  const handleOnSearch = (e) => {
+    e.preventDefault();
+    const q = e.target.value.toLowerCase();
+    setQuery(q);
+  };
+
+  const querySearch = (query) => {
+    return (c) => c.name.toLowerCase().includes(query);
+  };
 
   const handleOnDelete = async (slug) => {
     if (window.confirm("Are You Sure?")) {
@@ -109,7 +117,7 @@ const CreateCategory = () => {
           {/* Categories */}
           <div className="container">
             {categories &&
-              categories.map((category) => (
+              categories.filter(querySearch(query)).map((category) => (
                 <div className="alert alert-primary" key={category._id}>
                   {category.name}
                   <button
