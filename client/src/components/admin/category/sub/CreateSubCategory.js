@@ -1,10 +1,87 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  getSubCategories,
+  createSubCategory,
+  removeSubCategory,
+} from "../../../../api/nodejs/subCategories";
+import { getCategories } from "../../../../api/nodejs/categories";
 import AdminNav from "../../AdminNav";
 import { toast } from "react-toastify";
 
 const CreateSubCategory = () => {
+  const { user } = useSelector((state) => ({ ...state }));
+
+  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    const c = await getCategories();
+    return setCategories(c.data);
+  };
+
+  const handleOnSelect = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const handleOnChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleOnSearch = (e) => {
+    e.preventDefault();
+    const q = e.target.value.toLowerCase();
+    setQuery(q);
+  };
+
+  const querySearch = (query) => {
+    return (c) => c.name.toLowerCase().includes(query);
+  };
+
+  const handleOnDelete = async (slug) => {
+    if (window.confirm("Are You Sure?")) {
+      setIsLoading(true);
+      removeSubCategory(slug, user.token)
+        .then((res) => {
+          setIsLoading(false);
+          loadCategories();
+          toast.error(`${res.data.name} Deleted`);
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
+            setIsLoading(true);
+            toast.error("DELETE ERROR:", err.response.data);
+          }
+        });
+    }
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    createSubCategory({ name, parent: category }, user.token)
+      .then((res) => {
+        setIsLoading(false);
+        setName("");
+        loadCategories();
+        toast.success(`${res.data.name} succressfully created`);
+      })
+      .catch((err) => {
+        setIsLoading(true);
+        if (err.response.status === 400)
+          toast.error("Create Category Error:", err.response.data);
+      });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -12,17 +89,35 @@ const CreateSubCategory = () => {
           <AdminNav />
         </div>
         <div className="col">
-          {/* <form onSubmit={handleOnSubmit}> */}
-          <h1>Create Sub Category</h1>
-          <form>
+          {/* Loading... */}
+          {isLoading ? <h1>Loading...</h1> : <h1>Create Sub Category</h1>}
+          {/* Category Dropdown */}
+          <div className="form-group mb-3">
+            <label className="mr-2">Category</label>
+            <select
+              className="form-conrol"
+              name="category"
+              onChange={handleOnSelect}
+            >
+              <option>Select</option>
+              {categories.length > 0 &&
+                categories.map((c) => (
+                  <option key={c._id} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+          {/* New Sub Category */}
+          <form onSubmit={handleOnSubmit}>
             <div className="form-group">
               <div className="col-md-6 offset-md-3">
                 <input
                   className="form-control"
                   type="text"
                   placeholder="enter new sub category"
-                  // value={name}
-                  // onChange={handleOnChange}
+                  value={name}
+                  onChange={handleOnChange}
                   autoFocus
                   required
                 />
@@ -38,9 +133,9 @@ const CreateSubCategory = () => {
             <input
               className="form-control mb-3"
               type="search"
-              // placeholder={`search category: ${categories.length}`}
-              // value={query}
-              // onChange={handleOnSearch}
+              placeholder={`search category: ${categories.length}`}
+              value={query}
+              onChange={handleOnSearch}
             />
           </div>
           {/* Categories */}
@@ -55,7 +150,10 @@ const CreateSubCategory = () => {
                   >
                     Delete
                   </button>
-                  <Link className="btn btn-sm btn-primary mr-1 float-right">
+                  <Link
+                    to={"#"}
+                    className="btn btn-sm btn-primary mr-1 float-right"
+                  >
                     Edit
                   </Link>
                 </div>
