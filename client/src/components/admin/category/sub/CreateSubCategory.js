@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   getSubCategories,
+  getSubCategory,
   createSubCategory,
   removeSubCategory,
 } from "../../../../api/nodejs/subCategories";
