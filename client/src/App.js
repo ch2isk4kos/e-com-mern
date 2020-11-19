@@ -17,7 +17,7 @@ import Wishlist from "./components/user/Wishlist";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import CreateCategory from "./components/admin/category/CreateCategory";
 import UpdateCategory from "./components/admin/category/UpdateCategory";
-import CreateSubCategory from "./components/admin/category/sub/CreateSubCategory";
+// import CreateSubCategory from "./components/admin/category/sub/CreateSubCategory";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -86,7 +86,7 @@ const App = () => {
           path={"/admin/category/:slug"}
           component={UpdateCategory}
         />
-        <AdminRoute exact path={"/admin/sub"} component={CreateSubCategory} />
+        {/* <AdminRoute exact path={"/admin/sub"} component={CreateSubCategory} /> */}
       </Switch>
     </div>
   );
