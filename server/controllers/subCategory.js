@@ -8,7 +8,7 @@ exports.index = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, parent } = req.body;
     // const category = await new Category({
     //   name: name,
     //   slug: slugify(name),
@@ -19,6 +19,7 @@ exports.create = async (req, res) => {
     res.json(
       await new SubCategory({
         name: name,
+        parent: parent,
         slug: slugify(name),
       }).save()
     );

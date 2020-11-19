@@ -18,7 +18,7 @@ const {
 } = require("../controllers/category.js");
 
 // Category Routes
-router.get("/sub", index);
+router.get("/subs", index);
 router.post("/sub", authenticateToken, authenticateAdmin, create);
 router.get("/sub/:slug", read);
 router.put("/sub/:slug", authenticateToken, authenticateAdmin, update);
