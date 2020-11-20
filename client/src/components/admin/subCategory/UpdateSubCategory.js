@@ -75,7 +75,7 @@ const UpdateSubCategory = ({ history, match }) => {
               className="mb-3"
               name="category"
               onChange={handleOnSelect}
-              defaultValue={category}
+              value={category}
               required
             >
               <option>Select</option>
