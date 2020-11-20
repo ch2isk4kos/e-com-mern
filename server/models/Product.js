@@ -19,6 +19,11 @@ const productSchema = new mongoose.Schema(
     //   type: ObjectId,
     //   ref: "Brand",
     // },
+    brand: {
+      type: String,
+      trim: true,
+      text: true,
+    },
     price: {
       type: Number,
       trim: true,
@@ -42,7 +47,7 @@ const productSchema = new mongoose.Schema(
       maxLength: 256,
       text: true,
     },
-    image: {
+    images: {
       type: Array,
     },
     shipping: {
