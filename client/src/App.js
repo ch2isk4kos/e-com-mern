@@ -19,6 +19,7 @@ import CreateCategory from "./components/admin/category/CreateCategory";
 import UpdateCategory from "./components/admin/category/UpdateCategory";
 import CreateSubCategory from "./components/admin/subCategory/CreateSubCategory";
 import UpdateSubCategory from "./components/admin/subCategory/UpdateSubCategory";
+import CreateProduct from "./components/admin/product/CreateProduct";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -93,6 +94,7 @@ const App = () => {
           path={"/admin/sub/:slug"}
           component={UpdateSubCategory}
         />
+        <AdminRoute exact path={"/admin/product"} component={CreateProduct} />
       </Switch>
     </div>
   );
