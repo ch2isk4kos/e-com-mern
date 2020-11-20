@@ -147,7 +147,7 @@ const CreateSubCategory = () => {
             {subCategories &&
               subCategories.filter(querySearch(query)).map((sub) => (
                 <div className="alert alert-primary" key={sub._id}>
-                  {sub.name}
+                  {sub.name} : {sub.parent}
                   <button
                     className="btn btn-sm btn-danger ml-1 float-right"
                     onClick={() => handleOnDelete(sub.slug)}
