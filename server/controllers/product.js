@@ -1,9 +1,14 @@
 const Product = require("../models/Product");
 const slugify = require("slugify");
 
+// exports.index = async (req, res) => {
+//   const p = await Product.find({}).sort({ createdAt: -1 }).exec();
+//   res.json(p);
+// };
+
 exports.index = async (req, res) => {
-  const c = await Product.find({}).sort({ createdAt: -1 }).exec();
-  res.json(c);
+  const p = await Product.find({});
+  res.json(p);
 };
 
 exports.create = async (req, res) => {
@@ -13,24 +18,27 @@ exports.create = async (req, res) => {
     const newProduct = await new Product(req.body).save();
     res.json(newProduct);
   } catch (err) {
-    res.status(400).send("Error with creating product");
+    // res.status(400).send("Error with creating product");
+    res.status(400).json({
+      errMsg: err.message,
+    });
   }
 };
 
 exports.read = async (req, res) => {
-  let c = await Product.findOne({ slug: req.params.slug }).exec();
-  res.json(c);
+  let p = await Product.findOne({ slug: req.params.slug }).exec();
+  res.json(p);
 };
 
 exports.update = async (req, res) => {
-  const { name } = req.body;
+  const { product } = req.body;
   try {
-    const c = await Product.findOneAndUpdate(
+    const p = await Product.findOneAndUpdate(
       { slug: req.params.slug },
-      { name: name, slug: slugify(name) },
+      { product: product, slug: slugify(product.name) },
       { new: true }
     );
-    res.json(c);
+    res.json(p);
   } catch (err) {
     console.log("PRODUCT UPDATE FAIL:", err);
     res.status(400).send("Product Deletion Failed");
@@ -41,8 +49,8 @@ exports.update = async (req, res) => {
 exports.remove = async (req, res) => {
   try {
     // mongoose also has 'findIdAndDelete()` if you're working with id's
-    const c = await Product.findOneAndDelete({ slug: req.params.slug });
-    res.json(c);
+    const p = await Product.findOneAndDelete({ slug: req.params.slug });
+    res.json(p);
   } catch (err) {
     res.status(400).send("Product Deletion Failed");
   }
