@@ -52,10 +52,10 @@ const productSchema = new mongoose.Schema(
       type: String,
       enum: ["Yes", "No"],
     },
-    // category: {
-    //   type: ObjectId,
-    //   ref: "Category",
-    // },
+    category: {
+      type: ObjectId,
+      ref: "Category",
+    },
     // subcategories: [
     //   {
     //     type: ObjectId,
