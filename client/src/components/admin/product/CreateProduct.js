@@ -13,7 +13,7 @@ const initState = {
   name: "",
   price: "",
   description: "",
-  colors: ["red", "green", "blue", "yellow"],
+  colors: ["Red", "Green", "Blue", "Yellow"],
   color: "",
   brands: ["Apple", "Asus", "Microsoft"],
   brand: "",
@@ -30,9 +30,7 @@ const CreateProduct = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
   const [product, setProduct] = useState(initState);
-
   const [products, setProducts] = useState([]);
-  // const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -47,7 +45,7 @@ const CreateProduct = () => {
 
   const handleOnChange = (e) => {
     console.log({ [e.target.name]: e.target.value });
-    setProduct({ [e.target.name]: e.target.value });
+    setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
   const handleOnSearch = (e) => {
@@ -64,17 +62,17 @@ const CreateProduct = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    createProduct({ name }, user.token)
+    createProduct(product, user.token)
       .then((res) => {
-        setIsLoading(false);
-        setProduct("");
-        loadProducts();
-        toast.success(`${res.data.name} succressfully created`);
+        console.log(res.data);
+        // setIsLoading(false);
+        // setProduct(res.data.product);
+        // loadProducts();
+        // toast.success(`${res.data.name} succressfully created`);
       })
       .catch((err) => {
         setIsLoading(true);
-        if (err.response.status === 400)
-          toast.error("Create Category Error:", err.response.data);
+        if (err.response.status === 400) toast.error(err.response.data.errMsg);
       });
   };
 
@@ -124,11 +122,10 @@ const CreateProduct = () => {
           <form onSubmit={handleOnSubmit}>
             <div className="form-group">
               <div className="col-md-6 offset-md-3">
-                {/* Product Name */}
                 <>
-                  <label>Product Name</label>
+                  <label className="float-left">Product Name</label>
                   <input
-                    className="form-control"
+                    className="form-control mb-2"
                     type="text"
                     name="name"
                     value={name}
@@ -137,28 +134,25 @@ const CreateProduct = () => {
                     required
                   />
                 </>
-                {/* Price */}
                 <>
-                  <label>Price</label>
+                  <label className="float-left">Price</label>
                   <input
-                    className="form-control"
+                    className="form-control mb-2"
                     type="number"
-                    placeholder="0.00"
                     name="price"
                     value={price}
                     onChange={handleOnChange}
                     required
                   />
                 </>
-                {/* Color */}
                 <>
-                  <label>Color</label>
+                  <label className="float-left">Color</label>
                   <select
-                    className="form-control"
+                    className="form-control mb-2"
                     name="color"
                     onChange={handleOnChange}
                   >
-                    <option>Select</option>
+                    <option></option>
                     {colors.map((c) => (
                       <option key={c} value={c}>
                         {c}
@@ -169,15 +163,14 @@ const CreateProduct = () => {
                 {/* <select id="" name="category">
                   <option value={category}>Select Category</option>
                 </select> */}
-                {/* Brand */}
                 <>
-                  <label>Brand</label>
+                  <label className="float-left">Brand</label>
                   <select
-                    className="form-control"
+                    className="form-control mb-2"
                     name="brand"
                     onChange={handleOnChange}
                   >
-                    <option>Select</option>
+                    <option></option>
                     {brands.map((b) => (
                       <option key={b} value={b}>
                         {b}
@@ -185,34 +178,33 @@ const CreateProduct = () => {
                     ))}
                   </select>
                 </>
-                {/* Shipping */}
                 <>
-                  <label>Shipping</label>
+                  <label className="float-left">Shipping</label>
                   <select
-                    className="form-control"
+                    className="form-control mb-2"
                     name="shipping"
                     onChange={handleOnChange}
                   >
-                    <option>Select</option>
+                    <option></option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>
                 </>
                 <>
-                  <label>Quantity</label>
+                  <label className="float-left">Quantity</label>
                   <input
-                    className="form-control"
+                    className="form-control mb-2"
                     type="number"
-                    placeholder="0"
                     name="quantity"
                     value={quantity}
                     onChange={handleOnChange}
                   />
                 </>
+                {/* Description */}
                 <>
-                  <labeel>Description</labeel>
+                  <label className="float-left">Description</label>
                   <textarea
-                    className="form-control"
+                    className="form-control mb-2"
                     type="text"
                     rows={5}
                     cols={5}
