@@ -32,10 +32,10 @@ const productSchema = new mongoose.Schema(
       text: true,
     },
     quanitity: Number,
-    purchased: {
-      type: Number,
-      default: 0,
-    },
+    // purchased: {
+    //   type: Number,
+    //   default: 0,
+    // },
     color: {
       type: String,
       trim: true,
@@ -47,23 +47,23 @@ const productSchema = new mongoose.Schema(
       maxLength: 256,
       text: true,
     },
-    images: {
-      type: Array,
-    },
+    // images: {
+    //   type: Array,
+    // },
     shipping: {
       type: String,
       enum: ["Yes", "No"],
     },
-    category: {
-      type: ObjectId,
-      ref: "Category",
-    },
-    subcategories: [
-      {
-        type: ObjectId,
-        ref: "Sub",
-      },
-    ],
+    // category: {
+    //   type: ObjectId,
+    //   ref: "Category",
+    // },
+    // subcategories: [
+    //   {
+    //     type: ObjectId,
+    //     ref: "Sub",
+    //   },
+    // ],
     // ratings: [
     //   {
     //     star: Number,
