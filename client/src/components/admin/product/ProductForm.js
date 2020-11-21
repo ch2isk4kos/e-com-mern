@@ -11,7 +11,7 @@ const ProductForm = ({ product, handleOnChange, handleOnSubmit }) => {
     brand,
     images,
     categories,
-    category,
+    // category,
     subcategories,
     shipping,
     quantity,
@@ -21,6 +21,23 @@ const ProductForm = ({ product, handleOnChange, handleOnSubmit }) => {
       <div className="form-group">
         <div className="col-md-6 offset-md-3">
           <>
+            <label className="float-left">Category</label>
+            <select
+              className="form-control mb-2"
+              name="category"
+              onChange={handleOnChange}
+              autoFocus
+            >
+              <option></option>
+              {categories.length > 0 &&
+                categories.map((c) => (
+                  <option key={c._id} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
+            </select>
+          </>
+          <>
             <label className="float-left">Product Name</label>
             <input
               className="form-control mb-2"
@@ -28,7 +45,6 @@ const ProductForm = ({ product, handleOnChange, handleOnSubmit }) => {
               name="name"
               value={name}
               onChange={handleOnChange}
-              autoFocus
               required
             />
           </>
@@ -96,6 +112,7 @@ const ProductForm = ({ product, handleOnChange, handleOnSubmit }) => {
               name="quantity"
               value={quantity}
               onChange={handleOnChange}
+              required
             />
           </>
           <>
