@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getCategories } from "../../../api/nodejs/categories";
 import {
   getProducts,
   createProduct,
@@ -32,12 +33,19 @@ const CreateProduct = () => {
 
   const [product, setProduct] = useState(initState);
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
+    loadCategories();
     loadProducts();
   }, []);
+
+  const loadCategories = async () => {
+    const c = await getCategories();
+    return setProduct({ ...product, categories: c.data });
+  };
 
   const loadProducts = async () => {
     const p = await getProducts();
@@ -66,10 +74,9 @@ const CreateProduct = () => {
     createProduct(product, user.token)
       .then((res) => {
         console.log(res.data);
-        // setIsLoading(false);
-        // setProduct(res.data.product);
-        // loadProducts();
-        // toast.success(`${res.data.name} succressfully created`);
+        window.alert(`Confirm ${res.data.name} Create`);
+        window.location.reload();
+        toast.success(`${res.data.name} succressfully created`);
       })
       .catch((err) => {
         setIsLoading(true);
