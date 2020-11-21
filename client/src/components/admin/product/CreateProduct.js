@@ -119,7 +119,7 @@ const CreateProduct = () => {
         </div>
         <div className="col">
           {isLoading ? <h1>Loading...</h1> : <h1>Create Product</h1>}
-          {/* Create Category Form */}
+          {/* Create Product Form */}
           <ProductForm
             product={product}
             handleOnChange={handleOnChange}
