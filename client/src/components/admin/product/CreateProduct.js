@@ -8,6 +8,7 @@ import {
 } from "../../../api/nodejs/products";
 import { toast } from "react-toastify";
 import AdminNav from "../AdminNav";
+import ProductForm from "./ProductForm";
 
 const initState = {
   name: "",
@@ -94,21 +95,21 @@ const CreateProduct = () => {
     }
   };
 
-  const {
-    name,
-    price,
-    description,
-    colors,
-    color,
-    brands,
-    brand,
-    images,
-    categories,
-    category,
-    subcategories,
-    shipping,
-    quantity,
-  } = product;
+  // const {
+  //   name,
+  //   price,
+  //   description,
+  //   colors,
+  //   color,
+  //   brands,
+  //   brand,
+  //   images,
+  //   categories,
+  //   category,
+  //   subcategories,
+  //   shipping,
+  //   quantity,
+  // } = product;
 
   return (
     <div className="container-fluid">
@@ -119,108 +120,11 @@ const CreateProduct = () => {
         <div className="col">
           {isLoading ? <h1>Loading...</h1> : <h1>Create Product</h1>}
           {/* Create Category Form */}
-          <form onSubmit={handleOnSubmit}>
-            <div className="form-group">
-              <div className="col-md-6 offset-md-3">
-                <>
-                  <label className="float-left">Product Name</label>
-                  <input
-                    className="form-control mb-2"
-                    type="text"
-                    name="name"
-                    value={name}
-                    onChange={handleOnChange}
-                    autoFocus
-                    required
-                  />
-                </>
-                <>
-                  <label className="float-left">Price</label>
-                  <input
-                    className="form-control mb-2"
-                    type="number"
-                    name="price"
-                    value={price}
-                    onChange={handleOnChange}
-                    required
-                  />
-                </>
-                <>
-                  <label className="float-left">Color</label>
-                  <select
-                    className="form-control mb-2"
-                    name="color"
-                    onChange={handleOnChange}
-                  >
-                    <option></option>
-                    {colors.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                </>
-                {/* <select id="" name="category">
-                  <option value={category}>Select Category</option>
-                </select> */}
-                <>
-                  <label className="float-left">Brand</label>
-                  <select
-                    className="form-control mb-2"
-                    name="brand"
-                    onChange={handleOnChange}
-                  >
-                    <option></option>
-                    {brands.map((b) => (
-                      <option key={b} value={b}>
-                        {b}
-                      </option>
-                    ))}
-                  </select>
-                </>
-                <>
-                  <label className="float-left">Shipping</label>
-                  <select
-                    className="form-control mb-2"
-                    name="shipping"
-                    onChange={handleOnChange}
-                  >
-                    <option></option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                  </select>
-                </>
-                <>
-                  <label className="float-left">Quantity</label>
-                  <input
-                    className="form-control mb-2"
-                    type="number"
-                    name="quantity"
-                    value={quantity}
-                    onChange={handleOnChange}
-                  />
-                </>
-                {/* Description */}
-                <>
-                  <label className="float-left">Description</label>
-                  <textarea
-                    className="form-control mb-2"
-                    type="text"
-                    rows={5}
-                    cols={5}
-                    name="description"
-                    value={description}
-                    onChange={handleOnChange}
-                  />
-                </>
-
-                <button className="btn btn-primary m-3" type="submit">
-                  Create
-                </button>
-              </div>
-            </div>
-          </form>
-          <hr />
+          <ProductForm
+            product={product}
+            handleOnChange={handleOnChange}
+            handleOnSubmit={handleOnSubmit}
+          />
           {/* Search Bar */}
           <div className="col-md-3 ml-3">
             <input
