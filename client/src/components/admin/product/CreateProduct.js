@@ -73,8 +73,7 @@ const CreateProduct = () => {
       })
       .catch((err) => {
         setIsLoading(true);
-        if (err.response.status === 400)
-          toast.error("Create Category Error:", err.response.data);
+        if (err.response.status === 400) toast.error(err.response.data.errMsg);
       });
   };
 
@@ -124,7 +123,6 @@ const CreateProduct = () => {
           <form onSubmit={handleOnSubmit}>
             <div className="form-group">
               <div className="col-md-6 offset-md-3">
-                {/* Product Name */}
                 <>
                   <label>Product Name</label>
                   <input
@@ -137,20 +135,17 @@ const CreateProduct = () => {
                     required
                   />
                 </>
-                {/* Price */}
                 <>
                   <label>Price</label>
                   <input
                     className="form-control"
                     type="number"
-                    placeholder="0.00"
                     name="price"
                     value={price}
                     onChange={handleOnChange}
                     required
                   />
                 </>
-                {/* Color */}
                 <>
                   <label>Color</label>
                   <select
@@ -169,7 +164,6 @@ const CreateProduct = () => {
                 {/* <select id="" name="category">
                   <option value={category}>Select Category</option>
                 </select> */}
-                {/* Brand */}
                 <>
                   <label>Brand</label>
                   <select
@@ -177,7 +171,7 @@ const CreateProduct = () => {
                     name="brand"
                     onChange={handleOnChange}
                   >
-                    <option>Select</option>
+                    <option></option>
                     {brands.map((b) => (
                       <option key={b} value={b}>
                         {b}
@@ -185,7 +179,6 @@ const CreateProduct = () => {
                     ))}
                   </select>
                 </>
-                {/* Shipping */}
                 <>
                   <label>Shipping</label>
                   <select
@@ -193,7 +186,7 @@ const CreateProduct = () => {
                     name="shipping"
                     onChange={handleOnChange}
                   >
-                    <option>Select</option>
+                    <option></option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>
@@ -203,14 +196,13 @@ const CreateProduct = () => {
                   <input
                     className="form-control"
                     type="number"
-                    placeholder="0"
                     name="quantity"
                     value={quantity}
                     onChange={handleOnChange}
                   />
                 </>
                 <>
-                  <labeel>Description</labeel>
+                  <label>Description</label>
                   <textarea
                     className="form-control"
                     type="text"
