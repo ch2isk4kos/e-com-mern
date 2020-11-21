@@ -13,7 +13,10 @@ exports.create = async (req, res) => {
     const newProduct = await new Product(req.body).save();
     res.json(newProduct);
   } catch (err) {
-    res.status(400).send("Error with creating product");
+    // res.status(400).send("Error with creating product");
+    res.json({
+      errMsg: err.message,
+    });
   }
 };
 
