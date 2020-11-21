@@ -15,7 +15,7 @@ const initState = {
   name: "",
   price: "",
   description: "",
-  colors: ["Red", "Green", "Blue", "Yellow"],
+  colors: ["Black", "Blue", "Green", "Grey", "Red", "Yellow"],
   color: "",
   brands: ["Apple", "Asus", "Microsoft"],
   brand: "",
@@ -33,7 +33,6 @@ const CreateProduct = () => {
 
   const [product, setProduct] = useState(initState);
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -42,9 +41,13 @@ const CreateProduct = () => {
     loadProducts();
   }, []);
 
+  // const loadCategories = async () => {
+  //   const c = await getCategories();
+  //   return setProduct({ ...product, categories: c.data });
+  // };
+
   const loadCategories = async () => {
-    const c = await getCategories();
-    return setProduct({ ...product, categories: c.data });
+    getCategories().then((c) => setProduct({ ...product, categories: c.data }));
   };
 
   const loadProducts = async () => {
@@ -102,22 +105,6 @@ const CreateProduct = () => {
     }
   };
 
-  // const {
-  //   name,
-  //   price,
-  //   description,
-  //   colors,
-  //   color,
-  //   brands,
-  //   brand,
-  //   images,
-  //   categories,
-  //   category,
-  //   subcategories,
-  //   shipping,
-  //   quantity,
-  // } = product;
-
   return (
     <div className="container-fluid">
       <div className="row">
@@ -126,6 +113,7 @@ const CreateProduct = () => {
         </div>
         <div className="col">
           {isLoading ? <h1>Loading...</h1> : <h1>Create Product</h1>}
+          {/* {JSON.stringify(product.categories)} */}
           {/* Create Product Form */}
           <ProductForm
             product={product}
