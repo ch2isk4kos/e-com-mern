@@ -38,8 +38,6 @@ const productSchema = new mongoose.Schema(
     // },
     color: {
       type: String,
-      trim: true,
-      text: true,
     },
     description: {
       type: String,
