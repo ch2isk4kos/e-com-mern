@@ -32,7 +32,7 @@ export const updateProduct = async (slug, product, token) => {
 
 // delete
 export const removeProduct = async (slug, token) => {
-  return await axios.delete(`${NODE_API}/category/${slug}`, {
+  return await axios.delete(`${NODE_API}/product/${slug}`, {
     headers: {
       auth: token,
     },
