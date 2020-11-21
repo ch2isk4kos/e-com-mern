@@ -110,7 +110,6 @@ const ProductForm = ({ product, handleOnChange, handleOnSubmit }) => {
               onChange={handleOnChange}
             />
           </>
-
           <button className="btn btn-primary m-3" type="submit">
             Create
           </button>
