@@ -13,7 +13,7 @@ const initState = {
   name: "",
   price: "",
   description: "",
-  colors: ["red", "green", "blue", "yellow"],
+  colors: ["Red", "Green", "Blue", "Yellow"],
   color: "",
   brands: ["Apple", "Asus", "Microsoft"],
   brand: "",
@@ -32,7 +32,6 @@ const CreateProduct = () => {
   const [product, setProduct] = useState(initState);
 
   const [products, setProducts] = useState([]);
-  // const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -47,7 +46,7 @@ const CreateProduct = () => {
 
   const handleOnChange = (e) => {
     console.log({ [e.target.name]: e.target.value });
-    setProduct({ [e.target.name]: e.target.value });
+    setProduct({ ...product, [e.target.name]: e.target.value });
   };
 
   const handleOnSearch = (e) => {
@@ -153,7 +152,7 @@ const CreateProduct = () => {
                     name="color"
                     onChange={handleOnChange}
                   >
-                    <option>Select</option>
+                    <option></option>
                     {colors.map((c) => (
                       <option key={c} value={c}>
                         {c}
