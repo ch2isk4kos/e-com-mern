@@ -57,4 +57,4 @@ mongoose
 
 ## Update User Instance with MongoDB
 
-## Connect Firebase
+## Conifgure Firebase
