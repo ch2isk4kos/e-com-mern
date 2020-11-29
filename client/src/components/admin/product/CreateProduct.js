@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCategories } from "../../../api/nodejs/categories";
+import {
+  getCategories,
+  getSubCategories,
+} from "../../../api/nodejs/categories";
 import {
   getProducts,
   createProduct,
@@ -33,6 +36,7 @@ const CreateProduct = () => {
 
   const [product, setProduct] = useState(initState);
   const [products, setProducts] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -58,6 +62,17 @@ const CreateProduct = () => {
   const handleOnChange = (e) => {
     console.log({ [e.target.name]: e.target.value });
     setProduct({ ...product, [e.target.name]: e.target.value });
+  };
+
+  const handleOnCategory = (e) => {
+    console.log("Parent Category ID:", e.target.value);
+    setProduct({ ...product, category: e.target.value });
+    getSubCategories(e.target.value)
+      .then((res) => {
+        console.log("Paretn Sub Categories:", res.data);
+        setSubCategories(res.data);
+      })
+      .catch((err) => console.log("GET SUB CATEGORIES", err));
   };
 
   const handleOnSearch = (e) => {
@@ -118,6 +133,7 @@ const CreateProduct = () => {
           <ProductForm
             product={product}
             handleOnChange={handleOnChange}
+            handleOnCategory={handleOnCategory}
             handleOnSubmit={handleOnSubmit}
           />
           {/* Search Bar */}
