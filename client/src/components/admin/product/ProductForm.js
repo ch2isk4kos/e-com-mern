@@ -1,6 +1,11 @@
 import React from "react";
 
-const ProductForm = ({ product, handleOnChange, handleOnSubmit }) => {
+const ProductForm = ({
+  product,
+  handleOnChange,
+  handleOnCategory,
+  handleOnSubmit,
+}) => {
   const {
     name,
     price,
@@ -25,7 +30,7 @@ const ProductForm = ({ product, handleOnChange, handleOnSubmit }) => {
             <select
               className="form-control mb-2"
               name="category"
-              onChange={handleOnChange}
+              onChange={handleOnCategory}
               autoFocus
             >
               <option></option>
