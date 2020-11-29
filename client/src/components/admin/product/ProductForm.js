@@ -2,6 +2,8 @@ import React from "react";
 
 const ProductForm = ({
   product,
+  subCategories,
+  isSubCategories,
   handleOnChange,
   handleOnCategory,
   handleOnSubmit,
@@ -42,6 +44,7 @@ const ProductForm = ({
                 ))}
             </select>
           </>
+          {subCategories.length}
           <>
             <label className="float-left">Product Name</label>
             <input
