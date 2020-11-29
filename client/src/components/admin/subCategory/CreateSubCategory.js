@@ -50,6 +50,8 @@ const CreateSubCategory = () => {
       .then((res) => {
         setIsLoading(false);
         setName("");
+        setCategories([]);
+        loadCategories();
         loadSubCategories();
         toast.success(`${res.data.name} successfully created!`);
       })
