@@ -1,7 +1,11 @@
 import React from "react";
+import { Select } from "antd";
+
+const { Option } = Select;
 
 const ProductForm = ({
   product,
+  setProduct,
   subCategories,
   isSubCategories,
   handleOnChange,
@@ -44,7 +48,20 @@ const ProductForm = ({
                 ))}
             </select>
           </>
-          {subCategories.length}
+          <>{subCategories.length}</>
+          <>
+            <label className="float-left">Sub Categories</label>
+            <Select
+              className="form-control mb-2"
+              mode="multiple"
+              placeholder="Please Select"
+              value={subcategories}
+              onChange={(sub) => setProduct({ ...product, subcategories: sub })}
+            >
+              <Option value="one">option 1</Option>
+              <Option value="two">option 2</Option>
+            </Select>
+          </>
           <>
             <label className="float-left">Product Name</label>
             <input
