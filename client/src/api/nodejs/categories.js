@@ -38,3 +38,8 @@ export const removeCategory = async (slug, token) => {
     },
   });
 };
+
+// get sub-categories
+export const getSubCategories = async (_id) => {
+  return await axios.get(`${NODE_API}/category/subs/${_id}`);
+};
