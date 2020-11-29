@@ -130,9 +130,11 @@ const CreateProduct = () => {
         <div className="col">
           {isLoading ? <h1>Loading...</h1> : <h1>Create Product</h1>}
           {/* {JSON.stringify(product.categories)} */}
+          {JSON.stringify(product.subcategories)}
           {/* Create Product Form */}
           <ProductForm
             product={product}
+            setProduct={setProduct}
             subCategories={subCategories}
             isSubCategories={isSubCategories}
             handleOnChange={handleOnChange}
