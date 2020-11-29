@@ -37,6 +37,7 @@ const CreateProduct = () => {
   const [product, setProduct] = useState(initState);
   const [products, setProducts] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [isSubCategories, setIsSubCategories] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -132,6 +133,8 @@ const CreateProduct = () => {
           {/* Create Product Form */}
           <ProductForm
             product={product}
+            subCategories={subCategories}
+            isSubCategories={isSubCategories}
             handleOnChange={handleOnChange}
             handleOnCategory={handleOnCategory}
             handleOnSubmit={handleOnSubmit}
