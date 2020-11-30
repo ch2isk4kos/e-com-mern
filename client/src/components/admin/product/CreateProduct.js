@@ -44,7 +44,7 @@ const CreateProduct = () => {
   useEffect(() => {
     loadCategories();
     loadProducts();
-  }, []);
+  });
 
   // const loadCategories = async () => {
   //   const c = await getCategories();
@@ -68,12 +68,11 @@ const CreateProduct = () => {
   const handleOnCategory = (e) => {
     console.log("Parent Category ID:", e.target.value);
     setProduct({ ...product, category: e.target.value });
-    getSubCategories(e.target.value)
-      .then((res) => {
-        console.log("Paretn Sub Categories:", res.data);
-        setSubCategories(res.data);
-      })
-      .catch((err) => console.log("GET SUB CATEGORIES", err));
+    getSubCategories(e.target.value).then((res) => {
+      console.log("Paretn Sub Categories:", res.data);
+      setSubCategories(res.data);
+    });
+    setIsSubCategories(true);
   };
 
   const handleOnSearch = (e) => {
