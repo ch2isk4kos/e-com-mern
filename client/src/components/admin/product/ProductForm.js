@@ -58,8 +58,12 @@ const ProductForm = ({
               value={subcategories}
               onChange={(sub) => setProduct({ ...product, subcategories: sub })}
             >
-              <Option value="one">option 1</Option>
-              <Option value="two">option 2</Option>
+              {subCategories.length > 0 &&
+                subCategories.map((sub) => (
+                  <Option key={sub._id} value={sub._id}>
+                    {sub.name}
+                  </Option>
+                ))}
             </Select>
           </>
           <>
