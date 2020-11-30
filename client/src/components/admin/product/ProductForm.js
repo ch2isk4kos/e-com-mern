@@ -48,24 +48,27 @@ const ProductForm = ({
                 ))}
             </select>
           </>
-          <>{subCategories.length}</>
-          <>
-            <label className="float-left">Sub Categories</label>
-            <Select
-              className="form-control mb-2"
-              mode="multiple"
-              placeholder="Please Select"
-              value={subcategories}
-              onChange={(sub) => setProduct({ ...product, subcategories: sub })}
-            >
-              {subCategories.length > 0 &&
-                subCategories.map((sub) => (
-                  <Option key={sub._id} value={sub._id}>
-                    {sub.name}
-                  </Option>
-                ))}
-            </Select>
-          </>
+          {isSubCategories && (
+            <>
+              <label className="float-left">Sub Categories</label>
+              <Select
+                className="form-control mb-2"
+                mode="multiple"
+                placeholder="Please Select"
+                value={subcategories}
+                onChange={(sub) =>
+                  setProduct({ ...product, subcategories: sub })
+                }
+              >
+                {subCategories.length > 0 &&
+                  subCategories.map((sub) => (
+                    <Option key={sub._id} value={sub._id}>
+                      {sub.name}
+                    </Option>
+                  ))}
+              </Select>
+            </>
+          )}
           <>
             <label className="float-left">Product Name</label>
             <input
