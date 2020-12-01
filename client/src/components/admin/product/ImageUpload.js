@@ -1,7 +1,8 @@
 import React from "react";
 import Resizer from "react-image-file-resizer";
-import { uploadImages } from "../../../api/cloudinary/images";
 import { useSelector } from "react-redux";
+import { uploadImages } from "../../../api/cloudinary/images";
+import { Avatar } from "antd";
 
 const ImageUpload = ({ product, setProduct, isLoading, setIsLoading }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -49,19 +50,32 @@ const ImageUpload = ({ product, setProduct, isLoading, setIsLoading }) => {
     // set url to images[] in Product Form
   };
   return (
-    <div className="row m-0">
-      <label className="btn btn-dark">
-        Upload Images
-        <input
-          className="form-control"
-          type="file"
-          accept="iamges//*"
-          multiple
-          hidden
-          onChange={handleOnUpload}
-        />
-      </label>
-    </div>
+    <>
+      <div className="row m-0">
+        {product.images &&
+          product.images.map((img) => (
+            <Avatar
+              className="m-2"
+              key={img.public_id}
+              src={img.url}
+              size={60}
+            />
+          ))}
+      </div>
+      <div className="row m-0">
+        <label className="btn btn-dark">
+          Upload Images
+          <input
+            className="form-control"
+            type="file"
+            accept="iamges//*"
+            multiple
+            hidden
+            onChange={handleOnUpload}
+          />
+        </label>
+      </div>
+    </>
   );
 };
 
