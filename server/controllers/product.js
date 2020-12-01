@@ -7,7 +7,12 @@ const slugify = require("slugify");
 // };
 
 exports.index = async (req, res) => {
-  const p = await Product.find({});
+  const p = await Product.find({})
+    .limit(parseInt(req.params.count))
+    .populate("category")
+    .populate("subcategories")
+    .sort([["createdAt", "desc"]])
+    .exec();
   res.json(p);
 };
 
