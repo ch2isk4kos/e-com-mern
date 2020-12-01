@@ -3,6 +3,7 @@ import Resizer from "react-image-file-resizer";
 import { useSelector } from "react-redux";
 import { uploadImages, removeImage } from "../../../api/cloudinary/images";
 import { Avatar, Badge } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const ImageUpload = ({ product, setProduct, isLoading, setIsLoading }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -55,7 +56,6 @@ const ImageUpload = ({ product, setProduct, isLoading, setIsLoading }) => {
     const token = user ? user.token : "";
     removeImage(id, token)
       .then((res) => {
-        setIsLoading(true);
         const { images } = product;
         let remaining = images.filter((img) => {
           return img.public_id !== id;
@@ -71,6 +71,7 @@ const ImageUpload = ({ product, setProduct, isLoading, setIsLoading }) => {
   return (
     <>
       <div className="mt-4">
+        {isLoading ? <LoadingOutlined className="h1" /> : ""}
         {product.images &&
           product.images.map((img) => (
             <Badge

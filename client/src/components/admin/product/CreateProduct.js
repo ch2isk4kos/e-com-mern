@@ -11,6 +11,7 @@ import {
   removeProduct,
 } from "../../../api/nodejs/products";
 import { toast } from "react-toastify";
+import { LoadingOutlined } from "@ant-design/icons";
 import AdminNav from "../AdminNav";
 import ProductForm from "./ProductForm";
 
@@ -127,7 +128,7 @@ const CreateProduct = () => {
           <AdminNav />
         </div>
         <div className="col">
-          {isLoading ? <h1>Loading...</h1> : <h1>Create Product</h1>}
+          {isLoading ? <LoadingOutlined /> : <h1>Create Product</h1>}
           {/* {JSON.stringify(product.categories)} */}
           {JSON.stringify(product.images)}
           {/* Create Product Form */}
