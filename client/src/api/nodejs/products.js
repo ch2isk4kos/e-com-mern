@@ -7,6 +7,10 @@ export const getProducts = async () => {
   return await axios.get(`${NODE_API}/products`);
 };
 
+export const getProductsByCount = async (count) => {
+  return await axios.get(`${NODE_API}/products/${count}`);
+};
+
 // creete
 export const createProduct = async (product, token) => {
   return await axios.post(`${NODE_API}/product`, product, {
