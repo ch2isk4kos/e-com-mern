@@ -45,9 +45,9 @@ const productSchema = new mongoose.Schema(
       maxLength: 256,
       text: true,
     },
-    // images: {
-    //   type: Array,
-    // },
+    images: {
+      type: Array,
+    },
     shipping: {
       type: String,
       enum: ["Yes", "No"],
