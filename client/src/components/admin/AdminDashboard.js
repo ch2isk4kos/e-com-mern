@@ -35,6 +35,12 @@ const AdminDashboard = () => {
           <div className="row">
             {isLoading ? <h4>Loading...</h4> : <h4>Products</h4>}
           </div>
+          <div className="row">
+            {products.map((p) => (
+              // display Product Card
+              <div>{p.name}</div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
