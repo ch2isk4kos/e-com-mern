@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "antd";
+import ImageUpload from "./ImageUpload";
 
 const { Option } = Select;
 
@@ -106,9 +107,6 @@ const ProductForm = ({
               ))}
             </select>
           </>
-          {/* <select id="" name="category">
-                  <option value={category}>Select Category</option>
-                </select> */}
           <>
             <label className="float-left">Brand</label>
             <select
@@ -147,6 +145,7 @@ const ProductForm = ({
               required
             />
           </>
+
           <>
             <label className="float-left">Description</label>
             <textarea
@@ -159,6 +158,7 @@ const ProductForm = ({
               onChange={handleOnChange}
             />
           </>
+          <ImageUpload />
           <button className="btn btn-primary m-3" type="submit">
             Create
           </button>
