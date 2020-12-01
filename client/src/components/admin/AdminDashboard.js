@@ -13,7 +13,7 @@ const AdminDashboard = () => {
 
   const loadProducts = () => {
     setIsLoading(true);
-    getProductsByCount(10)
+    getProductsByCount(12)
       .then((res) => {
         console.log("Products:", res.data);
         setProducts(res.data);
@@ -38,7 +38,9 @@ const AdminDashboard = () => {
           </div>
           <div className="row">
             {products.map((p) => (
-              <AdminProductCard key={p._id} product={p} />
+              <div className="col-md-4 mb-4" key={p._id}>
+                <AdminProductCard product={p} />
+              </div>
             ))}
           </div>
         </div>
