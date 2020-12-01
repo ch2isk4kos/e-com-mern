@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AdminNav from "./AdminNav";
+import AdminProductCard from "./AdminProductCard";
 import { getProductsByCount } from "../../api/nodejs/products";
 
 const AdminDashboard = () => {
@@ -37,8 +38,8 @@ const AdminDashboard = () => {
           </div>
           <div className="row">
             {products.map((p) => (
-              // display Product Card
-              <div>{p.name}</div>
+              // display Adin Product Card
+              <AdminProductCard key={p._id} product={p} />
             ))}
           </div>
         </div>
