@@ -38,7 +38,6 @@ const AdminDashboard = () => {
           </div>
           <div className="row">
             {products.map((p) => (
-              // display Adin Product Card
               <AdminProductCard key={p._id} product={p} />
             ))}
           </div>
