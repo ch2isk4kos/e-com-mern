@@ -129,13 +129,15 @@ const CreateProduct = () => {
         <div className="col">
           {isLoading ? <h1>Loading...</h1> : <h1>Create Product</h1>}
           {/* {JSON.stringify(product.categories)} */}
-          {JSON.stringify(product.subcategories)}
+          {JSON.stringify(product.images)}
           {/* Create Product Form */}
           <ProductForm
             product={product}
             setProduct={setProduct}
             subCategories={subCategories}
             isSubCategories={isSubCategories}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
             handleOnChange={handleOnChange}
             handleOnCategory={handleOnCategory}
             handleOnSubmit={handleOnSubmit}
