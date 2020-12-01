@@ -22,9 +22,9 @@ exports.uploads = async (req, res) => {
   });
 };
 
-exports.remove = async (req, res) => {
+exports.remove = (req, res) => {
   let image_id = req.body.public_id;
-  cloudinary.uploader.upload(image_id, (err, data) => {
+  cloudinary.uploader.destroy(image_id, (err, data) => {
     if (err) return res.json({ success: false, err });
     res.send("ok"); // res.status(200)
   });
