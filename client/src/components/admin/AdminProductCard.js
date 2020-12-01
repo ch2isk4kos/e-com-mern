@@ -11,14 +11,14 @@ const AdminProductCard = ({ product }) => {
     <Card
       cover={
         <img
-          className="m-2 p-3"
+          className="p-1"
           src={image}
           alt={"product image"}
           style={{ height: "300px", width: "auto", objectFit: "cover" }}
         />
       }
     >
-      <Meta name={name} description={description} />
+      <Meta title={name} description={description} />
     </Card>
   );
 };
