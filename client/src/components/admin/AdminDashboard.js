@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AdminNav from "./AdminNav";
+import { getProductsByCount } from "../../api/nodejs/products";
 
 const AdminDashboard = () => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = () => {
+    setIsLoading(true);
+    getProductsByCount(10)
+      .then((res) => {
+        console.log("Products:", res.data);
+        setProducts(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -10,6 +32,9 @@ const AdminDashboard = () => {
         </div>
         <div className="col">
           <h1>Admin Dashboard</h1>
+          <div className="row">
+            {isLoading ? <h4>Loading...</h4> : <h4>Products</h4>}
+          </div>
         </div>
       </div>
     </div>
