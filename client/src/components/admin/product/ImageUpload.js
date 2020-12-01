@@ -1,8 +1,8 @@
 import React from "react";
 import Resizer from "react-image-file-resizer";
 import { useSelector } from "react-redux";
-import { uploadImages } from "../../../api/cloudinary/images";
-import { Avatar } from "antd";
+import { uploadImages, removeImage } from "../../../api/cloudinary/images";
+import { Avatar, Badge } from "antd";
 
 const ImageUpload = ({ product, setProduct, isLoading, setIsLoading }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -49,17 +49,43 @@ const ImageUpload = ({ product, setProduct, isLoading, setIsLoading }) => {
 
     // set url to images[] in Product Form
   };
+
+  const handleOnRemoveImage = (id) => {
+    console.log("Image ID", id);
+    const token = user ? user.token : "";
+    removeImage(id, token)
+      .then((res) => {
+        setIsLoading(true);
+        const { images } = product;
+        let remaining = images.filter((img) => {
+          return img.public_id !== id;
+        });
+        setProduct({ ...product, images: remaining });
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log("REMOVE IMAGE", err);
+      });
+  };
+
   return (
     <>
-      <div className="row m-0">
+      <div className="mt-4">
         {product.images &&
           product.images.map((img) => (
-            <Avatar
-              className="m-2"
+            <Badge
               key={img.public_id}
-              src={img.url}
-              size={60}
-            />
+              count="X"
+              onClick={() => handleOnRemoveImage(img.public_id)}
+              style={{ cursor: "pointer" }}
+            >
+              <Avatar
+                className="row m-3"
+                src={img.url}
+                size={100}
+                shape="square"
+              />
+            </Badge>
           ))}
       </div>
       <div className="row m-0">
