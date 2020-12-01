@@ -5,9 +5,9 @@ const API_KEY = process.env.CLOUDINARY_API_KEY;
 const API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
 cloudinary.config({
-  name: CLOUD_NAME,
-  key: API_KEY,
-  secret: API_SECRET,
+  cloud_name: CLOUD_NAME,
+  api_key: API_KEY,
+  api_secret: API_SECRET,
 });
 
 exports.uploads = async (req, res) => {
