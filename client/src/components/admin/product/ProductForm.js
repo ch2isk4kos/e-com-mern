@@ -9,6 +9,8 @@ const ProductForm = ({
   setProduct,
   subCategories,
   isSubCategories,
+  isLoading,
+  setIsLoading,
   handleOnChange,
   handleOnCategory,
   handleOnSubmit,
@@ -61,12 +63,15 @@ const ProductForm = ({
                   setProduct({ ...product, subcategories: sub })
                 }
               >
-                {subCategories.length > 0 &&
-                  subCategories.map((sub) => (
-                    <Option key={sub._id} value={sub._id}>
-                      {sub.name}
-                    </Option>
-                  ))}
+                {subCategories.map((sub) => (
+                  <Option
+                    placeholder="Please Select"
+                    key={sub._id}
+                    value={sub._id}
+                  >
+                    {sub.name}
+                  </Option>
+                ))}
               </Select>
             </>
           )}
@@ -158,7 +163,12 @@ const ProductForm = ({
               onChange={handleOnChange}
             />
           </>
-          <ImageUpload />
+          <ImageUpload
+            product={product}
+            setProduct={setProduct}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+          />
           <button className="btn btn-primary m-3" type="submit">
             Create
           </button>
