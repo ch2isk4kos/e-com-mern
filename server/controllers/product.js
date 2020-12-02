@@ -54,7 +54,9 @@ exports.update = async (req, res) => {
 exports.remove = async (req, res) => {
   try {
     // mongoose also has 'findIdAndDelete()` if you're working with id's
-    const p = await Product.findOneAndDelete({ slug: req.params.slug });
+    const p = await (
+      await Product.findOneAndDelete({ slug: req.params.slug })
+    ).exec();
     res.json(p);
   } catch (err) {
     res.status(400).send("Product Deletion Failed");
