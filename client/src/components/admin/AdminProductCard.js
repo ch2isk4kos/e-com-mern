@@ -1,26 +1,31 @@
 import React from "react";
 import { Card } from "antd";
-// import logo from "../../assets/";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import logo from "../../assets/yard-sale.jpg";
 
 const { Meta } = Card;
 
 const AdminProductCard = ({ product }) => {
   const { name, description, images } = product;
-  const image = images && images.length ? images[0].url : logo;
+  const img = images && images.length ? images[0].url : logo;
+  const desc = description && description.substring(0, 50);
 
   return (
     <Card
       cover={
         <img
           className="p-1"
-          src={image}
+          src={img}
           alt={"product"}
           style={{ height: "300px" }}
         />
       }
+      actions={[
+        <EditOutlined className="text-warning" />,
+        <DeleteOutlined className="text-danger" />,
+      ]}
     >
-      <Meta title={name} description={description} />
+      <Meta title={name} description={`${desc}...`} />
     </Card>
   );
 };
