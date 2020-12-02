@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import AdminNav from "../AdminNav";
 import AdminProductCard from "../AdminProductCard";
 import {
   getProductsByCount,
   removeProduct,
 } from "../../../api/nodejs/products";
+import { toast } from "react-toastify";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     loadProducts();
@@ -33,6 +36,14 @@ const Products = () => {
     let remove = window.confirm(`Delete ${slugName}?`);
     if (remove) {
       console.log("Delete", remove);
+      removeProduct(slug, user.token)
+        .then((res) => {
+          loadProducts();
+          toast.success(`${res.data.name} deleted successfully`);
+        })
+        .catch((err) => {
+          if (err.response.status === 400) toast.error(err.response.data);
+        });
     }
   };
 
