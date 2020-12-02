@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema(
       maxLength: 32,
       text: true,
     },
-    quanitity: {
+    quantity: {
       type: Number,
       required: true,
       text: true,
