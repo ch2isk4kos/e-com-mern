@@ -1,8 +1,14 @@
 import React from "react";
+import { Select } from "antd";
+
+const { Option } = Select;
 
 const ProductUpdateForm = ({
   product,
   setProduct,
+  categories,
+  subCategories,
+  handleOnCategory,
   handleOnChange,
   handleOnSubmit,
 }) => {
@@ -15,8 +21,8 @@ const ProductUpdateForm = ({
     brands,
     brand,
     images,
-    categories,
-    // category,
+    category,
+    // categories,
     subcategories,
     shipping,
     quantity,
@@ -25,6 +31,43 @@ const ProductUpdateForm = ({
     <form onSubmit={handleOnSubmit}>
       <div className="form-group">
         <div className="col-md-6 offset-md-3">
+          <>
+            <label className="float-left">Category</label>
+            <select
+              className="form-control mb-2"
+              name="category"
+              onChange={handleOnCategory}
+              autoFocus
+            >
+              <option>{category ? category.name : "Please Select"}</option>
+              {categories.length > 0 &&
+                categories.map((c) => (
+                  <option key={c._id} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
+            </select>
+          </>
+          {/* <>
+            <label className="float-left">Sub Categories</label>
+            <Select
+              className="form-control mb-2"
+              mode="multiple"
+              placeholder="Please Select"
+              value={subcategories}
+              onChange={(sub) => setProduct({ ...product, subcategories: sub })}
+            >
+              {subCategories.map((sub) => (
+                <Option
+                  placeholder="Please Select"
+                  key={sub._id}
+                  value={sub._id}
+                >
+                  {sub.name}
+                </Option>
+              ))}
+            </Select>
+          </> */}
           <>
             <label className="float-left">Product Name</label>
             <input
