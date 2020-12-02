@@ -5,8 +5,8 @@ import logo from "../../assets/yard-sale.jpg";
 
 const { Meta } = Card;
 
-const AdminProductCard = ({ product }) => {
-  const { name, description, images } = product;
+const AdminProductCard = ({ product, handleOnDelete }) => {
+  const { name, description, images, slug } = product;
   const img = images && images.length ? images[0].url : logo;
   const desc = description && description.substring(0, 50);
 
@@ -22,7 +22,10 @@ const AdminProductCard = ({ product }) => {
       }
       actions={[
         <EditOutlined className="text-warning" />,
-        <DeleteOutlined className="text-danger" />,
+        <DeleteOutlined
+          className="text-danger"
+          onClick={() => handleOnDelete(slug)}
+        />,
       ]}
     >
       <Meta title={name} description={`${desc}...`} />
