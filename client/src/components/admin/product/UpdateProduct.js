@@ -34,6 +34,7 @@ const UpdateProduct = ({ match }) => {
   const [product, setProduct] = useState(initState);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [subCategoryIDs, setSubCategoryIDs] = useState([]);
   const { slug } = match.params;
 
   useEffect(() => {
@@ -43,7 +44,19 @@ const UpdateProduct = ({ match }) => {
 
   const loadProduct = async () => {
     await getProduct(slug).then((p) => {
+      // set product to response data
       setProduct({ ...product, ...p.data });
+      // load product instance sub categories
+      getSubCategories(p.data.category._id).then((res) =>
+        setSubCategories(res.data)
+      );
+      // prepare list of sub category ids of product instance
+      let ids = [];
+      p.data.subcategories.map((sub) => {
+        ids.push(sub._id);
+      });
+      // this is for the purpose of ant design Select component
+      setSubCategoryIDs((prev) => ids);
     });
   };
 
@@ -83,6 +96,8 @@ const UpdateProduct = ({ match }) => {
             setProduct={setProduct}
             categories={categories}
             subCategories={subCategories}
+            subCategoryIDs={subCategoryIDs}
+            setSubCategoryIDs={setSubCategoryIDs}
             handleOnCategory={handleOnCategory}
             handleOnChange={handleOnChange}
             handleOnSubmit={handleOnSubmit}
