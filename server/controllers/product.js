@@ -39,7 +39,6 @@ exports.read = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const { product } = req.body;
   try {
     if (req.body.name) {
       req.body.slug = slugify(req.body.name);
