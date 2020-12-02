@@ -35,6 +35,7 @@ const UpdateProduct = ({ match }) => {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [subCategoryIDs, setSubCategoryIDs] = useState([]);
+  const [categorySelect, setCategorySelect] = useState("");
   const { slug } = match.params;
 
   useEffect(() => {
@@ -66,11 +67,19 @@ const UpdateProduct = ({ match }) => {
 
   const handleOnCategory = (e) => {
     console.log("Parent Category ID:", e.target.value);
-    setProduct({ ...product, subcategories: [], category: e.target.value });
+    setProduct({ ...product, subcategories: [] });
+    setCategorySelect(e.target.value);
     getSubCategories(e.target.value).then((res) => {
       console.log("Paretn Sub Categories:", res.data);
       setSubCategories(res.data);
     });
+
+    // pre populates default sub categories if admin selects back to original category
+    if (product.category._id === e.target.value) {
+      loadProduct();
+    }
+    // clear default sub categories
+    setSubCategoryIDs([]);
   };
 
   const handleOnChange = (e) => {
@@ -98,6 +107,7 @@ const UpdateProduct = ({ match }) => {
             subCategories={subCategories}
             subCategoryIDs={subCategoryIDs}
             setSubCategoryIDs={setSubCategoryIDs}
+            categorySelect={categorySelect}
             handleOnCategory={handleOnCategory}
             handleOnChange={handleOnChange}
             handleOnSubmit={handleOnSubmit}
