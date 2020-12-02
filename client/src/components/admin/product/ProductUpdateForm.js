@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "antd";
+import ImageUpload from "./ImageUpload";
 
 const { Option } = Select;
 
@@ -11,6 +12,8 @@ const ProductUpdateForm = ({
   subCategoryIDs,
   setSubCategoryIDs,
   categorySelect,
+  isLoading,
+  setIsLoading,
   handleOnCategory,
   handleOnChange,
   handleOnSubmit,
@@ -157,6 +160,12 @@ const ProductUpdateForm = ({
               onChange={handleOnChange}
             />
           </>
+          <ImageUpload
+            product={product}
+            setProduct={setProduct}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+          />
           <button className="btn btn-primary m-3" type="submit">
             Update
           </button>
