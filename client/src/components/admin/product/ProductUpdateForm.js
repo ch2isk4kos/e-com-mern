@@ -22,7 +22,6 @@ const ProductUpdateForm = ({
     brand,
     images,
     category,
-    // categories,
     subcategories,
     shipping,
     quantity,

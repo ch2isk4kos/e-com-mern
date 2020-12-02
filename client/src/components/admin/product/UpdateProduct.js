@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import AdminNav from "../AdminNav";
 import ProductUpdateForm from "./ProductUpdateForm";
 import {
   getCategories,
   getSubCategories,
 } from "../../../api/nodejs/categories";
+// import { getSubCategories } from "../../../api/nodejs/subCategories";
 import { getProduct, updateProduct } from "../../../api/nodejs/products";
-import { toast } from "react-toastify";
-import { LoadingOutlined } from "@ant-design/icons";
+// import { toast } from "react-toastify";
+// import { LoadingOutlined } from "@ant-design/icons";
 
 const initState = {
   name: "",
@@ -20,7 +21,7 @@ const initState = {
   brands: ["Apple", "Asus", "Microsoft"],
   brand: "",
   images: [],
-  categories: [],
+  // categories: [],
   category: "",
   subcategories: [],
   shipping: "",
@@ -31,20 +32,32 @@ const initState = {
 const UpdateProduct = ({ match }) => {
   const { user } = useSelector((state) => ({ ...state }));
   const [product, setProduct] = useState(initState);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
   const { slug } = match.params;
 
   useEffect(() => {
     loadProduct();
+    loadCategories();
   }, []);
 
-  const loadProduct = () => {
-    getProduct(slug)
-      .then((res) => {
-        setProduct({ ...product, ...res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const loadProduct = async () => {
+    await getProduct(slug).then((p) => {
+      setProduct({ ...product, ...p.data });
+    });
+  };
+
+  const loadCategories = async () => {
+    getCategories().then((c) => setCategories(c.data));
+  };
+
+  const handleOnCategory = (e) => {
+    console.log("Parent Category ID:", e.target.value);
+    setProduct({ ...product, subcategories: [], category: e.target.value });
+    getSubCategories(e.target.value).then((res) => {
+      console.log("Paretn Sub Categories:", res.data);
+      setSubCategories(res.data);
+    });
   };
 
   const handleOnChange = (e) => {
@@ -68,6 +81,9 @@ const UpdateProduct = ({ match }) => {
           <ProductUpdateForm
             product={product}
             setProduct={setProduct}
+            categories={categories}
+            subCategories={subCategories}
+            handleOnCategory={handleOnCategory}
             handleOnChange={handleOnChange}
             handleOnSubmit={handleOnSubmit}
           />
