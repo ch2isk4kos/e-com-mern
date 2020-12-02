@@ -9,7 +9,7 @@ import {
 } from "../../../api/nodejs/categories";
 // import { getSubCategories } from "../../../api/nodejs/subCategories";
 import { getProduct, updateProduct } from "../../../api/nodejs/products";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const initState = {
@@ -29,7 +29,7 @@ const initState = {
   purchased: "",
 };
 
-const UpdateProduct = ({ match }) => {
+const UpdateProduct = ({ match, history }) => {
   const { user } = useSelector((state) => ({ ...state }));
   const [product, setProduct] = useState(initState);
   const [categories, setCategories] = useState([]);
@@ -89,6 +89,19 @@ const UpdateProduct = ({ match }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    product.subcategories = subCategoryIDs;
+    product.category = categorySelect ? categorySelect : product.category;
+    updateProduct(slug, product, user.token)
+      .then((res) => {
+        setIsLoading(false);
+        toast.success(`${res.data.name} updated successfully`);
+        history.push("/admin/products");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response.data.errMsg);
+      });
   };
 
   return (
