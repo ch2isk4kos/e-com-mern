@@ -41,17 +41,21 @@ exports.read = async (req, res) => {
 exports.update = async (req, res) => {
   const { product } = req.body;
   try {
+    if (req.body.name) {
+      req.body.slug = slugify(req.body.name);
+    }
+
     const p = await Product.findOneAndUpdate(
       { slug: req.params.slug },
-      { product: product, slug: slugify(product.name) },
-      { new: true }
-    );
+      req.body,
+      { new: true } // sends new data to client
+    ).exec();
     res.json(p);
   } catch (err) {
     console.log("PRODUCT UPDATE FAIL:", err);
-    res.status(400).send("Product Deletion Failed");
+    return res.status(400).send("Product Deletion Failed");
   }
-  await Product.findOne({ slug: req.params.slug });
+  // await Product.findOne({ slug: req.params.slug });
 };
 
 exports.remove = async (req, res) => {
