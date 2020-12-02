@@ -31,7 +31,10 @@ exports.create = async (req, res) => {
 };
 
 exports.read = async (req, res) => {
-  let p = await Product.findOne({ slug: req.params.slug }).exec();
+  let p = await Product.findOne({ slug: req.params.slug })
+    .populate("category")
+    .populate("subcategories")
+    .exec();
   res.json(p);
 };
 
