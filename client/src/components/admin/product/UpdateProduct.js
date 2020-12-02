@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import ProductForm from "./ProductForm";
 import AdminNav from "../AdminNav";
+import ProductUpdateForm from "./ProductUpdateForm";
 import {
   getCategories,
   getSubCategories,
@@ -47,6 +47,14 @@ const UpdateProduct = ({ match }) => {
       });
   };
 
+  const handleOnChange = (e) => {
+    setProduct({ ...product, [e.target.name]: e.target.value });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -55,8 +63,14 @@ const UpdateProduct = ({ match }) => {
         </div>
         <div className="col-md-10">
           <h1>Update Product</h1>
-          {/* Update Product Form */}
+          {/* Product Update Form */}
           {JSON.stringify(product)}
+          <ProductUpdateForm
+            product={product}
+            setProduct={setProduct}
+            handleOnChange={handleOnChange}
+            handleOnSubmit={handleOnSubmit}
+          />
         </div>
       </div>
     </div>
