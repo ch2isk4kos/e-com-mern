@@ -143,6 +143,7 @@ const ProductForm = ({
             <label className="float-left">Quantity</label>
             <input
               className="form-control mb-2"
+              type="number"
               name="quantity"
               value={quantity}
               onChange={handleOnChange}
