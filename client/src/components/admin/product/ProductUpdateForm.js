@@ -8,6 +8,8 @@ const ProductUpdateForm = ({
   setProduct,
   categories,
   subCategories,
+  subCategoryIDs,
+  setSubCategoryIDs,
   handleOnCategory,
   handleOnChange,
   handleOnSubmit,
@@ -47,14 +49,14 @@ const ProductUpdateForm = ({
                 ))}
             </select>
           </>
-          {/* <>
+          <>
             <label className="float-left">Sub Categories</label>
             <Select
               className="form-control mb-2"
               mode="multiple"
               placeholder="Please Select"
-              value={subcategories}
-              onChange={(sub) => setProduct({ ...product, subcategories: sub })}
+              value={subCategoryIDs}
+              onChange={(sub) => setSubCategoryIDs(sub)}
             >
               {subCategories.map((sub) => (
                 <Option
@@ -66,7 +68,7 @@ const ProductUpdateForm = ({
                 </Option>
               ))}
             </Select>
-          </> */}
+          </>
           <>
             <label className="float-left">Product Name</label>
             <input
