@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="jumbotron">
+      <div className="jumbotron" style={{ background: "LightGrey" }}>
         <h1>Home</h1>
         {isLoading ? <h3>Loading</h3> : <h3>Shop Products</h3>}
         {/* {JSON.stringify(products)} */}
