@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import AdminNav from "../AdminNav";
 import AdminProductCard from "../AdminProductCard";
-import { getProductsByCount } from "../../../api/nodejs/products";
+import {
+  getProductsByCount,
+  removeProduct,
+} from "../../../api/nodejs/products";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -25,6 +28,14 @@ const Products = () => {
       });
   };
 
+  const handleOnDelete = (slug) => {
+    const slugName = slug.replace(/-/g, " ");
+    let remove = window.confirm(`Delete ${slugName}?`);
+    if (remove) {
+      console.log("Delete", remove);
+    }
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -39,7 +50,7 @@ const Products = () => {
           <div className="row">
             {products.map((p) => (
               <div className="col-md-4 mb-4" key={p._id}>
-                <AdminProductCard product={p} />
+                <AdminProductCard product={p} handleOnDelete={handleOnDelete} />
               </div>
             ))}
           </div>
