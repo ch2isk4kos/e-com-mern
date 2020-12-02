@@ -20,8 +20,8 @@ const {
 // Category Routes
 router.get("/products", index);
 router.get("/products/:count", index);
-
 router.post("/product", authenticateToken, authenticateAdmin, create);
+router.get("/product/:slug", read);
 router.put("/product/:slug", authenticateToken, authenticateAdmin, update);
 router.delete("/product/:slug", authenticateToken, authenticateAdmin, remove);
 
