@@ -10,7 +10,7 @@ import {
 // import { getSubCategories } from "../../../api/nodejs/subCategories";
 import { getProduct, updateProduct } from "../../../api/nodejs/products";
 // import { toast } from "react-toastify";
-// import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const initState = {
   name: "",
@@ -36,6 +36,7 @@ const UpdateProduct = ({ match }) => {
   const [subCategories, setSubCategories] = useState([]);
   const [subCategoryIDs, setSubCategoryIDs] = useState([]);
   const [categorySelect, setCategorySelect] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { slug } = match.params;
 
   useEffect(() => {
@@ -97,7 +98,7 @@ const UpdateProduct = ({ match }) => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          <h1>Update Product</h1>
+          {isLoading ? <LoadingOutlined /> : <h1>Update Product</h1>}
           {/* Product Update Form */}
           {JSON.stringify(product)}
           <ProductUpdateForm
@@ -108,6 +109,8 @@ const UpdateProduct = ({ match }) => {
             subCategoryIDs={subCategoryIDs}
             setSubCategoryIDs={setSubCategoryIDs}
             categorySelect={categorySelect}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
             handleOnCategory={handleOnCategory}
             handleOnChange={handleOnChange}
             handleOnSubmit={handleOnSubmit}
