@@ -8,7 +8,7 @@ const { Meta } = Card;
 
 const AdminProductCard = ({ product, handleOnDelete }) => {
   const { name, description, images, slug } = product;
-  const img = images && images.length ? images[0].url : logo;
+  const src = images && images.length ? images[0].url : logo;
   const desc = description && description.substring(0, 50);
 
   return (
@@ -16,7 +16,7 @@ const AdminProductCard = ({ product, handleOnDelete }) => {
       cover={
         <img
           className="p-1"
-          src={img}
+          src={src}
           alt={"product"}
           style={{ height: "300px" }}
         />
