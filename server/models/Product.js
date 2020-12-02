@@ -31,7 +31,11 @@ const productSchema = new mongoose.Schema(
       maxLength: 32,
       text: true,
     },
-    quanitity: Number,
+    quanitity: {
+      type: Number,
+      required: true,
+      text: true,
+    },
     // purchased: {
     //   type: Number,
     //   default: 0,
