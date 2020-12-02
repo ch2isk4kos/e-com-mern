@@ -10,6 +10,7 @@ const ProductUpdateForm = ({
   subCategories,
   subCategoryIDs,
   setSubCategoryIDs,
+  categorySelect,
   handleOnCategory,
   handleOnChange,
   handleOnSubmit,
@@ -37,10 +38,10 @@ const ProductUpdateForm = ({
             <select
               className="form-control mb-2"
               name="category"
+              value={categorySelect ? categorySelect : category._id}
               onChange={handleOnCategory}
               autoFocus
             >
-              <option>{category ? category.name : "Please Select"}</option>
               {categories.length > 0 &&
                 categories.map((c) => (
                   <option key={c._id} value={c._id}>
