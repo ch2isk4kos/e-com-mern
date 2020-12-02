@@ -52,7 +52,10 @@ exports.update = async (req, res) => {
     res.json(p);
   } catch (err) {
     console.log("PRODUCT UPDATE FAIL:", err);
-    return res.status(400).send("Product Deletion Failed");
+    // return res.status(400).send("Product Deletion Failed");
+    res.status(400).json({
+      errMsg: err.message,
+    });
   }
   // await Product.findOne({ slug: req.params.slug });
 };
