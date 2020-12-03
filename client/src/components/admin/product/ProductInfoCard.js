@@ -1,7 +1,8 @@
 import React from "react";
-import { Card } from "antd";
 import { Link } from "react-router-dom";
+import ProductInfo from "./ProductInfo";
 import logo from "../../../assets/yard-sale.jpg";
+import { Card } from "antd";
 import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -40,7 +41,9 @@ const ProductInfoCard = ({ product }) => {
               <p>Add to Cart</p>
             </>,
           ]}
-        ></Card>
+        >
+          <ProductInfo product={product} />
+        </Card>
       </div>
       <div className="col-md-7"></div>
     </>
