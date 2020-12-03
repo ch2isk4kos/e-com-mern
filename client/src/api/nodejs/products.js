@@ -11,11 +11,11 @@ export const getProductsByCount = async (count) => {
   return await axios.get(`${NODE_API}/products/${count}`);
 };
 
-export const listProducts = async (sort, order, limit) => {
+export const listProducts = async (sort, order, page) => {
   return await axios.post(`${NODE_API}/products/list`, {
     sort: sort,
     order: order,
-    limit: limit,
+    page: page,
   });
 };
 
