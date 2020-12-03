@@ -1,5 +1,6 @@
 import React from "react";
 import Jumbotron from "./Jumbotron";
+import BestSellers from "./BestSellers";
 import NewArrivals from "./NewArrivals";
 
 const Home = () => {
@@ -30,6 +31,15 @@ const Home = () => {
       </div>
       <>
         <NewArrivals />
+      </>
+      <div
+        className="p-3 mt-3 mb-3 display-4"
+        style={{ background: "WhiteSmoke" }}
+      >
+        Best Sellers
+      </div>
+      <>
+        <BestSellers />
       </>
     </>
   );
