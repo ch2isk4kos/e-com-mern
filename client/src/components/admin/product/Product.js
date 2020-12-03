@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductInfo from "../product/ProductInfo";
+import ProductInfoCard from "../product/ProductInfoCard";
 import { getProduct } from "../../../api/nodejs/products";
 
 const Product = ({ match }) => {
@@ -17,7 +17,7 @@ const Product = ({ match }) => {
   return (
     <div className="container-fluid">
       <div className="row pt-4">
-        <ProductInfo product={product} />
+        <ProductInfoCard product={product} />
       </div>
     </div>
   );

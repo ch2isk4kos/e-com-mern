@@ -8,8 +8,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const { Meta } = Card;
 
-const ProductInfo = ({ product }) => {
-  const { name, description, images, slug } = product;
+const ProductInfoCard = ({ product }) => {
+  const { name, images } = product;
   return (
     <>
       <div className="col-md-7">
@@ -24,9 +24,12 @@ const ProductInfo = ({ product }) => {
         )}
       </div>
       <div className="col-md-5">
+        <h1 className="p-3" style={{ background: "WhiteSmoke" }}>
+          {name}
+        </h1>
         <Card
           actions={[
-            <Link to={`/product/${slug}`}>
+            <Link to={`/`}>
               <HeartOutlined className="text-warning" />
               <br />
               <p>Like</p>
@@ -37,13 +40,11 @@ const ProductInfo = ({ product }) => {
               <p>Add to Cart</p>
             </>,
           ]}
-        >
-          <Meta title={name} description={description}></Meta>
-        </Card>
+        ></Card>
       </div>
       <div className="col-md-7"></div>
     </>
   );
 };
 
-export default ProductInfo;
+export default ProductInfoCard;
