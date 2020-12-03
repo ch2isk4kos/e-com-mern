@@ -11,6 +11,7 @@ const {
 // authentication controller imports
 const {
   index,
+  list,
   create,
   read,
   update,
@@ -19,6 +20,7 @@ const {
 
 // Category Routes
 router.get("/products", index);
+router.post("/products", list);
 router.get("/products/:count", index);
 router.post("/product", authenticateToken, authenticateAdmin, create);
 router.get("/product/:slug", read);
