@@ -16,14 +16,36 @@ exports.index = async (req, res) => {
   res.json(p);
 };
 
+// exports.list = async (req, res) => {
+//   try {
+//     const { sort, order, limit } = req.body;
+//     const products = await Product.find({})
+//       .populate("category")
+//       .populate("subcategories")
+//       .sort([[sort, order]])
+//       .limit(limit)
+//       .exec();
+//     res.json(products);
+//   } catch (err) {
+//     res.status(400).json({
+//       errMsg: err.message,
+//     });
+//   }
+// };
+
+// with pagination
 exports.list = async (req, res) => {
   try {
-    const { sort, order, limit } = req.body;
+    const { sort, order, display } = req.body;
+    const current = display || 1;
+    const per = 3;
+
     const products = await Product.find({})
+      .dkip((current - 1) * per)
       .populate("category")
       .populate("subcategories")
       .sort([[sort, order]])
-      .limit(limit)
+      .limit(per)
       .exec();
     res.json(products);
   } catch (err) {
