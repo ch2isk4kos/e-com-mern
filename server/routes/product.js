@@ -21,7 +21,7 @@ const {
 
 // Category Routes
 router.get("/products", index);
-router.post("/products", list);
+router.post("/products/list", list);
 router.get("/products/tally", tally);
 router.get("/products/:count", index);
 router.post("/product", authenticateToken, authenticateAdmin, create);
