@@ -66,12 +66,12 @@ const productSchema = new mongoose.Schema(
         ref: "Sub",
       },
     ],
-    // ratings: [
-    //   {
-    //     star: Number,
-    //     reviewer: { type: ObjectId, ref: "User" },
-    //   },
-    // ],
+    ratings: [
+      {
+        star: Number,
+        reviewer: { type: ObjectId, ref: "User" },
+      },
+    ],
   },
   { timestamps: true }
 );
