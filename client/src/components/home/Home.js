@@ -24,7 +24,7 @@ const Home = () => {
         />
       </div>
       <div
-        className="p-3 mt-3 mb-3 display-4"
+        className="p-3 mt-3 mb-3 display-5"
         style={{ background: "WhiteSmoke" }}
       >
         New Arrivals
@@ -33,7 +33,7 @@ const Home = () => {
         <NewArrivals />
       </>
       <div
-        className="p-3 mt-3 mb-3 display-4"
+        className="p-3 mt-3 mb-3 display-5"
         style={{ background: "WhiteSmoke" }}
       >
         Best Sellers
