@@ -69,7 +69,7 @@ const productSchema = new mongoose.Schema(
     ratings: [
       {
         rating: Number,
-        user: { type: ObjectId, ref: "User" },
+        userId: { type: ObjectId, ref: "User" },
       },
     ],
   },
