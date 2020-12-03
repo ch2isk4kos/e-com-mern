@@ -12,7 +12,7 @@ const NewArrivals = () => {
 
   useEffect(() => {
     loadProducts();
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     tallyProducts().then((res) => setTally(res.data));
@@ -20,9 +20,9 @@ const NewArrivals = () => {
 
   const loadProducts = () => {
     setIsLoading(true);
-    listProducts("createdAt", "desc", 3).then((res) => {
-      setProducts(res.data);
+    listProducts("createdAt", "desc", page).then((res) => {
       setIsLoading(false);
+      setProducts(res.data);
     });
   };
 
@@ -43,13 +43,16 @@ const NewArrivals = () => {
           </div>
         )}
       </div>
-      <>
-        <Pagination
-          current={page}
-          total={(tally / 3) * 10}
-          onChange={(v) => setPage(v)}
-        />
-      </>
+      <div className="container">
+        <nav className="row">
+          <Pagination
+            className="mt-3 mb-5"
+            current={page}
+            total={(tally / 3) * 10}
+            onChange={(v) => setPage(v)}
+          />
+        </nav>
+      </div>
     </>
   );
 };
