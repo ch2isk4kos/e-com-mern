@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ProductInfo from "../product/ProductInfo";
 import { getProduct } from "../../../api/nodejs/products";
 
 const Product = ({ match }) => {
@@ -13,7 +14,13 @@ const Product = ({ match }) => {
     getProduct(slug).then((res) => setProduct(res.data));
   };
 
-  return <div>{JSON.stringify(product)}</div>;
+  return (
+    <div className="container-fluid">
+      <div className="row pt-4">
+        <ProductInfo product={product} />
+      </div>
+    </div>
+  );
 };
 
 export default Product;
