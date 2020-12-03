@@ -36,12 +36,12 @@ exports.index = async (req, res) => {
 // with pagination
 exports.list = async (req, res) => {
   try {
-    const { sort, order, display } = req.body;
-    const current = display || 1;
+    const { sort, order, page } = req.body;
+    const current = page || 1;
     const per = 3;
 
     const products = await Product.find({})
-      .dkip((current - 1) * per)
+      .skip((current - 1) * per)
       .populate("category")
       .populate("subcategories")
       .sort([[sort, order]])
