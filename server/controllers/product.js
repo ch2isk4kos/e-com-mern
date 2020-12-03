@@ -88,3 +88,8 @@ exports.remove = async (req, res) => {
     res.status(400).send("Product Deletion Failed");
   }
 };
+
+exports.tally = async (req, res) => {
+  let p = await Product.find({}).estimatedDocumentCount().exec();
+  res.json(p);
+};
