@@ -12,11 +12,15 @@ export const getProductsByCount = async (count) => {
 };
 
 export const listProducts = async (sort, order, limit) => {
-  return await axios.post(`${NODE_API}/products`, {
+  return await axios.post(`${NODE_API}/products/list`, {
     sort: sort,
     order: order,
     limit: limit,
   });
+};
+
+export const tallyProducts = async () => {
+  return await axios.get(`${NODE_API}/products/tally`);
 };
 
 // creete
