@@ -12,7 +12,8 @@ code {
     monospace;
 }
 
-.slide img {
+.slider img,
+.card-image {
   height: 500px;
   object-fit: cover;
 }
