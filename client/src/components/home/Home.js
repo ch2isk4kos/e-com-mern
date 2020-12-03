@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import jumbotron from "./Jumbotron";
-import ProductCard from "../components/admin/product/ProductCard";
-import ProductCardLoad from "../components/admin/product/ProductCardLoad";
-import { getProducts, getProductsByCount } from "../api/nodejs/products";
 import Jumbotron from "./Jumbotron";
+import ProductCard from "../admin/product/ProductCard";
+import ProductCardLoad from "../admin/product/ProductCardLoad";
+import { getProducts, listProducts } from "../../api/nodejs/products";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -15,7 +14,7 @@ const Home = () => {
 
   const loadProducts = () => {
     setIsLoading(true);
-    getProductsByCount(3).then((res) => {
+    listProducts("createdAt", "desc", 3).then((res) => {
       setProducts(res.data);
       setIsLoading(false);
     });
@@ -26,7 +25,7 @@ const Home = () => {
       <div
         className="jumbotron mb-5"
         style={{
-          background: "LightGrey",
+          background: "WhiteSmoke",
           padding: "2em",
           fontSize: "4em",
           fontWeight: "bold",
@@ -39,6 +38,12 @@ const Home = () => {
             "Powered by MongoDB and Google",
           ]}
         />
+      </div>
+      <div
+        className="p-3 mt-3 mb-3 display-4"
+        style={{ background: "WhiteSmoke" }}
+      >
+        New Arrivals
       </div>
       <div className="container">
         {isLoading ? (

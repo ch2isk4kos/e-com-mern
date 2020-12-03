@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Header from "./components/nav/Header";
 import Landing from "./components/Landing";
-import Home from "./components/Home";
+import Home from "./components/home/Home";
 import Signup from "./components/auth/Signup";
 import SignupVerified from "./components/auth/SignupVerified";
 import Login from "./components/auth/Login";
