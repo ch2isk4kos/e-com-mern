@@ -36,10 +36,10 @@ const productSchema = new mongoose.Schema(
       required: true,
       text: true,
     },
-    // purchased: {
-    //   type: Number,
-    //   default: 0,
-    // },
+    purchased: {
+      type: Number,
+      default: 0,
+    },
     color: {
       type: String,
     },
