@@ -16,6 +16,23 @@ exports.index = async (req, res) => {
   res.json(p);
 };
 
+exports.list = async (req, res) => {
+  try {
+    const { sort, order, limit } = req.body;
+    const products = await Product.find({})
+      .populate("category")
+      .populate("subcategories")
+      .sort([[sort, order]])
+      .limit(limit)
+      .exec();
+    res.json(products);
+  } catch (err) {
+    res.status(400).json({
+      errMsg: err.message,
+    });
+  }
+};
+
 exports.create = async (req, res) => {
   try {
     console.log(req.body);
