@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../admin/product/ProductCard";
 import ProductCardLoad from "../admin/product/ProductCardLoad";
-import { listProducts } from "../../api/nodejs/products";
+import { listProducts, tallyProducts } from "../../api/nodejs/products";
+import { Pagination } from "antd";
 
 const NewArrivals = () => {
   const [products, setProducts] = useState([]);
+  const [tally, setTally] = useState(0);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     loadProducts();
+  }, []);
+
+  useEffect(() => {
+    tallyProducts().then((res) => setTally(res.data));
   }, []);
 
   const loadProducts = () => {
@@ -36,6 +43,13 @@ const NewArrivals = () => {
           </div>
         )}
       </div>
+      <>
+        <Pagination
+          current={page}
+          total={(tally / 3) * 10}
+          onChange={(v) => setPage(v)}
+        />
+      </>
     </>
   );
 };
