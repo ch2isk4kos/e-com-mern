@@ -22,6 +22,7 @@ import UpdateSubCategory from "./components/admin/subCategory/UpdateSubCategory"
 import CreateProduct from "./components/admin/product/CreateProduct";
 import UpdateProduct from "./components/admin/product/UpdateProduct";
 import Products from "./components/admin/product/Products";
+import Product from "./components/admin/product/Product";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -103,6 +104,8 @@ const App = () => {
           component={UpdateProduct}
         />
         <AdminRoute exact path={"/admin/products"} component={Products} />
+        {/* Products */}
+        <Route exact path={"/product/:slug"} component={Product} />
       </Switch>
     </div>
   );
