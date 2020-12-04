@@ -6,7 +6,7 @@ const ProductCardLoad = ({ count }) => {
     let cards = [];
     for (let i = 0; i < count; i++) {
       cards.push(
-        <Card className="col m-5">
+        <Card key={i} className="col m-5">
           <Skeleton active></Skeleton>
         </Card>
       );
