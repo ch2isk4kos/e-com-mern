@@ -1,10 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ProductInfo from "./ProductInfo";
+import RatingModal from "./RatingModal";
 import logo from "../../../assets/yard-sale.jpg";
 import StarRating from "react-star-ratings";
 import { Card, Tabs } from "antd";
-import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+  HeartOutlined,
+  StarOutlined,
+  ShoppingCartOutlined,
+} from "@ant-design/icons";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -42,16 +47,7 @@ const ProductInfoCard = ({ product }) => {
         <h1 className="p-3" style={{ background: "WhiteSmoke" }}>
           {name}
         </h1>
-        <StarRating
-          name={_id}
-          numberOfStars={5}
-          starRatedColor="orange"
-          rating={4}
-          isSelectable={true}
-          changeRating={(r, pId) =>
-            console.log("rating:", r, "product ID:", pId)
-          }
-        />
+
         <Card
           actions={[
             <Link to={`/`}>
@@ -64,6 +60,18 @@ const ProductInfoCard = ({ product }) => {
               <br />
               <p>Add to Cart</p>
             </>,
+            <RatingModal>
+              <StarRating
+                name={_id}
+                numberOfStars={5}
+                starRatedColor="orange"
+                rating={4}
+                isSelectable={true}
+                changeRating={(r, pId) =>
+                  console.log("rating:", r, "product ID:", pId)
+                }
+              />
+            </RatingModal>,
           ]}
         >
           <ProductInfo product={product} />
