@@ -35,5 +35,6 @@ router.put("/product/:slug", authenticateToken, authenticateAdmin, update);
 // d
 router.delete("/product/:slug", authenticateToken, authenticateAdmin, remove);
 // ratings
-router.put("/product/:id/rating", authenticateToken, rating);
+router.put("/product/:productId/rating", authenticateToken, rating);
+
 module.exports = router;

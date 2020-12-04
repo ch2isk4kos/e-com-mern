@@ -1,6 +1,6 @@
 const Product = require("../models/Product");
-const slugify = require("slugify");
 const User = require("../models/User");
+const slugify = require("slugify");
 
 // exports.index = async (req, res) => {
 //   const p = await Product.find({}).sort({ createdAt: -1 }).exec();
@@ -117,37 +117,35 @@ exports.remove = async (req, res) => {
   }
 };
 
-exports.rating = async (res, req) => {
-  const p = await Product.findById(req.params.productId).exec();
-  const u = await User.findOne({ email: req.user.email }).exec();
+exports.rating = async (req, res) => {
+  console.log("REQUEST PARAMS:", req.params);
+  const product = await Product.findById(req.params.productId).exec();
+  const user = await User.findOne({ email: req.user.email }).exec();
   const { rating } = req.body;
 
-  let currentRating = p.ratings.find(
-    (r) => r.userId.toString() === u._id.toString()
+  let currentRating = product.ratings.find(
+    (rating) => rating.ratedBy.toString() === user._id.toString()
   );
 
   // if !rating from user: push ratings object
   if (currentRating === undefined) {
-    let productRating = await Product.findOneAndUpdate(
-      p._id,
+    let productRating = await Product.findByIdAndUpdate(
+      product._id,
       {
-        // mongodb method: $push
-        $push: { ratings: { rating: rating, userId: u._id } },
+        $push: { ratings: { rating, ratedBy: user._id } },
       },
       { new: true }
     ).exec();
-
     console.log("product rated:", productRating);
     res.json(productRating);
+  } else {
+    // if rating from user: update ratings object
+    let updateRating = await Product.updateOne(
+      { ratings: { $elemMatch: currentRating } },
+      { $set: { "ratings.$.rating": rating } },
+      { new: true }
+    ).exec();
+    console.log("product rating updated:", updateRating);
+    res.json(updateRating);
   }
-
-  // if rating from user: update ratings object
-  let updateRating = await Product.updateOne(
-    // mongodb methods: $elemMatch and $set
-    { ratings: { $elemMatch: currentRating } },
-    { $set: { "ratings.$.rating": rating } },
-    { new: true }
-  ).exec();
-  console.log("product rating updated:", updateRating);
-  res.json(updateRating);
 };
