@@ -54,3 +54,16 @@ export const removeProduct = async (slug, token) => {
     },
   });
 };
+
+// rating
+export const rateProduct = async (productId, rating, token) => {
+  return await axios.put(
+    `${NODE_API}/product/${productId}/rating`,
+    { rating },
+    {
+      headers: {
+        auth: token,
+      },
+    }
+  );
+};
