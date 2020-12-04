@@ -124,7 +124,7 @@ exports.rating = async (res, req) => {
 
   let currentRating = p.ratings.find((r) => r.userId === u._id.toString());
 
-  // if !rating from user: push to ratings
+  // if !rating from user: push ratings object
   if (currentRating === undefined) {
     let productRating = await Product.findOneAndUpdate(
       p._id,
@@ -135,10 +135,17 @@ exports.rating = async (res, req) => {
       { new: true }
     ).exec();
 
-    console.log("rating updated", productRating);
+    console.log("product rated:", productRating);
     res.json(productRating);
   }
 
-  // if rating from user: update ratings
-  let updateRating;
+  // if rating from user: update ratings object
+  let updateRating = await Product.updateOne(
+    // mongodb methods: $elemMatch and $set
+    { ratings: { $elemMatch: currentRating } },
+    { $set: { "ratings.$.rating": rating } },
+    { new: true }
+  ).exec();
+  console.log("product rating updated:", updateRating);
+  res.json(updateRating);
 };
