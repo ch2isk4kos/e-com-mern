@@ -122,7 +122,9 @@ exports.rating = async (res, req) => {
   const u = await User.findOne({ email: req.user.email }).exec();
   const { rating } = req.body;
 
-  let currentRating = p.ratings.find((r) => r.userId === u._id.toString());
+  let currentRating = p.ratings.find(
+    (r) => r.userId.toString() === u._id.toString()
+  );
 
   // if !rating from user: push ratings object
   if (currentRating === undefined) {
