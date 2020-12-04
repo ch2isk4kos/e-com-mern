@@ -16,7 +16,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 // const { Meta } = Card;
 const { TabPane } = Tabs;
 
-const ProductInfoCard = ({ product }) => {
+const ProductInfoCard = ({ product, rating, handleOnRatingSelection }) => {
   const { _id, name, images, description } = product;
   return (
     <>
@@ -62,14 +62,12 @@ const ProductInfoCard = ({ product }) => {
             </>,
             <RatingModal>
               <StarRating
-                name={_id}
                 numberOfStars={5}
                 starRatedColor="orange"
-                rating={4}
                 isSelectable={true}
-                changeRating={(r, pId) =>
-                  console.log("rating:", r, "product ID:", pId)
-                }
+                name={_id}
+                rating={rating}
+                changeRating={handleOnRatingSelection}
               />
             </RatingModal>,
           ]}
