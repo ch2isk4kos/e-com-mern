@@ -28,16 +28,24 @@ const Login = ({ history }) => {
   // };
 
   useEffect(() => {
-    if (user && user.token) history.push("/home");
-    setEmail("");
-    setPassword("");
+    let detour = history.location.state;
+    if (detour) {
+      return;
+    } else {
+      if (user && user.token) history.push("/home");
+    }
   }, [user, history]);
 
   const roleBasedRedirect = (res) => {
-    if (res.data.role === "admin") {
-      history.push("/admin/dashboard");
+    let detour = history.location.state;
+    if (detour) {
+      history.push(detour.from);
     } else {
-      history.push("/user/history");
+      if (res.data.role === "admin") {
+        history.push("/admin/dashboard");
+      } else {
+        history.push("/user/history");
+      }
     }
   };
 
