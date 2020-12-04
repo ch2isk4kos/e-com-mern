@@ -13,6 +13,16 @@ const Product = ({ match }) => {
     loadProduct();
   }, [slug]);
 
+  useEffect(() => {
+    if (product.ratings && user) {
+      let currentRating = product.ratings.find(
+        (rating) => rating.ratedBy.toString() === user._id.toString()
+      );
+      // current user rating
+      currentRating && setRating(currentRating.rating);
+    }
+  }, [product, user]);
+
   const loadProduct = () => {
     getProduct(slug).then((res) => setProduct(res.data));
   };
