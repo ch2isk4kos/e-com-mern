@@ -122,10 +122,10 @@ exports.rating = async (res, req) => {
   const u = await User.findOne({ email: req.user.email }).exec();
   const { rating } = req.body;
 
-  let currentRatingObject = p.ratings.find((r) => r.userId === u._id.toString());
+  let currentRating = p.ratings.find((r) => r.userId === u._id.toString());
 
   // if !rating from user: push to ratings
-  if (currentRatingObject === undefined) {
+  if (currentRating === undefined) {
     let productRating = await Product.findOneAndUpdate(
       p._id,
       {
@@ -140,5 +140,5 @@ exports.rating = async (res, req) => {
   }
 
   // if rating from user: update ratings
-  if () 
+  let updateRating;
 };
