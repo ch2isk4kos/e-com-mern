@@ -1,5 +1,6 @@
 const Product = require("../models/Product");
 const slugify = require("slugify");
+const User = require("../models/User");
 
 // exports.index = async (req, res) => {
 //   const p = await Product.find({}).sort({ createdAt: -1 }).exec();
@@ -53,6 +54,11 @@ exports.list = async (req, res) => {
       errMsg: err.message,
     });
   }
+};
+
+exports.tally = async (req, res) => {
+  let p = await Product.find({}).estimatedDocumentCount().exec();
+  res.json(p);
 };
 
 exports.create = async (req, res) => {
@@ -111,7 +117,28 @@ exports.remove = async (req, res) => {
   }
 };
 
-exports.tally = async (req, res) => {
-  let p = await Product.find({}).estimatedDocumentCount().exec();
-  res.json(p);
+exports.rating = async (res, req) => {
+  const p = await Product.findById(req.params.productId).exec();
+  const u = await User.findOne({ email: req.user.email }).exec();
+  const { rating } = req.body;
+
+  let currentRatingObject = p.ratings.find((r) => r.userId === u._id.toString());
+
+  // if !rating from user: push to ratings
+  if (currentRatingObject === undefined) {
+    let productRating = await Product.findOneAndUpdate(
+      p._id,
+      {
+        // mongodb method: $push
+        $push: { ratings: { rating: rating, userId: u._id } },
+      },
+      { new: true }
+    ).exec();
+
+    console.log("rating updated", productRating);
+    res.json(productRating);
+  }
+
+  // if rating from user: update ratings
+  if () 
 };
