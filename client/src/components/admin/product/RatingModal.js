@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Modal, Button } from "antd";
 import { StarOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
@@ -9,12 +9,16 @@ const RatingModal = ({ children }) => {
   const { user } = useSelector((state) => ({ ...state }));
   const [isModal, setIsModal] = useState(false);
   let history = useHistory();
+  let params = useParams();
 
   const handleOnRating = () => {
     if (user && user.token) {
       setIsModal(true);
     } else {
-      history.push("/login");
+      history.push({
+        pathname: "/login",
+        state: { from: `/product/${params.slug}` },
+      });
     }
   };
 
