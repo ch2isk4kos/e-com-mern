@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ProductInfo from "./ProductInfo";
 import RatingModal from "./RatingModal";
+import { averageRating } from "../../../api/custom/ratings";
 import logo from "../../../assets/yard-sale.jpg";
 import StarRating from "react-star-ratings";
 import { Card, Tabs } from "antd";
@@ -47,7 +48,9 @@ const ProductInfoCard = ({ product, rating, handleOnRatingSelection }) => {
         <h1 className="p-3" style={{ background: "WhiteSmoke" }}>
           {name}
         </h1>
-
+        {product && product.ratings && product.ratings.length > 0
+          ? averageRating(product)
+          : "No ratings"}
         <Card
           actions={[
             <Link to={`/`}>
