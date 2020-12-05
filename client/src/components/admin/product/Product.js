@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import ProductCard from "../product/ProductCard";
+import ProductCardLoad from "../product/ProductCardLoad";
 import ProductInfoCard from "../product/ProductInfoCard";
-import { getProduct, rateProduct } from "../../../api/nodejs/products";
+import {
+  getProduct,
+  rateProduct,
+  relatedProducts,
+} from "../../../api/nodejs/products";
 
 const Product = ({ match }) => {
   const { user } = useSelector((state) => ({ ...state }));
   const [product, setProduct] = useState({});
+  const [related, setRelated] = useState([]);
   const [rating, setRating] = useState(0);
   const { slug } = match.params;
 
@@ -24,7 +31,10 @@ const Product = ({ match }) => {
   }, [product, user]);
 
   const loadProduct = () => {
-    getProduct(slug).then((res) => setProduct(res.data));
+    getProduct(slug).then((res) => {
+      setProduct(res.data);
+      relatedProducts(res.data._id).then((res) => setRelated(res.data));
+    });
   };
 
   const handleOnRatingSelection = (selection, name) => {
@@ -54,6 +64,19 @@ const Product = ({ match }) => {
         style={{ background: "WhiteSmoke" }}
       >
         Related Products
+      </div>
+      <div className="container">
+        <div className="row">
+          {related.length ? (
+            related.map((p) => (
+              <div className="col-md-4" key={p._id}>
+                <ProductCard product={p} />
+              </div>
+            ))
+          ) : (
+            <div className="col">No Related Products</div>
+          )}
+        </div>
       </div>
     </div>
   );
