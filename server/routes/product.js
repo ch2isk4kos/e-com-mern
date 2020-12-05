@@ -18,6 +18,7 @@ const {
   update,
   remove,
   rating,
+  related,
 } = require("../controllers/product");
 
 // Category Routes
@@ -36,5 +37,7 @@ router.put("/product/:slug", authenticateToken, authenticateAdmin, update);
 router.delete("/product/:slug", authenticateToken, authenticateAdmin, remove);
 // ratings
 router.put("/product/:productId/rating", authenticateToken, rating);
+// related products
+router.get("/product/:productId/related", related);
 
 module.exports = router;
