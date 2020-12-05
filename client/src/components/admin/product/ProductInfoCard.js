@@ -50,7 +50,7 @@ const ProductInfoCard = ({ product, rating, handleOnRatingSelection }) => {
         </h1>
         {product && product.ratings && product.ratings.length > 0
           ? averageRating(product)
-          : "No ratings"}
+          : "No Rating"}
         <Card
           actions={[
             <Link to={`/`}>
