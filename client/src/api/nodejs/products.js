@@ -67,3 +67,8 @@ export const rateProduct = async (productId, rating, token) => {
     }
   );
 };
+
+// related
+export const relatedProducts = async (productId) => {
+  return await axios.get(`${NODE_API}/products/${productId}/related`);
+};
