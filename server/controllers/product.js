@@ -149,3 +149,17 @@ exports.rating = async (req, res) => {
     res.json(updateRating);
   }
 };
+
+exports.related = async (req, res) => {
+  const p = await Product.findById(req.params.productId).exec();
+  const r = await Product.find({
+    _id: { $ne: p._id },
+    category: p.category,
+  })
+    .limit(3)
+    .populate("category")
+    .populate("subcategories")
+    .populate("ratedBy")
+    .exec();
+  res.json(r);
+};
