@@ -18,10 +18,13 @@ export const averageRating = (product) => {
         <span>
           <StarRating
             starRatedColor="orange"
+            starDimension="20px"
+            starSpacing="5px"
             isSelectable={false}
             rating={average}
           />
         </span>
+        <span className="pl-3">( {product.ratings.length} )</span>
       </div>
     );
   }
