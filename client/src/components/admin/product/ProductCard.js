@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { averageRating } from "../../../api/custom/ratings";
 import { Card } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import logo from "../../../assets/yard-sale.jpg";
@@ -36,6 +37,11 @@ const ProductCard = ({ product }) => {
         ]}
       >
         <Meta title={name} description={`${desc}...`} />
+        <div className="mt-3">
+          {product && product.ratings && product.ratings.length > 0
+            ? averageRating(product)
+            : "No Rating"}
+        </div>
       </Card>
     </div>
   );
