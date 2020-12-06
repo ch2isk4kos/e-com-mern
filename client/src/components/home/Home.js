@@ -2,6 +2,7 @@ import React from "react";
 import Jumbotron from "./Jumbotron";
 import BestSellers from "./BestSellers";
 import NewArrivals from "./NewArrivals";
+import Categories from "../../../src/components/admin/category/Categories";
 
 const Home = () => {
   return (
@@ -40,6 +41,15 @@ const Home = () => {
       </div>
       <>
         <BestSellers />
+      </>
+      <div
+        className="p-3 mt-3 mb-3 display-5"
+        style={{ background: "WhiteSmoke" }}
+      >
+        Categories
+      </div>
+      <>
+        <Categories />
       </>
     </>
   );
