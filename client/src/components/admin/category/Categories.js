@@ -15,17 +15,28 @@ const Categories = () => {
   }, []);
 
   return (
-    <div>
-      <div className="container">
-        <div className="row">
-          {isLoading ? (
-            <h4>Loading...</h4>
-          ) : (
-            <div className="btn btn-outlined-primary btn-lg btn-block m-3"></div>
-          )}
-        </div>
-      </div>
-    </div>
+    <>
+      {/* <div className="container">
+        <div className="row"> */}
+      {isLoading ? (
+        <h4>Loading...</h4>
+      ) : (
+        <>
+          {categories &&
+            categories.map((c) => (
+              <button
+                key={c._id}
+                className="btn btn-raised btn-lg btn-outline m-3"
+                // style={{ background: "WhiteSmoke" }}
+              >
+                <Link to={`/category/${c.slug}`}>{c.name}</Link>
+              </button>
+            ))}
+        </>
+      )}
+      {/* </div>
+      </div> */}
+    </>
   );
 };
 
