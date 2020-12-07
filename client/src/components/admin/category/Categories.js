@@ -16,8 +16,6 @@ const Categories = () => {
 
   return (
     <>
-      {/* <div className="container">
-        <div className="row"> */}
       {isLoading ? (
         <h4>Loading...</h4>
       ) : (
@@ -34,8 +32,6 @@ const Categories = () => {
             ))}
         </>
       )}
-      {/* </div>
-      </div> */}
     </>
   );
 };
