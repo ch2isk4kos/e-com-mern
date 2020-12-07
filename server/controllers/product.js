@@ -165,7 +165,7 @@ exports.related = async (req, res) => {
 };
 
 // search action methods
-exports.handleQuery = async (req, res, query) => {
+const handleQuery = async (req, res, query) => {
   const p = await Product.find({ $text: { $search: query } }) // text-base query search
     .populate("category", "_id name")
     .populate("subcategories", "_id name")
