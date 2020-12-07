@@ -21,7 +21,7 @@ const Shop = () => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-3">
-          <h4>Advanced Search</h4>
+          <h4 className="mt-3">Advanced Search</h4>
         </div>
         <div className="col-md-9">
           {isLoading ? <h4>Loading...</h4> : <h4 className="mt-3">Products</h4>}
