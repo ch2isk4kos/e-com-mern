@@ -10,21 +10,17 @@ const { SubMenu, ItemGroup } = Menu;
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [price, setPrice] = useState([0, 0]);
+  const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
   const { text } = search;
 
+  // load default
   useEffect(() => {
     loadProducts();
   }, []);
-
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      loadProductSearch({ query: text });
-      return () => clearTimeout(delay);
-    }, 300);
-  }, [text]);
 
   const loadProducts = () => {
     getProductsByCount(12).then((res) => {
@@ -33,13 +29,36 @@ const Shop = () => {
     });
   };
 
+  // load based on search
   const loadProductSearch = (query) => {
     searchProducts(query).then((res) => {
       setProducts(res.data);
     });
   };
 
-  const loadProductPrices = (price) => {};
+  // query search
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      loadProductSearch({ query: text });
+      return () => clearTimeout(delay);
+    }, 500);
+  }, [text]);
+
+  // price search
+  useEffect(() => {
+    loadProductSearch({ price: price });
+  }, [ok]);
+
+  const handleOnPrice = (value) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice(value);
+    setTimeout(() => {
+      setOk(!ok);
+    }, 500);
+  };
 
   return (
     <div className="container-fluid">
@@ -62,7 +81,7 @@ const Shop = () => {
                   max={10000}
                   tipFormatter={(v) => `$${v}`}
                   value={price}
-                  onChange={(value) => setPrice(value)}
+                  onChange={handleOnPrice}
                 />
               </div>
             </SubMenu>
