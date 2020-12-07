@@ -15,6 +15,7 @@ import EditPassword from "./components/user/profile/EditPassword";
 import Cart from "./components/user/Cart";
 import Wishlist from "./components/user/Wishlist";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import Category from "./components/admin/category/Category";
 import CreateCategory from "./components/admin/category/CreateCategory";
 import UpdateCategory from "./components/admin/category/UpdateCategory";
 import CreateSubCategory from "./components/admin/subCategory/CreateSubCategory";
@@ -85,18 +86,21 @@ const App = () => {
           path={"/admin/dashboard"}
           component={AdminDashboard}
         />
+        {/* Admin Categories */}
         <AdminRoute exact path={"/admin/category"} component={CreateCategory} />
         <AdminRoute
           exact
           path={"/admin/category/:slug"}
           component={UpdateCategory}
         />
+        {/* Admin Sub Categories */}
         <AdminRoute exact path={"/admin/sub"} component={CreateSubCategory} />
         <AdminRoute
           exact
           path={"/admin/sub/:slug"}
           component={UpdateSubCategory}
         />
+        {/* Admin Products */}
         <AdminRoute exact path={"/admin/product"} component={CreateProduct} />
         <AdminRoute
           exact
@@ -104,8 +108,10 @@ const App = () => {
           component={UpdateProduct}
         />
         <AdminRoute exact path={"/admin/products"} component={Products} />
-        {/* Products */}
+        {/* Domain Products */}
         <Route exact path={"/product/:slug"} component={Product} />
+        {/* Domain Category */}
+        <Route exact path={"/category/:slug"} component={Category} />
       </Switch>
     </div>
   );
