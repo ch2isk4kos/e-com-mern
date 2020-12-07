@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCount, searchProducts } from "../../api/nodejs/products";
 import ProductCard from "../admin/product/ProductCard";
 import { Menu, Slider } from "antd";
+import { DollarOutlined } from "@ant-design/icons";
+
+const { SubMenu, ItemGroup } = Menu;
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -43,6 +46,27 @@ const Shop = () => {
       <div className="row">
         <div className="col-md-3">
           <h4 className="mt-3">Advanced Search</h4>
+          <Menu defaultOpenKeys={["1", "2"]} mode="inline">
+            <SubMenu
+              key="1"
+              title={
+                <span>
+                  <DollarOutlined /> Price
+                </span>
+              }
+            >
+              <div>
+                <Slider
+                  className="ml-4 mr-4"
+                  range
+                  max={10000}
+                  tipFormatter={(v) => `$${v}`}
+                  value={price}
+                  onChange={(value) => setPrice(value)}
+                />
+              </div>
+            </SubMenu>
+          </Menu>
         </div>
         <div className="col-md-9">
           {isLoading ? <h4>Loading...</h4> : <h4 className="mt-3">Products</h4>}
