@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDipatch } from "react-redux";
-import { getProductsByCount } from "../../api/nodejs/products";
+import { useSelector, useDispatch } from "react-redux";
+import { getProductsByCount, searchProducts } from "../../api/nodejs/products";
 import ProductCard from "../admin/product/ProductCard";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  let { search } = useSelector((state) => ({ ...state }));
+  const { text } = search;
+
   useEffect(() => {
     loadProducts();
   }, []);
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      loadProductsSearch({ query: text });
+      return () => clearTimeout(delay);
+    }, 300);
+  }, [text]);
 
   const loadProducts = () => {
     getProductsByCount(12).then((res) => {
@@ -17,6 +27,13 @@ const Shop = () => {
       setIsLoading(false);
     });
   };
+
+  const loadProductsSearch = (query) => {
+    searchProducts(query).then((res) => {
+      setProducts(res.data);
+    });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
