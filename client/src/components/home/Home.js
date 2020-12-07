@@ -51,6 +51,15 @@ const Home = () => {
       <>
         <Categories />
       </>
+      <div
+        className="p-3 mt-3 mb-3 display-5"
+        style={{ background: "WhiteSmoke" }}
+      >
+        Tags
+      </div>
+      <>
+        <Categories />
+      </>
     </>
   );
 };
