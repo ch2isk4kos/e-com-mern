@@ -1,4 +1,5 @@
 const SubCategory = require("../models/SubCategory");
+const Product = require("../models/Product");
 const slugify = require("slugify");
 
 exports.index = async (req, res) => {
@@ -18,9 +19,14 @@ exports.create = async (req, res) => {
 };
 
 exports.read = async (req, res) => {
-  // let s = await SubCategory.findOne({ slug: req.params.slug });
-  // res.json(s);
-  res.json(await SubCategory.findOne({ slug: req.params.slug }));
+  let sub = await SubCategory.findOne({ slug: req.params.slug });
+  let p = await Product.find({
+    subcategories: sub,
+  })
+    .populate("category")
+    .exec();
+
+  res.json({ sub: sub, products: p });
 };
 
 exports.update = async (req, res) => {
