@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCount, searchProducts } from "../../api/nodejs/products";
 import ProductCard from "../admin/product/ProductCard";
+import { Menu, Slider } from "antd";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
+  const [price, setPrice] = useState([0, 0]);
   const [isLoading, setIsLoading] = useState(false);
 
   let { search } = useSelector((state) => ({ ...state }));
@@ -16,7 +18,7 @@ const Shop = () => {
 
   useEffect(() => {
     const delay = setTimeout(() => {
-      loadProductsSearch({ query: text });
+      loadProductSearch({ query: text });
       return () => clearTimeout(delay);
     }, 300);
   }, [text]);
@@ -28,11 +30,13 @@ const Shop = () => {
     });
   };
 
-  const loadProductsSearch = (query) => {
+  const loadProductSearch = (query) => {
     searchProducts(query).then((res) => {
       setProducts(res.data);
     });
   };
+
+  const loadProductPrices = (price) => {};
 
   return (
     <div className="container-fluid">
