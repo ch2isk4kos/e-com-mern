@@ -3,6 +3,7 @@ import Jumbotron from "./Jumbotron";
 import BestSellers from "./BestSellers";
 import NewArrivals from "./NewArrivals";
 import Categories from "../../../src/components/admin/category/Categories";
+import SubCategories from "../../../src/components/admin/subCategory/SubCategories";
 
 const Home = () => {
   return (
@@ -58,7 +59,7 @@ const Home = () => {
         Tags
       </div>
       <>
-        <Categories />
+        <SubCategories />
       </>
     </>
   );
