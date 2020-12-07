@@ -7,7 +7,7 @@ const Search = () => {
   let dispatch = useDispatch();
   const { search } = useSelector((state) => ({ ...state }));
   const { text } = search;
-  const { history } = useHistory();
+  const history = useHistory();
 
   const handleOnChange = (e) => {
     dispatch({
@@ -17,7 +17,7 @@ const Search = () => {
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    history.push(`/shop?${text}`);
+    history.push(`/shop?=${text}`);
   };
 
   return (
