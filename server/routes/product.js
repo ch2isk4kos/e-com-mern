@@ -40,7 +40,7 @@ router.delete("/product/:slug", authenticateToken, authenticateAdmin, remove);
 router.put("/product/:productId/rating", authenticateToken, rating);
 // related products
 router.get("/product/:productId/related", related);
-// search product products
-router.post("/products/query/filter", search);
+// search products
+router.post("/products/search/", search);
 
 module.exports = router;
