@@ -25,6 +25,7 @@ import CreateProduct from "./components/admin/product/CreateProduct";
 import UpdateProduct from "./components/admin/product/UpdateProduct";
 import Products from "./components/admin/product/Products";
 import Product from "./components/admin/product/Product";
+import Shop from "./components/shop/Shop";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -115,6 +116,8 @@ const App = () => {
         <Route exact path={"/category/:slug"} component={Category} />
         {/* Domain Sub Category */}
         <Route exact path={"/sub/:slug"} component={SubCategory} />
+        {/* Domain Shop */}
+        <Route exact path={"/shop"} component={Shop} />
       </Switch>
     </div>
   );
