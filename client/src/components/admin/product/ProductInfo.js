@@ -48,7 +48,7 @@ const ProductInfo = ({ product }) => {
         <li className="list-group-item">
           <span className="float-left">Category</span>
           <Link
-            to={`/cateogory/${category.slug}`}
+            to={`/category/${category.slug}`}
             className="label label-default label-pill pull-xs-right"
           >
             <span className="float-right">{category.name}</span>
