@@ -72,3 +72,8 @@ export const rateProduct = async (productId, rating, token) => {
 export const relatedProducts = async (productId) => {
   return await axios.get(`${NODE_API}/product/${productId}/related`);
 };
+
+// search
+export const searchProducts = async (query) => {
+  return await axios.post(`${NODE_API}/products/search`, query);
+};
