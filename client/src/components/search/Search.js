@@ -15,13 +15,13 @@ const Search = () => {
       payload: { text: e.target.value },
     });
   };
-  const handleOnCSubmit = () => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
     history.push(`/shop?${text}`);
   };
 
   return (
-    <form className="form-inline my-2 my-lg-0" onSubmit={handleOnSubmit}>
+    <form className="form-inline my-2 my-lg-1 " onSubmit={handleOnSubmit}>
       <input
         className="form-control mr-sm-2"
         type="search"
@@ -29,7 +29,7 @@ const Search = () => {
         value={text}
         onChange={handleOnChange}
       />
-      <SearchOutlined onClick={handleOnSubmit} style={{ cursor: "pointer" }} />
+      {/* <SearchOutlined className="m-0" /> */}
     </form>
   );
 };
