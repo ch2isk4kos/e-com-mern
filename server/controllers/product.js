@@ -163,3 +163,21 @@ exports.related = async (req, res) => {
     .exec();
   res.json(r);
 };
+
+// search action methods
+exports.handleQuery = async (req, res, query) => {
+  const p = await Product.find({ $text: { $search: query } }) // text-base query search
+    .populate("category", "_id name")
+    .populate("subcategories", "_id name")
+    .populate("postedBy", "_id name")
+    .exec();
+  res.json(p);
+};
+
+exports.search = async (req, res) => {
+  const { query } = req.body;
+
+  if (query) {
+    await handleQuery(req, res, query);
+  }
+};
