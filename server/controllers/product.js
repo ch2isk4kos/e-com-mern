@@ -164,7 +164,7 @@ exports.related = async (req, res) => {
   res.json(r);
 };
 
-// search action methods
+// search response methods
 const handleQuery = async (req, res, query) => {
   const p = await Product.find({ $text: { $search: query } }) // text-base query search
     .populate("category", "_id name")
@@ -174,10 +174,33 @@ const handleQuery = async (req, res, query) => {
   res.json(p);
 };
 
+const handlePrice = async (req, res, price) => {
+  try {
+    let p = await Product.find({
+      price: {
+        $gte: p[0],
+        $lte: p[1],
+      },
+    })
+      .populate("category", "_id name")
+      .populate("subcategories", "_id name")
+      .populate("postedBy", "_id name")
+      .exec();
+
+    res.json(p);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 exports.search = async (req, res) => {
-  const { query } = req.body;
+  const { query, price } = req.body;
 
   if (query) {
     await handleQuery(req, res, query);
+  }
+
+  if (price !== undefined) {
+    await handlePrice(req, res, price);
   }
 };
