@@ -18,6 +18,7 @@ import AdminDashboard from "./components/admin/AdminDashboard";
 import Category from "./components/admin/category/Category";
 import CreateCategory from "./components/admin/category/CreateCategory";
 import UpdateCategory from "./components/admin/category/UpdateCategory";
+import SubCategory from "./components/admin/subCategory/SubCategory";
 import CreateSubCategory from "./components/admin/subCategory/CreateSubCategory";
 import UpdateSubCategory from "./components/admin/subCategory/UpdateSubCategory";
 import CreateProduct from "./components/admin/product/CreateProduct";
@@ -112,6 +113,8 @@ const App = () => {
         <Route exact path={"/product/:slug"} component={Product} />
         {/* Domain Category */}
         <Route exact path={"/category/:slug"} component={Category} />
+        {/* Domain Sub Category */}
+        <Route exact path={"/sub/:slug"} component={SubCategory} />
       </Switch>
     </div>
   );
