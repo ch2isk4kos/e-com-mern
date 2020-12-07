@@ -13,19 +13,40 @@ const Category = ({ match }) => {
     setIsLoading(true);
     getCategory(slug).then((res) => {
       setIsLoading(false);
-      setCategory(res.data);
+      setCategory(res.data.category);
+      setProducts(res.data.products);
     });
   }, []);
 
   return (
-    <>
+    <div className="container-fluid">
       <div
         className="p-3 mt-3 mb-3 display-5"
         style={{ background: "WhiteSmoke" }}
       >
-        <h1>{slug}</h1>
+        <h1>
+          {category.name} ({products.length})
+        </h1>
       </div>
-    </>
+      <div className="container">
+        <div className="col">
+          {isLoading ? (
+            <h4>Loading...</h4>
+          ) : (
+            <>
+              <h4>{products.length} Products Found</h4>
+            </>
+          )}
+        </div>
+      </div>
+      <div className="row">
+        {products.map((p) => (
+          <div className="col-md-4 mb-3" key={p._id}>
+            <ProductCard product={p} />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
