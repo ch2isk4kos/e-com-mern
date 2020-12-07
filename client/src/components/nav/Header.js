@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import Search from "../search/Search";
+import firebase from "firebase/firebase";
 import { Menu } from "antd";
 import {
   AppstoreOutlined,
@@ -8,6 +11,7 @@ import {
   BuildOutlined,
   FireOutlined,
   LoginOutlined,
+  SearchOutlined,
   SelectOutlined,
   SettingOutlined,
   ShoppingCartOutlined,
@@ -15,21 +19,20 @@ import {
   UserOutlined,
   WalletOutlined,
 } from "@ant-design/icons";
-import firebase from "firebase/firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 // ant design
 const { SubMenu, Item, ItemGroup } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState("");
-  const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
   const history = useHistory();
+
   const handleOnClick = (e) => {
     setCurrent({ current: e.key });
   };
+
   const handleOnSignOut = () => {
     firebase.auth().signOut();
     // update store
@@ -143,6 +146,10 @@ const Header = () => {
           </ItemGroup>
         </SubMenu>
       )}
+      {/* Search Bar */}
+      <Item className="float-right" key="search">
+        <Search />
+      </Item>
     </Menu>
   );
 };
