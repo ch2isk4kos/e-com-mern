@@ -178,8 +178,8 @@ const handlePrice = async (req, res, price) => {
   try {
     let p = await Product.find({
       price: {
-        $gte: p[0],
-        $lte: p[1],
+        $gte: price[0],
+        $lte: price[1],
       },
     })
       .populate("category", "_id name")
