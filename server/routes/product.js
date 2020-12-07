@@ -19,7 +19,7 @@ const {
   remove,
   rating,
   related,
-  searchProducts,
+  search,
 } = require("../controllers/product");
 
 // Category Routes
@@ -41,6 +41,6 @@ router.put("/product/:productId/rating", authenticateToken, rating);
 // related products
 router.get("/product/:productId/related", related);
 // search product products
-router.post("/products/query/filter", searchProducts);
+router.post("/products/query/filter", search);
 
 module.exports = router;
