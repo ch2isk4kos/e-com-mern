@@ -25,7 +25,7 @@ const initState = {
     "Apple",
     "Asus",
     "Microsoft",
-    "Generict",
+    "Generic",
     "Nokia",
     "LG",
     "Blackberry",
