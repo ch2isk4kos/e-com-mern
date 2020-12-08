@@ -213,7 +213,6 @@ const handleRatings = (req, res, ratings) => {
     {
       $project: {
         document: "$$ROOT",
-        name: "$name",
         floorAvg: {
           $floor: { $avg: "$ratings.rating" },
         },
