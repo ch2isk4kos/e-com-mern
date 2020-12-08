@@ -51,7 +51,7 @@ const Shop = () => {
     const delay = setTimeout(() => {
       loadProductSearch({ query: text });
       return () => clearTimeout(delay);
-    }, 500);
+    }, 300);
   }, [text]);
 
   // price search
@@ -71,7 +71,7 @@ const Shop = () => {
 
     setTimeout(() => {
       setOk(!ok);
-    }, 500);
+    }, 300);
   };
 
   const handleOnCategories = (e) => {
