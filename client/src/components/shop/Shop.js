@@ -16,6 +16,7 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [price, setPrice] = useState([0, 0]);
   const [categories, setCategories] = useState([]);
+  const [categoryIds, setCategoryIds] = useState([]);
   const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,10 +62,34 @@ const Shop = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+    setCategoryIds([]);
     setPrice(value);
     setTimeout(() => {
       setOk(!ok);
     }, 500);
+  };
+
+  const handleOnCategories = (e) => {
+    // console.log("Category:", e.target.value);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+
+    setPrice([0, 0]);
+
+    let ids = [...categoryIds];
+    let checkbox = e.target.value;
+    let current = ids.indexOf(checkbox);
+
+    if (current === -1) {
+      ids.push(checkbox);
+    } else {
+      ids.splice(current, 1);
+    }
+
+    setCategoryIds(ids);
+    loadProductSearch({ category: ids });
   };
 
   return (
@@ -110,7 +135,9 @@ const Shop = () => {
                       <Checkbox
                         className="pb-2 pl-4 pr-4"
                         name="category"
+                        checked={categoryIds.includes(c._id)}
                         value={c._id}
+                        onChange={handleOnCategories}
                       >
                         {c.name}
                       </Checkbox>
