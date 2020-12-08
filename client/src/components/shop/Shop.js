@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCount, searchProducts } from "../../api/nodejs/products";
+import { getCategories } from "../../api/nodejs/categories";
 import ProductCard from "../admin/product/ProductCard";
-import { Menu, Slider } from "antd";
-import { DollarOutlined } from "@ant-design/icons";
+import { Menu, Slider, Checkbox } from "antd";
+import { BorderOutlined, DollarOutlined } from "@ant-design/icons";
 
 const { SubMenu, ItemGroup } = Menu;
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [price, setPrice] = useState([0, 0]);
+  const [categories, setCategories] = useState([]);
   const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,6 +22,7 @@ const Shop = () => {
   // load default
   useEffect(() => {
     loadProducts();
+    getCategories().then((res) => setCategories(res.data));
   }, []);
 
   const loadProducts = () => {
@@ -64,8 +67,10 @@ const Shop = () => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-3">
+          {/* Advanced Search */}
           <h4 className="mt-3">Advanced Search</h4>
-          <Menu defaultOpenKeys={["1", "2"]} mode="inline">
+          <Menu defaultOpenKeys={["1", "2", "3"]} mode="inline">
+            {/* Price Slider */}
             <SubMenu
               key="1"
               title={
@@ -84,6 +89,24 @@ const Shop = () => {
                   onChange={handleOnPrice}
                 />
               </div>
+            </SubMenu>
+            {/* Category List */}
+            <SubMenu
+              key="2"
+              title={
+                <span>
+                  <BorderOutlined /> Categories
+                </span>
+              }
+            >
+              <>
+                {categories &&
+                  categories.map((c) => (
+                    <div className="mb-2" key={c._id}>
+                      <Checkbox>{c.name}</Checkbox>
+                    </div>
+                  ))}
+              </>
             </SubMenu>
           </Menu>
         </div>
