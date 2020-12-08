@@ -1,18 +1,18 @@
 import React from "react";
 import StarRating from "react-star-ratings";
 
-const Rating = ({ starClick, numberOfStars }) => {
+const Rating = ({ handleOnRating, numberOfStars }) => {
   return (
-    <>
+    <div>
       <StarRating
-        starDimension="20px"
+        starDimension="25px"
         starSpacing="5px"
         starHoverColor="orange"
         starEmptyColor="orange"
-        starchangeRating={() => starClick(numberOfStars)}
-        numberOfStar={numberOfStars}
+        changeRating={() => handleOnRating(numberOfStars)}
+        numberOfStars={numberOfStars}
       />
-    </>
+    </div>
   );
 };
 
