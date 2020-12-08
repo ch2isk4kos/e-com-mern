@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCount, searchProducts } from "../../api/nodejs/products";
 import { getCategories } from "../../api/nodejs/categories";
 import ProductCard from "../admin/product/ProductCard";
+import Rating from "../rating/Rating";
 import { Menu, Slider, Checkbox } from "antd";
 import {
-  BorderOutlined,
   DollarOutlined,
   DownSquareOutlined,
+  StarOutlined,
 } from "@ant-design/icons";
 
 const { SubMenu, ItemGroup } = Menu;
@@ -17,6 +18,7 @@ const Shop = () => {
   const [price, setPrice] = useState([0, 0]);
   const [categories, setCategories] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
+  const [rating, setRating] = useState(" ");
   const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -62,8 +64,11 @@ const Shop = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+
     setCategoryIds([]);
+    setRating("");
     setPrice(value);
+
     setTimeout(() => {
       setOk(!ok);
     }, 500);
@@ -77,6 +82,7 @@ const Shop = () => {
     });
 
     setPrice([0, 0]);
+    setRating("");
 
     let ids = [...categoryIds];
     let checkbox = e.target.value;
@@ -90,6 +96,19 @@ const Shop = () => {
 
     setCategoryIds(ids);
     loadProductSearch({ category: ids });
+  };
+
+  const handleOnRating = (num) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setRating(num);
+
+    loadProductSearch({ ratings: num });
   };
 
   return (
@@ -144,6 +163,23 @@ const Shop = () => {
                     </div>
                   ))}
               </>
+            </SubMenu>
+            {/* Ratings */}
+            <SubMenu
+              key="3"
+              title={
+                <span>
+                  <StarOutlined /> Rating
+                </span>
+              }
+            >
+              <div className="pr-4 pl-4 pb-2">
+                <Rating handleOnRating={handleOnRating} numberOfStars={5} />
+                <Rating handleOnRating={handleOnRating} numberOfStars={4} />
+                <Rating handleOnRating={handleOnRating} numberOfStars={3} />
+                <Rating handleOnRating={handleOnRating} numberOfStars={2} />
+                <Rating handleOnRating={handleOnRating} numberOfStars={1} />
+              </div>
             </SubMenu>
           </Menu>
         </div>
