@@ -5,10 +5,10 @@ const Rating = ({ starClick, numberOfStars }) => {
   return (
     <>
       <StarRating
-        starDimenson="20px"
-        StarSpacing="5px"
+        starDimension="20px"
+        starSpacing="5px"
         starHoverColor="orange"
-        starEmptyColor=""
+        starEmptyColor="orange"
         starchangeRating={() => starClick(numberOfStars)}
         numberOfStar={numberOfStars}
       />
