@@ -236,6 +236,15 @@ const handleRatings = (req, res, ratings) => {
     });
 };
 
+const handleSubCategories = async (req, res, sub) => {
+  const p = await Product.find({ subcategories: sub })
+    .populate("category", "_id name")
+    .populate("subcategories", "_id name")
+    .populate("ratedBy", "_id name")
+    .exec();
+  res.json(p);
+};
+
 exports.search = async (req, res) => {
   const { query, price, category, ratings } = req.body;
 
@@ -253,5 +262,9 @@ exports.search = async (req, res) => {
 
   if (ratings) {
     await handleRatings(req, res, ratings);
+  }
+
+  if (sub) {
+    await handleSubCategories(req, res, sub);
   }
 };
