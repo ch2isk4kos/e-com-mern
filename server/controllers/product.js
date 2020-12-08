@@ -245,8 +245,44 @@ const handleSubCategories = async (req, res, sub) => {
   res.json(p);
 };
 
+const handleShipping = async (req, res, shipping) => {
+  const p = await Product.find({ shipping: shipping })
+    .populate("category", "_id name")
+    .populate("subcategories", "_id name")
+    .populate("ratedBy", "_id name")
+    .exec();
+  res.json(p);
+};
+
+const handleBrand = async (req, res, brand) => {
+  const p = await Product.find({ brand: brand })
+    .populate("category", "_id name")
+    .populate("subcategories", "_id name")
+    .populate("ratedBy", "_id name")
+    .exec();
+  res.json(p);
+};
+
+const handleColor = async (req, res, color) => {
+  const p = await Product.find({ color: color })
+    .populate("category", "_id name")
+    .populate("subcategories", "_id name")
+    .populate("ratedBy", "_id name")
+    .exec();
+  res.json(p);
+};
+
 exports.search = async (req, res) => {
-  const { query, price, category, ratings, sub } = req.body;
+  const {
+    query,
+    price,
+    category,
+    ratings,
+    sub,
+    shipping,
+    brand,
+    color,
+  } = req.body;
 
   if (query) {
     await handleQuery(req, res, query);
@@ -266,5 +302,17 @@ exports.search = async (req, res) => {
 
   if (sub) {
     await handleSubCategories(req, res, sub);
+  }
+
+  if (shipping) {
+    await handleShipping(req, res, shipping);
+  }
+
+  if (brand) {
+    await handleBrand(req, res, brand);
+  }
+
+  if (color) {
+    await handleColor(req, res, color);
   }
 };
