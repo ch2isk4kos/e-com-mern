@@ -273,11 +273,10 @@ const Shop = () => {
                 </span>
               }
             >
-              <div className="pr-4 pl-4 pb-2">
+              <div className="mb-1 pb-2 pl-4 pr-4">
                 {brands.map((b) => (
                   <span key={b}>
                     <Radio
-                      className="pb-2 pl-1 pr-1"
                       checked={b === brand}
                       name={b}
                       value={b}
