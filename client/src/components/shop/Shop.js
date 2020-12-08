@@ -39,8 +39,8 @@ const Shop = () => {
 
   const loadProducts = () => {
     getProductsByCount(12).then((res) => {
-      setProducts(res.data);
       setIsLoading(false);
+      setProducts(res.data);
     });
   };
 
