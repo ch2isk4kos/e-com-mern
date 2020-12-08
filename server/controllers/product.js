@@ -1,6 +1,7 @@
 const Product = require("../models/Product");
 const User = require("../models/User");
 const slugify = require("slugify");
+const { aggregate } = require("../models/User");
 
 // exports.index = async (req, res) => {
 //   const p = await Product.find({}).sort({ createdAt: -1 }).exec();
@@ -207,8 +208,37 @@ const handleCategory = async (req, res, category) => {
   }
 };
 
+const handleRatings = (req, res, ratings) => {
+  Product.aggregate([
+    {
+      $project: {
+        document: "$$ROOT",
+        name: "$name",
+        floorAvg: {
+          $floor: { $avg: "$ratings.rating" },
+        },
+      },
+    },
+    {
+      $match: { floorAvg: ratings },
+    },
+  ])
+    .limit(12)
+    .exec((err, aggregates) => {
+      if (err) console.log("AGGREGATE ERROR:", err);
+      Product.find({ _id: aggregates })
+        .populate("category", "_id name")
+        .populate("subcategories", "_id name")
+        .populate("ratedBy", "_id name")
+        .exec((err, products) => {
+          if (err) console.log("PRODUCT ERROR:", err);
+          res.json(products);
+        });
+    });
+};
+
 exports.search = async (req, res) => {
-  const { query, price, category } = req.body;
+  const { query, price, category, ratings } = req.body;
 
   if (query) {
     await handleQuery(req, res, query);
@@ -220,5 +250,9 @@ exports.search = async (req, res) => {
 
   if (category) {
     await handleCategory(req, res, category);
+  }
+
+  if (ratings) {
+    await handleRatings(req, res, ratings);
   }
 };
