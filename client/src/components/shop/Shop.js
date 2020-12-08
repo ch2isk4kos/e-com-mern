@@ -5,11 +5,13 @@ import { getCategories } from "../../api/nodejs/categories";
 import { getSubCategories } from "../../api/nodejs/subCategories";
 import ProductCard from "../admin/product/ProductCard";
 import Rating from "../rating/Rating";
-import { Menu, Slider, Checkbox } from "antd";
+import { Menu, Slider, Checkbox, Radio } from "antd";
 import {
   BlockOutlined,
   DollarOutlined,
   DownSquareOutlined,
+  RobotOutlined,
+  RobotFilled,
   StarOutlined,
 } from "@ant-design/icons";
 
@@ -22,7 +24,18 @@ const Shop = () => {
   const [categoryIds, setCategoryIds] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [subCategory, setSubCategory] = useState("");
-  const [rating, setRating] = useState(" ");
+  const [rating, setRating] = useState("");
+  const [brands, setBrands] = useState([
+    "Apple",
+    "Asus",
+    "Microsoft",
+    "Generic",
+    "Nokia",
+    "LG",
+    "Blackberry",
+    "Indie",
+  ]);
+  const [brand, setBrand] = useState("");
   const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -73,6 +86,7 @@ const Shop = () => {
     setCategoryIds([]);
     setRating("");
     setSubCategory("");
+    setBrand("");
     setPrice(value);
 
     setTimeout(() => {
@@ -89,6 +103,7 @@ const Shop = () => {
     setPrice([0, 0]);
     setRating("");
     setSubCategory("");
+    setBrand("");
 
     let ids = [...categoryIds];
     let checkbox = e.target.value;
@@ -113,6 +128,7 @@ const Shop = () => {
     setPrice([0, 0]);
     setCategoryIds([]);
     setSubCategory("");
+    setBrand("");
     setRating(num);
 
     loadProductSearch({ ratings: num });
@@ -128,8 +144,24 @@ const Shop = () => {
     setCategoryIds([]);
     setRating("");
     setSubCategory(sub);
+    setBrand("");
 
     loadProductSearch({ sub: sub });
+  };
+
+  const handleOnBrand = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setRating("");
+    setSubCategory("");
+    setBrand(e.target.value);
+
+    loadProductSearch({ brand: e.target.value });
   };
 
   return (
@@ -138,7 +170,10 @@ const Shop = () => {
         <div className="col-md-3">
           {/* Advanced Search */}
           <h4 className="mt-3">Advanced Search</h4>
-          <Menu defaultOpenKeys={["1", "2", "3", "4"]} mode="inline">
+          <Menu
+            defaultOpenKeys={["1", "2", "3", "4", "5", "6", "7"]}
+            mode="inline"
+          >
             {/* Price Slider */}
             <SubMenu
               key="1"
@@ -227,6 +262,31 @@ const Shop = () => {
                       {s.name}
                     </span>
                   ))}
+              </div>
+            </SubMenu>
+            {/* Brands */}
+            <SubMenu
+              key="5"
+              title={
+                <span>
+                  <RobotOutlined /> Brands
+                </span>
+              }
+            >
+              <div className="pr-4 pl-4 pb-2">
+                {brands.map((b) => (
+                  <span key={b}>
+                    <Radio
+                      className="pb-2 pl-1 pr-1"
+                      checked={b === brand}
+                      name={b}
+                      value={b}
+                      onChange={handleOnBrand}
+                    >
+                      {b}
+                    </Radio>
+                  </span>
+                ))}
               </div>
             </SubMenu>
           </Menu>
