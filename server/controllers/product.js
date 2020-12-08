@@ -246,7 +246,7 @@ const handleSubCategories = async (req, res, sub) => {
 };
 
 exports.search = async (req, res) => {
-  const { query, price, category, ratings } = req.body;
+  const { query, price, category, ratings, sub } = req.body;
 
   if (query) {
     await handleQuery(req, res, query);
