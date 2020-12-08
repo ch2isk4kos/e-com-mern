@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsByCount, searchProducts } from "../../api/nodejs/products";
 import { getCategories } from "../../api/nodejs/categories";
+import { getSubCategories } from "../../api/nodejs/subCategories";
 import ProductCard from "../admin/product/ProductCard";
 import Rating from "../rating/Rating";
 import { Menu, Slider, Checkbox } from "antd";
 import {
+  BlockOutlined,
   DollarOutlined,
   DownSquareOutlined,
   StarOutlined,
@@ -18,6 +20,8 @@ const Shop = () => {
   const [price, setPrice] = useState([0, 0]);
   const [categories, setCategories] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+  const [subCategory, setSubCategory] = useState("");
   const [rating, setRating] = useState(" ");
   const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +34,7 @@ const Shop = () => {
   useEffect(() => {
     loadProducts();
     getCategories().then((res) => setCategories(res.data));
+    getSubCategories().then((res) => setSubCategories(res.data));
   }, []);
 
   const loadProducts = () => {
@@ -67,6 +72,7 @@ const Shop = () => {
 
     setCategoryIds([]);
     setRating("");
+    setSubCategory("");
     setPrice(value);
 
     setTimeout(() => {
@@ -75,7 +81,6 @@ const Shop = () => {
   };
 
   const handleOnCategories = (e) => {
-    // console.log("Category:", e.target.value);
     dispatch({
       type: "SEARCH_QUERY",
       payload: { text: "" },
@@ -83,6 +88,7 @@ const Shop = () => {
 
     setPrice([0, 0]);
     setRating("");
+    setSubCategory("");
 
     let ids = [...categoryIds];
     let checkbox = e.target.value;
@@ -106,9 +112,24 @@ const Shop = () => {
 
     setPrice([0, 0]);
     setCategoryIds([]);
+    setSubCategory("");
     setRating(num);
 
     loadProductSearch({ ratings: num });
+  };
+
+  const handleOnTag = (sub) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setRating("");
+    setSubCategory(sub);
+
+    loadProductSearch({ sub: sub });
   };
 
   return (
@@ -117,7 +138,7 @@ const Shop = () => {
         <div className="col-md-3">
           {/* Advanced Search */}
           <h4 className="mt-3">Advanced Search</h4>
-          <Menu defaultOpenKeys={["1", "2", "3"]} mode="inline">
+          <Menu defaultOpenKeys={["1", "2", "3", "4"]} mode="inline">
             {/* Price Slider */}
             <SubMenu
               key="1"
@@ -179,6 +200,33 @@ const Shop = () => {
                 <Rating handleOnRating={handleOnRating} numberOfStars={3} />
                 <Rating handleOnRating={handleOnRating} numberOfStars={2} />
                 <Rating handleOnRating={handleOnRating} numberOfStars={1} />
+              </div>
+            </SubMenu>
+            {/* Sub Categories */}
+            <SubMenu
+              key="4"
+              title={
+                <span>
+                  <BlockOutlined /> Tags
+                </span>
+              }
+            >
+              <div className="pr-4 pl-4 pb-2">
+                {subCategories &&
+                  subCategories.map((s) => (
+                    <span
+                      key={s._id}
+                      className="p-1 m-1 badge"
+                      style={{
+                        cursor: "pointer",
+                        background: "RoyalBlue",
+                        fontSize: "12px",
+                      }}
+                      onClick={() => handleOnTag(s)}
+                    >
+                      {s.name}
+                    </span>
+                  ))}
               </div>
             </SubMenu>
           </Menu>
