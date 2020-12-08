@@ -4,7 +4,11 @@ import { getProductsByCount, searchProducts } from "../../api/nodejs/products";
 import { getCategories } from "../../api/nodejs/categories";
 import ProductCard from "../admin/product/ProductCard";
 import { Menu, Slider, Checkbox } from "antd";
-import { BorderOutlined, DollarOutlined } from "@ant-design/icons";
+import {
+  BorderOutlined,
+  DollarOutlined,
+  DownSquareOutlined,
+} from "@ant-design/icons";
 
 const { SubMenu, ItemGroup } = Menu;
 
@@ -95,15 +99,21 @@ const Shop = () => {
               key="2"
               title={
                 <span>
-                  <BorderOutlined /> Categories
+                  <DownSquareOutlined /> Categories
                 </span>
               }
             >
               <>
                 {categories &&
                   categories.map((c) => (
-                    <div className="mb-2" key={c._id}>
-                      <Checkbox>{c.name}</Checkbox>
+                    <div key={c._id}>
+                      <Checkbox
+                        className="pb-2 pl-4 pr-4"
+                        name="category"
+                        value={c._id}
+                      >
+                        {c.name}
+                      </Checkbox>
                     </div>
                   ))}
               </>
