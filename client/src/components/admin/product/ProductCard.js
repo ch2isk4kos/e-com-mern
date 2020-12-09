@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { averageRating } from "../../../api/custom/ratings";
 import { Card, Tooltip } from "antd";
@@ -10,7 +11,11 @@ const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
   const { name, description, images, slug } = product;
+
+  const { user, cart } = useSelector((state) => ({ ...state }));
   const [tooltip, setTooltip] = useState("Click to Add");
+  const dispatch = useDispatch();
+
   const src = images && images.length ? images[0].url : logo;
   const desc = description && description.substring(0, 50);
 
@@ -30,10 +35,10 @@ const ProductCard = ({ product }) => {
       });
       // remove duplicates with lodash
       let unique = _.uniqWith(cart, _.isEqual);
-      localStorage.setItem("cart", JSON.stringify(unique));
-      setTooltip("Added");
-
       // save to local storage
+      localStorage.setItem("cart", JSON.stringify(unique));
+      // display ant design tooltip
+      setTooltip("Added");
     }
     //
     console.log("");
