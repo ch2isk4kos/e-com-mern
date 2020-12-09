@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { averageRating } from "../../../api/custom/ratings";
-import { Card } from "antd";
+import { Card, Tooltip } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import logo from "../../../assets/yard-sale.jpg";
 import _ from "lodash";
@@ -10,6 +10,7 @@ const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
   const { name, description, images, slug } = product;
+  const [tooltip, setTooltip] = useState("Click to Add");
   const src = images && images.length ? images[0].url : logo;
   const desc = description && description.substring(0, 50);
 
@@ -30,6 +31,8 @@ const ProductCard = ({ product }) => {
       // remove duplicates with lodash
       let unique = _.uniqWith(cart, _.isEqual);
       localStorage.setItem("cart", JSON.stringify(unique));
+      setTooltip("Added");
+
       // save to local storage
     }
     //
@@ -54,11 +57,13 @@ const ProductCard = ({ product }) => {
             <p>View Product</p>
           </Link>,
           <>
-            <a onClick={handleOnAddToCart}>
-              <ShoppingCartOutlined className="text-danger" />
-              <br />
-              <p>Add to Cart</p>
-            </a>
+            <Tooltip title={tooltip}>
+              <a onClick={handleOnAddToCart}>
+                <ShoppingCartOutlined className="text-danger" />
+                <br />
+                <p>Add to Cart</p>
+              </a>
+            </Tooltip>
           </>,
         ]}
       >
