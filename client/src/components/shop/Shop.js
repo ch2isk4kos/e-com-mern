@@ -12,6 +12,7 @@ import {
   DollarOutlined,
   DownSquareOutlined,
   RobotOutlined,
+  SendOutlined,
   StarOutlined,
 } from "@ant-design/icons";
 
@@ -45,6 +46,7 @@ const Shop = () => {
     "Dandilion",
   ]);
   const [color, setColor] = useState("");
+  const [shipping, setShipping] = useState("");
   const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -97,6 +99,7 @@ const Shop = () => {
     setSubCategory("");
     setBrand("");
     setColor("");
+    setShipping("");
     setPrice(value);
 
     setTimeout(() => {
@@ -115,6 +118,7 @@ const Shop = () => {
     setSubCategory("");
     setBrand("");
     setColor("");
+    setShipping("");
 
     let ids = [...categoryIds];
     let checkbox = e.target.value;
@@ -141,6 +145,7 @@ const Shop = () => {
     setSubCategory("");
     setBrand("");
     setColor("");
+    setShipping("");
     setRating(num);
 
     loadProductSearch({ ratings: num });
@@ -157,6 +162,7 @@ const Shop = () => {
     setRating("");
     setBrand("");
     setColor("");
+    setShipping("");
     setSubCategory(sub);
 
     loadProductSearch({ sub: sub });
@@ -173,6 +179,7 @@ const Shop = () => {
     setRating("");
     setSubCategory("");
     setColor("");
+    setShipping("");
     setBrand(e.target.value);
 
     loadProductSearch({ brand: e.target.value });
@@ -189,9 +196,27 @@ const Shop = () => {
     setRating("");
     setSubCategory("");
     setBrand("");
+    setShipping("");
     setColor(e.target.value);
 
     loadProductSearch({ color: e.target.value });
+  };
+
+  const handleOnShipping = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setRating("");
+    setSubCategory("");
+    setBrand("");
+    setColor("");
+    setShipping(e.target.value);
+
+    loadProductSearch({ shipping: e.target.value });
   };
 
   return (
@@ -340,6 +365,36 @@ const Shop = () => {
                     </Radio>
                   </span>
                 ))}
+              </div>
+            </SubMenu>
+            {/* Colors */}
+            <SubMenu
+              key="7"
+              title={
+                <span>
+                  <SendOutlined /> Shipping
+                </span>
+              }
+            >
+              <div className="mb-1 pb-2 pl-4 pr-4">
+                <Radio
+                  checked={shipping === "Yes"}
+                  name="shipping"
+                  value={"Yes"}
+                  onChange={handleOnShipping}
+                >
+                  Yes
+                </Radio>
+              </div>
+              <div className="mb-1 pb-2 pl-4 pr-4">
+                <Radio
+                  checked={shipping === "No"}
+                  name="shipping"
+                  value={"No"}
+                  onChange={handleOnShipping}
+                >
+                  No
+                </Radio>
               </div>
             </SubMenu>
           </Menu>
