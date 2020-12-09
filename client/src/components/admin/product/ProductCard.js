@@ -4,6 +4,7 @@ import { averageRating } from "../../../api/custom/ratings";
 import { Card } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import logo from "../../../assets/yard-sale.jpg";
+import _ from "lodash";
 
 const { Meta } = Card;
 
@@ -11,6 +12,29 @@ const ProductCard = ({ product }) => {
   const { name, description, images, slug } = product;
   const src = images && images.length ? images[0].url : logo;
   const desc = description && description.substring(0, 50);
+
+  const handleOnAddToCart = () => {
+    // create cart array
+    let cart = [];
+
+    if (typeof window !== "undefined") {
+      // get data from local storage
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      // push product(s) to cart
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      // remove duplicates with lodash
+      let unique = _.uniqWith(cart, _.isEqual);
+      localStorage.setItem("cart", JSON.stringify(unique));
+      // save to local storage
+    }
+    //
+    console.log("");
+  };
 
   return (
     <div>
@@ -30,9 +54,11 @@ const ProductCard = ({ product }) => {
             <p>View Product</p>
           </Link>,
           <>
-            <ShoppingCartOutlined className="text-danger" />
-            <br />
-            <p>Add to Cart</p>
+            <a onClick={handleOnAddToCart}>
+              <ShoppingCartOutlined className="text-danger" />
+              <br />
+              <p>Add to Cart</p>
+            </a>
           </>,
         ]}
       >
