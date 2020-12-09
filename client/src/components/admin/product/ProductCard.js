@@ -39,6 +39,11 @@ const ProductCard = ({ product }) => {
       localStorage.setItem("cart", JSON.stringify(unique));
       // display ant design tooltip
       setTooltip("Added");
+      // add to redux state
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
     }
     //
     console.log("");
