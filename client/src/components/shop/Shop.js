@@ -7,11 +7,11 @@ import ProductCard from "../admin/product/ProductCard";
 import Rating from "../rating/Rating";
 import { Menu, Slider, Checkbox, Radio } from "antd";
 import {
+  BgColorsOutlined,
   BlockOutlined,
   DollarOutlined,
   DownSquareOutlined,
   RobotOutlined,
-  RobotFilled,
   StarOutlined,
 } from "@ant-design/icons";
 
@@ -36,6 +36,15 @@ const Shop = () => {
     "Indie",
   ]);
   const [brand, setBrand] = useState("");
+  const [colors, setColors] = useState([
+    "Midnight",
+    "Navy",
+    "Forest Green",
+    "Grey",
+    "Crimson",
+    "Dandilion",
+  ]);
+  const [color, setColor] = useState("");
   const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -87,6 +96,7 @@ const Shop = () => {
     setRating("");
     setSubCategory("");
     setBrand("");
+    setColor("");
     setPrice(value);
 
     setTimeout(() => {
@@ -104,6 +114,7 @@ const Shop = () => {
     setRating("");
     setSubCategory("");
     setBrand("");
+    setColor("");
 
     let ids = [...categoryIds];
     let checkbox = e.target.value;
@@ -129,6 +140,7 @@ const Shop = () => {
     setCategoryIds([]);
     setSubCategory("");
     setBrand("");
+    setColor("");
     setRating(num);
 
     loadProductSearch({ ratings: num });
@@ -143,8 +155,9 @@ const Shop = () => {
     setPrice([0, 0]);
     setCategoryIds([]);
     setRating("");
-    setSubCategory(sub);
     setBrand("");
+    setColor("");
+    setSubCategory(sub);
 
     loadProductSearch({ sub: sub });
   };
@@ -159,9 +172,26 @@ const Shop = () => {
     setCategoryIds([]);
     setRating("");
     setSubCategory("");
+    setColor("");
     setBrand(e.target.value);
 
     loadProductSearch({ brand: e.target.value });
+  };
+
+  const handleOnColor = (e) => {
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setRating("");
+    setSubCategory("");
+    setBrand("");
+    setColor(e.target.value);
+
+    loadProductSearch({ color: e.target.value });
   };
 
   return (
@@ -283,6 +313,30 @@ const Shop = () => {
                       onChange={handleOnBrand}
                     >
                       {b}
+                    </Radio>
+                  </span>
+                ))}
+              </div>
+            </SubMenu>
+            {/* Colors */}
+            <SubMenu
+              key="6"
+              title={
+                <span>
+                  <BgColorsOutlined /> Colors
+                </span>
+              }
+            >
+              <div className="mb-1 pb-2 pl-4 pr-4">
+                {colors.map((c) => (
+                  <span key={c}>
+                    <Radio
+                      checked={c === color}
+                      name={c}
+                      value={c}
+                      onChange={handleOnColor}
+                    >
+                      {c}
                     </Radio>
                   </span>
                 ))}
