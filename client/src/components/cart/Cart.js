@@ -34,6 +34,7 @@ const Cart = () => {
               </p>
             </div>
           ))}
+          <hr />
           <h4>Total ${purchaseAmount()}</h4>
           {user ? (
             <button className="btn btn-sm btn-primary mt-3">
