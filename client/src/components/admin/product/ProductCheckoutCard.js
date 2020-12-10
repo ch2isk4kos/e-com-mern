@@ -1,7 +1,8 @@
 import React from "react";
+import logo from "../../../assets/yard-sale.jpg";
 
 const ProductCheckoutCard = ({ product }) => {
-  const { name, brand, color, price, shipping } = product;
+  const { images, name, brand, color, price, shipping } = product;
   return (
     <tbody>
       <tr>
