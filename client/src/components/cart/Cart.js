@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import ProductCheckoutCard from "../admin/product/ProductCheckoutCard";
 
 const Cart = () => {
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -42,7 +43,10 @@ const Cart = () => {
             </button>
           ) : (
             <button className="btn btn-sm btn-primary mt-3">
-              <Link to={{ pathname: "login", state: { from: "cart" } }}>
+              <Link
+                to={{ pathname: "login", state: { from: "cart" } }}
+                disable={!cart.length}
+              >
                 Login to Checkout
               </Link>
             </button>
@@ -61,7 +65,24 @@ const Cart = () => {
               </h4>
             </>
           ) : (
-            <h4>Show Items in Cart</h4>
+            <>
+              <h4>Show Items in Cart</h4>
+              <table className="table table-bordered">
+                {/* Table Heading */}
+                <thead className="thead-light">
+                  <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Shipping</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Remove</th>
+                  </tr>
+                </thead>
+                {cart.map((p) => (
+                  <ProductCheckoutCard key={p.id} product={p} />
+                ))}
+              </table>
+            </>
           )}
         </div>
       </div>
