@@ -12,7 +12,6 @@ import AdminRoute from "./components/routes/adminRoute";
 import History from "./components/user/History";
 import Main from "./components/user/profile/Main";
 import EditPassword from "./components/user/profile/EditPassword";
-import Cart from "./components/user/Cart";
 import Wishlist from "./components/user/Wishlist";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import Category from "./components/admin/category/Category";
@@ -26,6 +25,7 @@ import UpdateProduct from "./components/admin/product/UpdateProduct";
 import Products from "./components/admin/product/Products";
 import Product from "./components/admin/product/Product";
 import Shop from "./components/shop/Shop";
+import Cart from "./components/cart/Cart";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -118,6 +118,8 @@ const App = () => {
         <Route exact path={"/sub/:slug"} component={SubCategory} />
         {/* Domain Shop */}
         <Route exact path={"/shop"} component={Shop} />
+        {/* Cart Shop */}
+        <Route exact path={"cart"} component={Cart} />
       </Switch>
     </div>
   );
