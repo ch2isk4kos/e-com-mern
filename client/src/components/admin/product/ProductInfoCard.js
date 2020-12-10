@@ -49,7 +49,7 @@ const ProductInfoCard = ({ product, rating, handleOnRatingSelection }) => {
       // add to redux state
       dispatch({
         type: "ADD_TO_CART",
-        payload: cart,
+        payload: unique,
       });
     }
     //
