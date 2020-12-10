@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Search from "../search/Search";
 import firebase from "firebase/firebase";
-import { Menu } from "antd";
+import { Menu, Badge } from "antd";
 import {
   AppstoreOutlined,
   AuditOutlined,
@@ -14,6 +14,7 @@ import {
   SearchOutlined,
   SelectOutlined,
   SettingOutlined,
+  ShoppingOutlined,
   ShoppingCartOutlined,
   TagsOutlined,
   UserOutlined,
@@ -24,8 +25,8 @@ import {
 const { SubMenu, Item, ItemGroup } = Menu;
 
 const Header = () => {
+  const { user, cart } = useSelector((state) => ({ ...state }));
   const [current, setCurrent] = useState("");
-  const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -53,9 +54,13 @@ const Header = () => {
       <Item key="categories" icon={<AppstoreOutlined />}>
         <Link to={"/categories"}>Categories</Link>
       </Item>
+      {/* Find Product */}
+      <Item key="shop" icon={<ShoppingOutlined />}>
+        <Link to={"/shop"}>Find Product</Link>
+      </Item>
       {/* Products */}
       <Item key="products" icon={<TagsOutlined />}>
-        <Link to={"/products"}>New Products</Link>
+        <Link to={"/products"}>New Product</Link>
       </Item>
       {/* User History */}
       {user && user.role === "subscriber" && (
@@ -133,7 +138,13 @@ const Header = () => {
           className="float-right"
           key="cart"
           icon={<ShoppingCartOutlined />}
-          title="Cart"
+          title={
+            <Link to={`/cart`}>
+              <Badge count={cart.length} offset={[9, 0]}>
+                <span className="p-1">Cart</span>
+              </Badge>
+            </Link>
+          }
         >
           {/* Cart Sub Menu */}
           <ItemGroup title="Menu">
