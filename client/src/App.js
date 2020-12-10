@@ -74,7 +74,7 @@ const App = () => {
         <Route exact path={"/password-reset"} component={PasswordReset} />
         {/* User Routes*/}
         <UserRoute exact path={"/user/history"} component={History} />
-        <UserRoute exact path={"/user/cart"} component={Cart} />
+        {/* <UserRoute exact path={"/user/cart"} component={Cart} /> */}
         <UserRoute exact path={"/user/wishlist"} component={Wishlist} />
         <UserRoute exact path={"/user/profile"} component={Main} />
         <UserRoute
@@ -119,7 +119,7 @@ const App = () => {
         {/* Domain Shop */}
         <Route exact path={"/shop"} component={Shop} />
         {/* Cart Shop */}
-        <Route exact path={"cart"} component={Cart} />
+        <Route exact path={"/cart"} component={Cart} />
       </Switch>
     </div>
   );
