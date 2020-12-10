@@ -22,37 +22,6 @@ const Cart = () => {
         </h4>
       </div>
       <div className="row">
-        <div className="col-md-4">
-          <h4>
-            Order Summary
-            {/* <span className="float-left">Order Summary</span> */}
-          </h4>
-          <hr />
-          {cart.map((c, i) => (
-            <div key={i}>
-              <p className="mt-3">
-                {c.name} x {c.count} ${c.price * c.count}
-              </p>
-            </div>
-          ))}
-          <hr />
-          <h4>Total ${purchaseAmount()}</h4>
-          {user ? (
-            <button className="btn btn-sm btn-primary mt-3">
-              Proceed to Checkout
-            </button>
-          ) : (
-            <button className="btn btn-sm btn-primary mt-3">
-              <Link
-                to={{ pathname: "login", state: { from: "cart" } }}
-                disable={!cart.length}
-              >
-                Login to Checkout
-              </Link>
-            </button>
-          )}
-        </div>
-
         <div className="col-md-8">
           {!cart.length ? (
             <>
@@ -79,10 +48,40 @@ const Cart = () => {
                   </tr>
                 </thead>
                 {cart.map((p) => (
-                  <ProductCheckoutCard key={p.id} product={p} />
+                  <ProductCheckoutCard key={p._id} product={p} />
                 ))}
               </table>
             </>
+          )}
+        </div>
+        <div className="col-md-4">
+          <h4>
+            Order Summary
+            {/* <span className="float-left">Order Summary</span> */}
+          </h4>
+          <hr />
+          {cart.map((c, i) => (
+            <div key={i}>
+              <p className="mt-3">
+                {c.name} x {c.count} ${c.price * c.count}
+              </p>
+            </div>
+          ))}
+          <hr />
+          <h4>Total ${purchaseAmount()}</h4>
+          {user ? (
+            <button className="btn btn-sm btn-primary mt-3">
+              Proceed to Checkout
+            </button>
+          ) : (
+            <button className="btn btn-sm btn-primary mt-3">
+              <Link
+                to={{ pathname: "login", state: { from: "cart" } }}
+                // disable={!cart.length}
+              >
+                Login to Checkout
+              </Link>
+            </button>
           )}
         </div>
       </div>
