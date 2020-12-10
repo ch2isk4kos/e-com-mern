@@ -41,6 +41,7 @@ const Cart = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">Product</th>
+                    <th scope="col">Color</th>
                     <th scope="col">Qty</th>
                     <th scope="col">Shipping</th>
                     <th scope="col">Price</th>
