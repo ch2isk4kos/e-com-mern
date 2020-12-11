@@ -45,7 +45,12 @@ const Header = () => {
   };
 
   return (
-    <Menu onClick={handleOnClick} selectedKeys={[current]} mode="horizontal">
+    <Menu
+      onClick={handleOnClick}
+      selectedKeys={[current]}
+      mode="horizontal"
+      className="sticky-top"
+    >
       {/* Brand */}
       <Item key="thunderbolt" icon={<FireOutlined />}>
         <Link to={"/home"}>Yard Sale</Link>
