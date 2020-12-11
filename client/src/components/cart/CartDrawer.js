@@ -41,7 +41,7 @@ const CartDrawer = () => {
               {p.images[0] ? (
                 <>
                   <img src={p.images[0].url} width={"100%"} height={"auto"} />
-                  <p className="bg-primary text-light">
+                  <p className="bg-dark text-light">
                     <span className="pl-2">
                       {p.name} x {p.count}
                     </span>
@@ -50,7 +50,7 @@ const CartDrawer = () => {
               ) : (
                 <>
                   <img src={logo} width={"100%"} height={"auto"} />
-                  <p className="bg-primary text-light">
+                  <p className="bg-danger text-light">
                     <span className="pl-2">
                       {p.name} x {p.count}
                     </span>
@@ -65,7 +65,7 @@ const CartDrawer = () => {
           className="btn btn-block btn-primary"
           onClick={closeDrawer}
         >
-          Go to Checkout
+          Proceed to Checkout
         </Link>
       </Drawer>
     </>
