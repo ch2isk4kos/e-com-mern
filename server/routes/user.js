@@ -5,9 +5,10 @@ const router = express.Router();
 const { authenticateToken } = require("../middleware/auth.js");
 
 // authentication controller imports
-const { userCart } = require("../controllers/user");
+const { userCart, userCartResponse } = require("../controllers/user");
 
 router.post("/user/checkout", authenticateToken, userCart);
+router.get("/user/checkout", authenticateToken, userCartResponse);
 
 router.get("/user", (req, res) => {
   res.json({
