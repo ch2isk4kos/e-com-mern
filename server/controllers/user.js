@@ -7,7 +7,7 @@ exports.userCart = async (req, res) => {
   const { cart } = req.body;
 
   const user = await User.findOne({ email: req.user.email }).exec();
-  let existingCart = await Cart.findOne({ orderedBy: user.id }).exec();
+  let existingCart = await Cart.findOne({ orderedBy: user._id }).exec();
 
   if (existingCart) {
     existingCart.remove();
@@ -31,10 +31,10 @@ exports.userCart = async (req, res) => {
     totalAmount = totalAmount + products[i].price + products[i].count;
   }
 
-  let c = await Cart({
+  let c = await new Cart({
     products: products,
     totalAmount: totalAmount,
-    orderedBy: { type: user._id },
+    orderedBy: user._id,
   }).save();
 
   console.log("Saved:", c);

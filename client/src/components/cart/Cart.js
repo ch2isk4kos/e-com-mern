@@ -16,10 +16,11 @@ const Cart = () => {
   };
 
   const confirmOrder = () => {
+    console.log(cart);
     userCheckout(cart, user.token)
       .then((res) => {
         console.log("order response:", res);
-        if (res.data.ok) history.push("/user/checkout");
+        if (res.data.ok) history.push("/checkout");
       })
       .catch((err) => console.log("Order Error", err));
   };
@@ -82,7 +83,10 @@ const Cart = () => {
           <h4>Total ${purchaseAmount()}</h4>
           {user ? (
             <Link to={"/user/checkout"}>
-              <button className="btn btn-sm btn-primary mt-3">
+              <button
+                className="btn btn-sm btn-primary mt-3"
+                onClick={confirmOrder}
+              >
                 Proceed To Checkout
               </button>
             </Link>
