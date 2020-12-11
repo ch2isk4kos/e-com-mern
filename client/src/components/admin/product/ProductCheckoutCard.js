@@ -1,12 +1,18 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 // import logo from "../../../assets/yard-sale.jpg";
 
 const ProductCheckoutCard = ({ product }) => {
   const { images, name, brand, color, price, shipping, quantity } = product;
 
   const colors = [
+    "Charcoal",
     "Midnight",
     "Navy",
     "Forest Green",
@@ -18,6 +24,26 @@ const ProductCheckoutCard = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleOnColorChange = (e) => {
+    let cart = [];
+
+    if (typeof window !== undefined) {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.map((p, i) => {
+        if (p._id === product._id) {
+          cart[i].color = e.target.value;
+        }
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
+    }
+  };
+
+  const handleOnQtyChange = (e) => {
     let cart = [];
     let count = e.target.value < 1 ? 1 : e.target.value;
 
@@ -32,7 +58,7 @@ const ProductCheckoutCard = ({ product }) => {
       }
       cart.map((p, i) => {
         if (p._id === product._id) {
-          cart[i].color = count;
+          cart[i].count = count;
         }
       });
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -43,7 +69,7 @@ const ProductCheckoutCard = ({ product }) => {
     }
   };
 
-  const handleOnQtyChange = (e) => {
+  const handleOnRemove = () => {
     let cart = [];
 
     if (typeof window !== undefined) {
@@ -52,7 +78,7 @@ const ProductCheckoutCard = ({ product }) => {
       }
       cart.map((p, i) => {
         if (p._id === product._id) {
-          cart[i].count = e.target.value;
+          cart.splice(i, 1);
         }
       });
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -96,8 +122,21 @@ const ProductCheckoutCard = ({ product }) => {
             onChange={handleOnQtyChange}
           />
         </td>
-        <td>{shipping}</td>
+        <td>
+          {shipping === "Yes" ? (
+            <CheckCircleOutlined className="text-success" />
+          ) : (
+            <CloseCircleOutlined className="text-danger" />
+          )}
+        </td>
         <td>${price}</td>
+        <td>
+          <CloseOutlined
+            className="text-danger"
+            style={{ cursor: "pointer" }}
+            onClick={handleOnRemove}
+          />
+        </td>
       </tr>
     </tbody>
   );
