@@ -34,6 +34,7 @@ const ProductCheckoutCard = ({ product }) => {
         if (p._id === product._id) {
           cart[i].color = e.target.value;
         }
+        return cart;
       });
       localStorage.setItem("cart", JSON.stringify(cart));
       dispatch({
@@ -60,6 +61,7 @@ const ProductCheckoutCard = ({ product }) => {
         if (p._id === product._id) {
           cart[i].count = count;
         }
+        return cart;
       });
       localStorage.setItem("cart", JSON.stringify(cart));
       dispatch({
@@ -80,6 +82,7 @@ const ProductCheckoutCard = ({ product }) => {
         if (p._id === product._id) {
           cart.splice(i, 1);
         }
+        return cart;
       });
       localStorage.setItem("cart", JSON.stringify(cart));
       dispatch({
