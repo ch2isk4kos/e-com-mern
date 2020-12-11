@@ -65,7 +65,7 @@ const CartDrawer = () => {
           className="btn btn-block btn-primary"
           onClick={closeDrawer}
         >
-          Proceed to Checkout
+          Proceed to Cart
         </Link>
       </Drawer>
     </>
