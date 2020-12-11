@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 // import logo from "../../../assets/yard-sale.jpg";
 
 const ProductCheckoutCard = ({ product }) => {
-  const { images, name, brand, color, price, shipping } = product;
+  const { images, name, brand, color, price, shipping, quantity } = product;
 
   const colors = [
     "Midnight",
@@ -18,6 +19,12 @@ const ProductCheckoutCard = ({ product }) => {
 
   const handleOnColorChange = (e) => {
     let cart = [];
+    let count = e.target.value < 1 ? 1 : e.target.value;
+
+    if (count > quantity) {
+      toast.error(`Only ${quantity} left.`);
+      return;
+    }
 
     if (typeof window !== undefined) {
       if (localStorage.getItem("cart")) {
@@ -25,7 +32,27 @@ const ProductCheckoutCard = ({ product }) => {
       }
       cart.map((p, i) => {
         if (p._id === product._id) {
-          cart[i].color = e.target.value;
+          cart[i].color = count;
+        }
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
+    }
+  };
+
+  const handleOnQtyChange = (e) => {
+    let cart = [];
+
+    if (typeof window !== undefined) {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.map((p, i) => {
+        if (p._id === product._id) {
+          cart[i].count = e.target.value;
         }
       });
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -42,7 +69,6 @@ const ProductCheckoutCard = ({ product }) => {
         <td>
           <span className="p-1">{brand}</span>
           <span>{name}</span>
-          {colors}
         </td>
         <td>
           <select
@@ -59,8 +85,17 @@ const ProductCheckoutCard = ({ product }) => {
                 </option>
               ))}
           </select>
+          {/* {color} */}
         </td>
-        <td>{product.count}</td>
+        {/* <td>{product.count}</td> */}
+        <td>
+          <input
+            className="form-control"
+            type="number"
+            value={product.count}
+            onChange={handleOnQtyChange}
+          />
+        </td>
         <td>{shipping}</td>
         <td>${price}</td>
       </tr>
