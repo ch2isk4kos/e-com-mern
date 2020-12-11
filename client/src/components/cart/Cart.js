@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import ProductCheckoutCard from "../admin/product/ProductCheckoutCard";
+import { userCheckout } from "../../api/custom/user";
 
 const Cart = () => {
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const purchaseAmount = () => {
     return cart.reduce((current, next) => {
@@ -13,7 +15,14 @@ const Cart = () => {
     }, 0);
   };
 
-  const confirmOrder = () => {};
+  const confirmOrder = () => {
+    userCheckout(cart, user.token)
+      .then((res) => {
+        console.log("order response:", res);
+        if (res.data.ok) history.push("/user/checkout");
+      })
+      .catch((err) => console.log("Order Error", err));
+  };
 
   return (
     <div className="container-fluid">
