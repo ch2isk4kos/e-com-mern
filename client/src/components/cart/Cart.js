@@ -13,6 +13,8 @@ const Cart = () => {
     }, 0);
   };
 
+  const confirmOrder = () => {};
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -70,9 +72,11 @@ const Cart = () => {
           <hr />
           <h4>Total ${purchaseAmount()}</h4>
           {user ? (
-            <button className="btn btn-sm btn-primary mt-3">
-              Proceed to Checkout
-            </button>
+            <Link to={"/user/checkout"}>
+              <button className="btn btn-sm btn-primary mt-3">
+                Proceed To Checkout
+              </button>
+            </Link>
           ) : (
             <button className="btn btn-sm btn-primary mt-3">
               <Link
