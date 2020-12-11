@@ -26,7 +26,7 @@ const Cart = () => {
           {!cart.length ? (
             <>
               <h4>
-                No Products in Cart
+                No Products in Cart{" "}
                 <Link to="/shop">
                   Continue Shopping
                   {/* <span className="float-left">Continue Shopping</span> */}
