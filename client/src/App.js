@@ -27,6 +27,7 @@ import Product from "./components/admin/product/Product";
 import Shop from "./components/shop/Shop";
 import Cart from "./components/cart/Cart";
 import CartDrawer from "./components/cart/CartDrawer";
+import Checkout from "./components/cart/Checkout";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -84,6 +85,7 @@ const App = () => {
           path={"/user/edit-password"}
           component={EditPassword}
         />
+        <UserRoute exact path={"/user/checkout"} component={Checkout} />
         {/* Admin Routes */}
         <AdminRoute
           exact
