@@ -13,3 +13,11 @@ export const userCheckout = async (cart, token) => {
     }
   );
 };
+
+export const userCartResponse = async (token) => {
+  await axios.get(`${NODE_API}/user/checkout`, {
+    headers: {
+      auth: token,
+    },
+  });
+};
