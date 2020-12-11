@@ -26,6 +26,7 @@ import Products from "./components/admin/product/Products";
 import Product from "./components/admin/product/Product";
 import Shop from "./components/shop/Shop";
 import Cart from "./components/cart/Cart";
+import CartDrawer from "./components/cart/CartDrawer";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -64,6 +65,7 @@ const App = () => {
   return (
     <div className="App">
       <Header />
+      <CartDrawer />
       <ToastContainer />
       <Switch>
         <Route exact path={"/"} component={Landing} />
@@ -118,7 +120,7 @@ const App = () => {
         <Route exact path={"/sub/:slug"} component={SubCategory} />
         {/* Domain Shop */}
         <Route exact path={"/shop"} component={Shop} />
-        {/* Cart Shop */}
+        {/* Cart */}
         <Route exact path={"/cart"} component={Cart} />
       </Switch>
     </div>
