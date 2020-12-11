@@ -34,7 +34,7 @@ const ProductCheckoutCard = ({ product }) => {
         if (p._id === product._id) {
           cart[i].color = e.target.value;
         }
-        return cart;
+        // return cart;
       });
       localStorage.setItem("cart", JSON.stringify(cart));
       dispatch({
@@ -45,7 +45,6 @@ const ProductCheckoutCard = ({ product }) => {
   };
 
   const handleOnQtyChange = (e) => {
-    let cart = [];
     let count = e.target.value < 1 ? 1 : e.target.value;
 
     if (count > quantity) {
@@ -53,12 +52,14 @@ const ProductCheckoutCard = ({ product }) => {
       return;
     }
 
+    let cart = [];
+
     if (typeof window !== undefined) {
       if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
       cart.map((p, i) => {
-        if (p._id === product._id) {
+        if (product._id === p._id) {
           cart[i].count = count;
         }
         return cart;
