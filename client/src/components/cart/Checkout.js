@@ -38,9 +38,14 @@ const Checkout = () => {
             </Link>
           </button>
         )} */}
-        <div className="row">
-          <div className="col-md-6">
-            <button className="btn btn-primary btn-block">Place Order</button>
+        <div className="col-md-6">
+          <div className="row">
+            <button className="btn btn-sm btn-primary btn-block mt-3">
+              Place Order
+            </button>
+            <button className="btn btn-sm btn-primary btn-block mt-3">
+              Empty Cart
+            </button>
           </div>
         </div>
       </div>
