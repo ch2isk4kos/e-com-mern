@@ -9,6 +9,7 @@ const Checkout = () => {
         textarea
         <button>Save</button>
         <br />
+        <h4>Coupon</h4>
         coupon input and application
       </div>
       <div className="col-md-6">
@@ -39,7 +40,7 @@ const Checkout = () => {
         )} */}
         <div className="row">
           <div className="col-md-6">
-            <button className="btn btn-primary">Place Order</button>
+            <button className="btn btn-primary btn-block">Place Order</button>
           </div>
         </div>
       </div>
