@@ -16,9 +16,9 @@ const Cart = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <h4>
+        <h4 className="mt-5">
           {/* <span className="float-left">{cart.length} Products</span> */}
-          {cart.length} Items
+          {cart.length} Items in Cart
         </h4>
       </div>
       <div className="row">
@@ -35,7 +35,6 @@ const Cart = () => {
             </>
           ) : (
             <>
-              <h4>Show Items in Cart</h4>
               <table className="table table-bordered">
                 {/* Table Heading */}
                 <thead className="thead-light">
