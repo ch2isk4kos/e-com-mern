@@ -3,8 +3,8 @@ const Product = require("../models/Product");
 const Cart = require("../models/Cart");
 
 exports.userCart = async (req, res) => {
-  let products = [];
   const { cart } = req.body;
+  let products = [];
 
   const user = await User.findOne({ email: req.user.email }).exec();
   let existingCart = await Cart.findOne({ orderedBy: user._id }).exec();
@@ -25,15 +25,15 @@ exports.userCart = async (req, res) => {
     products.push(u);
   }
 
-  let totalAmount = 0;
+  let total = 0;
 
   for (let i = 0; i < products.length; i++) {
-    totalAmount = totalAmount + products[i].price + products[i].count;
+    total = total + products[i].price + products[i].count;
   }
 
   let c = await new Cart({
-    products: products,
-    totalAmount: totalAmount,
+    products,
+    total,
     orderedBy: user._id,
   }).save();
 
@@ -41,16 +41,18 @@ exports.userCart = async (req, res) => {
   res.json({ ok: true });
 };
 
-exports.userCartResponse = async (req, res) => {
+exports.getUserCart = async (req, res) => {
   const user = await User.findOne({ email: req.user.email }).exec();
+
   let cart = await Cart.findOne({ orderedBy: user._id })
     .populate("products.product", "_id name price totalAfterDiscount")
     .exec();
 
   const { products, totalAmount, totalAfterDiscount } = cart;
+
   res.json({
-    products: products,
-    totalAmount: totalAmount,
-    totalAfterDiscount: totalAfterDiscount,
+    products,
+    totalAmount,
+    totalAfterDiscount,
   });
 };

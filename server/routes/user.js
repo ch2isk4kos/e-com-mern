@@ -5,15 +5,15 @@ const router = express.Router();
 const { authenticateToken } = require("../middleware/auth.js");
 
 // authentication controller imports
-const { userCart, userCartResponse } = require("../controllers/user");
+const { userCart, getUserCart } = require("../controllers/user");
 
-router.post("/user/checkout", authenticateToken, userCart);
-router.get("/user/checkout", authenticateToken, userCartResponse);
+router.post("/user/cart", authenticateToken, userCart);
+router.get("/user/cart", authenticateToken, getUserCart);
 
-router.get("/user", (req, res) => {
-  res.json({
-    data: "User",
-  });
-});
+// router.get("/user", (req, res) => {
+//   res.json({
+//     data: "User",
+//   });
+// });
 
 module.exports = router;
