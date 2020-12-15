@@ -4,10 +4,10 @@ const Cart = require("../models/Cart");
 
 exports.userCart = async (req, res) => {
   const { cart } = req.body;
-  let products = [];
+  const products = [];
 
   const user = await User.findOne({ email: req.user.email }).exec();
-  let existingCart = await Cart.findOne({ orderedBy: user._id }).exec();
+  const existingCart = await Cart.findOne({ orderedBy: user._id }).exec();
 
   if (existingCart) {
     existingCart.remove();
@@ -42,24 +42,32 @@ exports.userCart = async (req, res) => {
 };
 
 exports.getUserCart = async (req, res) => {
-  const user = await User.findOne({ email: req.user.email }).exec();
+  try {
+    const user = await User.findOne({ email: req.user.email }).exec();
 
-  let cart = await Cart.findOne({ orderedBy: user._id })
-    .populate("products.product", "_id name price totalAfterDiscount")
-    .exec();
+    let cart = await Cart.findOne({ orderedBy: user._id })
+      .populate("products.product", "_id name price")
+      .exec();
 
-  const { products, totalAmount, totalAfterDiscount } = cart;
+    console.log("cart:", cart);
 
-  res.json({
-    products: products,
-    totalAmount: totalAmount,
-    totalAmountAfterDiscount: totalAfterDiscount,
-  });
+    let { products, totalAmount, totalAfterDiscount } = cart;
+
+    res.json({
+      products: products,
+      totalAmount: totalAmount,
+      totalAfterDiscount: totalAfterDiscount,
+    });
+  } catch (err) {
+    res.status(400).json({
+      errMsg: err.message,
+    });
+  }
 };
 
-exports.emptyUserCart = async (req, res) => {
-  const user = await User.findOne({ email: req.user.email }).exec();
-  const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
+// exports.emptyUserCart = async (req, res) => {
+//   const user = await User.findOne({ email: req.user.email }).exec();
+//   const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
 
-  res.json(cart);
-};
+//   res.json(cart);
+// };

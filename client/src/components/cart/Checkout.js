@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserCart } from "../../api/custom/user";
+import { getUserCart, emptyUserCart } from "../../api/custom/user";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
   const [products, setProducts] = useState([]);
@@ -11,12 +12,6 @@ const Checkout = () => {
 
   useEffect(() => {
     loadUserCart();
-    // getUserCart(user.token)
-    //   .then((res) => {
-    //     setProducts(res.data.products);
-    //     setTotal(res.data.totalAmount);
-    //   })
-    //   .catch((err) => console.log(err));
   }, []);
 
   const loadUserCart = () => {
@@ -25,8 +20,25 @@ const Checkout = () => {
         setProducts(res.data.products);
         setTotal(res.data.totalAmount);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.message.errMsg));
   };
+
+  //   const handleOnEmptyCart = () => {
+  //     if (typeof window !== undefined) {
+  //       localStorage.removeItem("cart");
+  //     }
+
+  //     dispatch({
+  //       type: "ADD_TO_CART",
+  //       payload: [],
+  //     });
+
+  //     emptyUserCart(user.token).then((res) => {
+  //       setProducts([]);
+  //       setTotal(0);
+  //       toast.success("Your cart is empty.");
+  //     });
+  //   };
 
   return (
     <div className="row mt-5">
@@ -60,7 +72,13 @@ const Checkout = () => {
             <button className="btn btn-sm btn-primary">Place Order</button>
           </div>
           <div className="col-md-6">
-            <button className="btn btn-sm btn-primary">Empty Cart</button>
+            <button
+              className="btn btn-sm btn-danger"
+              disabled={!products.length}
+              //   onClick={(e) => handleOnEmptyCart(e)}
+            >
+              Empty Cart
+            </button>
           </div>
         </div>
       </div>
