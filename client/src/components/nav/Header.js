@@ -144,7 +144,7 @@ const Header = () => {
           key="cart"
           icon={<ShoppingCartOutlined />}
           title={
-            <Link to={`/cart`}>
+            <Link to={"/cart"}>
               <Badge count={cart.length} offset={[9, 0]}>
                 <span className="p-1">Cart</span>
               </Badge>
@@ -153,6 +153,13 @@ const Header = () => {
         >
           {/* Cart Sub Menu */}
           <ItemGroup title="Menu">
+            <Item key="cart" icon={<ShoppingCartOutlined />}>
+              <Link to={"/cart"}>
+                <Badge count={cart.length} offset={[9, 0]}>
+                  <span className="p-1">Cart</span>
+                </Badge>
+              </Link>
+            </Item>
             <Item key="checkout" icon={<WalletOutlined />}>
               Check Out
             </Item>
