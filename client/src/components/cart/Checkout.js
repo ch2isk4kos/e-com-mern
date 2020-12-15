@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserCart, emptyUserCart } from "../../api/custom/user";
+import { getUserCart, emptyUserCart, userAddress } from "../../api/custom/user";
 import { toast } from "react-toastify";
 
 const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
+  const [address, setAddress] = useState("");
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
@@ -53,10 +54,10 @@ const Checkout = ({ history }) => {
       <div className="col-md-6">
         <h4>Address</h4>
         <br />
-        textarea
-        <button>Save</button>
+        <button className="btn btn-sm btn-primary">Save</button>
         <br />
-        <h4>Coupon</h4>
+        <br />
+        <h4 className="mt-3">Coupon</h4>
         coupon input and application
         <br />
         {JSON.stringify(products)}
