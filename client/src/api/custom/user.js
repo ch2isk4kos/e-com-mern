@@ -4,7 +4,7 @@ const NODE_API = process.env.REACT_APP_NODE_API_URL;
 
 export const userCart = async (cart, token) => {
   return await axios.post(
-    `${NODE_API}/user/checkout`,
+    `${NODE_API}/user/cart`,
     { cart },
     {
       headers: {
@@ -15,7 +15,7 @@ export const userCart = async (cart, token) => {
 };
 
 export const getUserCart = async (token) => {
-  return await axios.get(`${NODE_API}/user/checkout`, {
+  return await axios.get(`${NODE_API}/user/cart`, {
     headers: {
       auth: token,
     },
