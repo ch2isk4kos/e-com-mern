@@ -10,16 +10,27 @@ const Checkout = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
+    loadUserCart();
+    // getUserCart(user.token)
+    //   .then((res) => {
+    //     setProducts(res.data.products);
+    //     setTotal(res.data.totalAmount);
+    //   })
+    //   .catch((err) => console.log(err));
+  }, []);
+
+  const loadUserCart = () => {
     getUserCart(user.token)
       .then((res) => {
         setProducts(res.data.products);
         setTotal(res.data.totalAmount);
       })
       .catch((err) => console.log(err));
-  }, []);
+  };
 
   return (
-    <div className="row">
+    <div className="row mt-5">
+      {/* left side */}
       <div className="col-md-6">
         <h4>Address</h4>
         <br />
@@ -31,40 +42,25 @@ const Checkout = () => {
         <br />
         {JSON.stringify(products)}
       </div>
+      {/* right side */}
       <div className="col-md-6">
         <h4>Order Summary</h4>
-        <hr />
-        {/* {cart.map((c, i) => (
+        <h4>{`Items (${products.length})`}</h4>
+        {products.map((p, i) => (
           <div key={i}>
-            <p className="mt-3">
-              {c.name} x {c.count} ${c.price * c.count}
+            <p>
+              {p.product.name} x {p.count} = ${p.product.price * p.count}
             </p>
           </div>
-        ))} */}
+        ))}
         <hr />
-        {/* <h4>Total ${purchaseAmount()}</h4> */}
-        {/* {user ? (
-          <button className="btn btn-sm btn-primary mt-3">
-            Proceed to Checkout
-          </button>
-        ) : (
-          <button className="btn btn-sm btn-primary mt-3">
-            <Link
-              to={{ pathname: "login", state: { from: "cart" } }}
-              // disable={!cart.length}
-            >
-              Login to Checkout
-            </Link>
-          </button>
-        )} */}
-        <div className="col-md-6">
-          <div className="row">
-            <button className="btn btn-sm btn-primary btn-block">
-              Place Order
-            </button>
-            <button className="btn btn-sm btn-primary btn-block mt-3">
-              Empty Cart
-            </button>
+        <h4>Total: ${total}</h4>
+        <div className="row">
+          <div className="col-md-6">
+            <button className="btn btn-sm btn-primary">Place Order</button>
+          </div>
+          <div className="col-md-6">
+            <button className="btn btn-sm btn-primary">Empty Cart</button>
           </div>
         </div>
       </div>
