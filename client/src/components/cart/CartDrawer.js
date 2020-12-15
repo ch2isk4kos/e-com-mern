@@ -24,9 +24,9 @@ const CartDrawer = () => {
 
   return (
     <>
-      <Button className="float-right" type="danger" onClick={showDrawer}>
+      {/* <Button className="float-right" type="danger" onClick={showDrawer}>
         {cart.length}
-      </Button>
+      </Button> */}
       <Drawer
         visible={drawer}
         title={`${cart.length} Items`}
