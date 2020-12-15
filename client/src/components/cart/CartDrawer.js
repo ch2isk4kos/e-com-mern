@@ -33,7 +33,7 @@ const CartDrawer = () => {
         width={350}
         zIndex={1500}
         keyboard={true}
-        // onClose={closeDrawer}
+        onClose={closeDrawer}
       >
         {cart.map((p) => (
           <div key={p._id} className="row">

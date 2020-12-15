@@ -22,10 +22,10 @@ export const getUserCart = async (token) => {
   });
 };
 
-// export const emptyUserCart = async (token) => {
-//   return await axios.delete(`${NODE_API}/user/cart`, {
-//     headers: {
-//       auth: token,
-//     },
-//   });
-// };
+export const emptyUserCart = async (token) => {
+  return await axios.delete(`${NODE_API}/user/cart`, {
+    headers: {
+      auth: token,
+    },
+  });
+};

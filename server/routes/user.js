@@ -9,7 +9,7 @@ const { userCart, getUserCart, emptyUserCart } = require("../controllers/user");
 
 router.post("/user/cart", authenticateToken, userCart);
 router.get("/user/cart", authenticateToken, getUserCart);
-// router.delete("/user/cart", authenticateToken, emptyUserCart);
+router.delete("/user/cart", authenticateToken, emptyUserCart);
 
 // router.get("/user", (req, res) => {
 //   res.json({

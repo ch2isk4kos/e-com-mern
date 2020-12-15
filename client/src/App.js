@@ -85,7 +85,7 @@ const App = () => {
           path={"/user/edit-password"}
           component={EditPassword}
         />
-        <UserRoute exact path={"/user/checkout"} component={Checkout} />
+        <UserRoute exact path={"/checkout"} component={Checkout} />
         {/* Admin Routes */}
         <AdminRoute
           exact
