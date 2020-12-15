@@ -25,15 +25,15 @@ exports.userCart = async (req, res) => {
     products.push(u);
   }
 
-  let total = 0;
+  let totalAmount = 0;
 
   for (let i = 0; i < products.length; i++) {
-    total = total + products[i].price + products[i].count;
+    totalAmount = totalAmount + products[i].price * products[i].count;
   }
 
   let c = await new Cart({
-    products,
-    total,
+    products: products,
+    totalAmount: totalAmount,
     orderedBy: user._id,
   }).save();
 
@@ -51,8 +51,8 @@ exports.getUserCart = async (req, res) => {
   const { products, totalAmount, totalAfterDiscount } = cart;
 
   res.json({
-    products,
-    totalAmount,
-    totalAfterDiscount,
+    products: products,
+    totalAmount: totalAmount,
+    totalAmountAfterDiscount: totalAfterDiscount,
   });
 };
