@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserCart } from "../../api/custom/user";
 
 const Checkout = () => {
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    getUserCart(user.token)
+      .then((res) => {
+        setProducts(res.data.products);
+        setTotal(res.data.totalAmount);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div className="row">
       <div className="col-md-6">
@@ -11,6 +28,8 @@ const Checkout = () => {
         <br />
         <h4>Coupon</h4>
         coupon input and application
+        <br />
+        {JSON.stringify(products)}
       </div>
       <div className="col-md-6">
         <h4>Order Summary</h4>
@@ -40,7 +59,7 @@ const Checkout = () => {
         )} */}
         <div className="col-md-6">
           <div className="row">
-            <button className="btn btn-sm btn-primary btn-block mt-3">
+            <button className="btn btn-sm btn-primary btn-block">
               Place Order
             </button>
             <button className="btn btn-sm btn-primary btn-block mt-3">
