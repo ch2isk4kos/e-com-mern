@@ -28,7 +28,7 @@ import Shop from "./components/shop/Shop";
 import Cart from "./components/cart/Cart";
 import CartDrawer from "./components/cart/CartDrawer";
 import Checkout from "./components/cart/Checkout";
-import CreateCoupon from "./components/cart/CreateCoupon";
+import CreateCoupon from "./components/admin/coupon/CreateCoupon";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
