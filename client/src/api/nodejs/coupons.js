@@ -7,7 +7,7 @@ export const getCoupons = async () => {
 
 export const createCoupon = async (coupon, token) => {
   return await axios.post(
-    `${NODE_API}/coupon/${couponId}`,
+    `${NODE_API}/coupon`,
     { coupon },
     {
       headers: {
