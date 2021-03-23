@@ -28,6 +28,7 @@ import Shop from "./components/shop/Shop";
 import Cart from "./components/cart/Cart";
 import CartDrawer from "./components/cart/CartDrawer";
 import Checkout from "./components/cart/Checkout";
+import CreateCoupon from "./components/cart/CreateCoupon";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
 import { currentUser } from "./api/firebase/firebaseFunctions";
@@ -114,6 +115,7 @@ const App = () => {
           component={UpdateProduct}
         />
         <AdminRoute exact path={"/admin/products"} component={Products} />
+        <AdminRoute exact path={"/admin/coupon"} component={CreateCoupon} />
         {/* Domain Products */}
         <Route exact path={"/product/:slug"} component={Product} />
         {/* Domain Category */}
