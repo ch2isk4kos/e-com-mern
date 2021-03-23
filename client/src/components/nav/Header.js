@@ -16,6 +16,7 @@ import {
   SettingOutlined,
   ShoppingOutlined,
   ShoppingCartOutlined,
+  TagsTwoTone,
   TagsOutlined,
   UserOutlined,
   WalletOutlined,
@@ -162,6 +163,9 @@ const Header = () => {
             </Item>
             <Item key="checkout" icon={<WalletOutlined />}>
               Check Out
+            </Item>
+            <Item key="coupon" icon={<TagsTwoTone />}>
+              <Link to={"/admin/coupon"}>Coupons</Link>
             </Item>
             <Item key="saved" icon={<BookOutlined />}>
               Saved Items
