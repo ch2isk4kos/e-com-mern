@@ -1,4 +1,5 @@
 import React from "react";
+import AdminNav from "../AdminNav";
 // import { useSelector, useDispatch } from "react-redux";
 // import {
 //   getCoupons,
@@ -62,8 +63,16 @@ const CreateCoupon = () => {
   //   };
 
   return (
+    // <div className="container-fluid">
     <div className="container">
-      <h4>Coupon ID</h4>
+      <div className="row">
+        <div className="col-md-2">
+          <AdminNav />
+        </div>
+        <div className="col-md-10">
+          <h4>Coupons</h4>
+        </div>
+      </div>
     </div>
   );
 };
