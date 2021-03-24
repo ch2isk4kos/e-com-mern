@@ -71,7 +71,9 @@ const CreateCoupon = () => {
             </div>
             <div className="form-group">
               <label className="text-muted">Expiration Date</label>
+              <br></br>
               <DatePicker
+                className="form-control"
                 name="expiry"
                 selected={new Date()}
                 value={expiry}
@@ -79,7 +81,8 @@ const CreateCoupon = () => {
                 required
               />
             </div>
-            <button>Save</button>
+            <br></br>
+            <button className="btn btn-primary">Save</button>
           </form>
         </div>
       </div>
