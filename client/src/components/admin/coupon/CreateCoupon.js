@@ -13,24 +13,21 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const CreateCoupon = () => {
   const [name, setName] = useState("");
-  const [expiry, setExpiry] = useState("");
+  const [expiry, setExpiry] = useState(new Date());
   const [discount, setDiscount] = useState("");
   const [loading, setLoading] = useState("");
 
-  const handleOnChange = (e) => {
-    console.log({ [e.target.name]: e.target.value });
-    switch (e.target.name) {
-      case e.target.name === "name":
-        setName({ [e.target.name]: e.target.value });
-        break;
-      case e.target.name === "discount":
-        setExpiry({ [e.target.name]: e.target.value });
-        break;
-      case e.target.name === "expiry":
-        setDiscount({ [e.target.name]: e.target.value });
-        break;
-    }
-  };
+  //   const handleOnChange = (e) => {
+  //     console.log({ [e.target.name]: e.target.value });
+  //     switch (e.target.name) {
+  //       case e.target.name === "name":
+  //         setName({ [e.target.name]: e.target.value });
+  //         break;
+  //       case e.target.name === "discount":
+  //         setExpiry({ [e.target.name]: e.target.value });
+  //         break;
+  //     }
+  //   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -52,9 +49,8 @@ const CreateCoupon = () => {
               <input
                 type="text"
                 className="form-control"
-                name="name"
                 value={name}
-                onChange={handleOnChange}
+                onChange={(e) => setName(e.target.value)}
                 required
               />
             </div>
@@ -63,9 +59,8 @@ const CreateCoupon = () => {
               <input
                 type="text"
                 className="form-control"
-                name="discount"
                 value={discount}
-                onChange={handleOnChange}
+                onChange={(e) => setDiscount(e.target.value)}
                 required
               />
             </div>
@@ -74,10 +69,9 @@ const CreateCoupon = () => {
               <br></br>
               <DatePicker
                 className="form-control"
-                name="expiry"
-                selected={new Date()}
+                selected={expiry}
                 value={expiry}
-                onChange={handleOnChange}
+                onChange={(date) => setExpiry(date)}
                 required
               />
             </div>
