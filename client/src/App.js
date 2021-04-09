@@ -88,6 +88,7 @@ const App = () => {
           component={EditPassword}
         />
         <UserRoute exact path={"/checkout"} component={Checkout} />
+        <UserRoute exact path={"/payment"} component={Payment} />
         {/* Admin Routes */}
         <AdminRoute
           exact
@@ -127,7 +128,6 @@ const App = () => {
         <Route exact path={"/shop"} component={Shop} />
         {/* Cart */}
         <Route exact path={"/cart"} component={Cart} />
-        <Route exact path={"/payment"} component={Payment} />
       </Switch>
     </div>
   );
