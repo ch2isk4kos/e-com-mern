@@ -28,6 +28,7 @@ import Shop from "./components/shop/Shop";
 import Cart from "./components/cart/Cart";
 import CartDrawer from "./components/cart/CartDrawer";
 import Checkout from "./components/cart/Checkout";
+import Payment from "./components/cart/Payment";
 import CreateCoupon from "./components/admin/coupon/CreateCoupon";
 import { Switch, Route } from "react-router-dom";
 import { auth } from "./api/firebase/firebaseConfig";
@@ -126,6 +127,7 @@ const App = () => {
         <Route exact path={"/shop"} component={Shop} />
         {/* Cart */}
         <Route exact path={"/cart"} component={Cart} />
+        <Route exact path={"/payment"} component={Payment} />
       </Switch>
     </div>
   );
