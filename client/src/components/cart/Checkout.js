@@ -15,7 +15,7 @@ const Checkout = ({ history }) => {
   const [isAddress, setIsAddress] = useState(false);
   const [coupon, setCoupon] = useState("");
   //discount price
-  const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
   const [discountError, setDiscountError] = useState("");
 
   const dispatch = useDispatch();
@@ -31,14 +31,14 @@ const Checkout = ({ history }) => {
       .catch((err) => console.log(err.message.errMsg));
   }, []);
 
-  const loadUserCart = () => {
-    getUserCart(user.token)
-      .then((res) => {
-        setProducts(res.data.products);
-        setTotal(res.data.totalAmount);
-      })
-      .catch((err) => console.log(err.message.errMsg));
-  };
+  // const loadUserCart = () => {
+  //   getUserCart(user.token)
+  //     .then((res) => {
+  //       setProducts(res.data.products);
+  //       setTotal(res.data.totalAmount);
+  //     })
+  //     .catch((err) => console.log(err.message.errMsg));
+  // };
 
   const handleOnEmptyCart = () => {
     if (typeof window !== undefined) {
@@ -66,6 +66,7 @@ const Checkout = ({ history }) => {
   const handleOnCoupon = (e) => {
     console.log(e.target.value);
     setCoupon(e.target.value);
+    setDiscountError("");
   };
 
   const saveAddress = () => {
@@ -85,11 +86,12 @@ const Checkout = ({ history }) => {
 
     // apply coupon
     applyCoupon(user.token, coupon).then((res) => {
-      console.log(`apply coupon response: ${res.data}`);
+      console.log("response from coupon applied: ", res.data);
 
       if (res.data) {
         setTotalAfterDiscount(res.data);
         //update redux with applied coupon
+        setCoupon("");
       }
 
       if (res.data.errMsg) {
@@ -137,6 +139,7 @@ const Checkout = ({ history }) => {
         </div>
         <br />
         <h4 className="mt-3">Coupon Code</h4>
+        {discountError && <p className="bg-danger p-2">{discountError}</p>}
         <div className="container-fluid">
           <input
             className="form-control mb-2 pr-5"
@@ -166,10 +169,10 @@ const Checkout = ({ history }) => {
             </div>
           ))}
         <hr />
-        {!totalAfterDiscount ? (
-          <h4>Total: ${total}</h4>
-        ) : (
+        {totalAfterDiscount > 0 ? (
           <h4>Total: ${totalAfterDiscount}</h4>
+        ) : (
+          <h4>Total: ${total}</h4>
         )}
 
         <div className="row">
