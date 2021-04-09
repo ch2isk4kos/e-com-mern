@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import AdminNav from "../AdminNav";
-// import { useSelector, useDispatch } from "react-redux";
-// import {
-//   getCoupons,
-//   createCoupon,
-//   removeCoupon,
-// } from "../../../api/nodejs/coupons";
-// import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getCoupons,
+  createCoupon,
+  removeCoupon,
+} from "../../../api/nodejs/coupons";
+import { toast } from "react-toastify";
 // import { DeleteOutlined } from "@ant-design/icons";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,6 +16,9 @@ const CreateCoupon = () => {
   const [expiry, setExpiry] = useState(new Date());
   const [discount, setDiscount] = useState("");
   const [loading, setLoading] = useState("");
+
+  //access user token from redux
+  const { user } = useSelector((state) => ({ ...state }));
 
   //   const handleOnChange = (e) => {
   //     console.log({ [e.target.name]: e.target.value });
@@ -31,7 +34,20 @@ const CreateCoupon = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    console.log("Coupon Has Been Submitted!");
+    setLoading(true);
+    //console.log(name, expiry, discount);
+
+    createCoupon({ name, expiry, discount }, user.token)
+      .then((res) => {
+        setLoading(false);
+        setName("");
+        setDiscount("");
+        setExpiry("");
+        toast.success(`${res.data.name} created successfully`);
+      })
+      .catch((err) => {
+        console.log("create coupon", err);
+      });
   };
 
   return (

@@ -11,8 +11,8 @@ exports.index = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    const { name, expiry, discount } = req.body;
-    res.json(await new Coupon({ name, parent, expiry, discount }).save());
+    const { name, expiry, discount } = req.body.coupon;
+    res.json(await new Coupon({ name, expiry, discount }).save());
   } catch (err) {
     console.log("COUPON CREATE", err);
     res.status(400).send("CREATE COUPON FAILED");
