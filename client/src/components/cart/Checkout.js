@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserCart, emptyUserCart, userAddress } from "../../api/custom/user";
+import {
+  getUserCart,
+  emptyUserCart,
+  userAddress,
+  applyCoupon,
+} from "../../api/custom/user";
 import { toast } from "react-toastify";
 
 const Checkout = ({ history }) => {
@@ -9,6 +14,9 @@ const Checkout = ({ history }) => {
   const [address, setAddress] = useState("");
   const [isAddress, setIsAddress] = useState(false);
   const [coupon, setCoupon] = useState("");
+  //discount price
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState("");
+  const [discountError, setDiscountError] = useState("");
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
@@ -72,8 +80,23 @@ const Checkout = ({ history }) => {
     });
   };
 
-  const applyCoupon = () => {
+  const applyCouponToUserCart = () => {
     console.log(`Sending Coupon: ${coupon} to server`);
+
+    // apply coupon
+    applyCoupon(user.token, coupon).then((res) => {
+      console.log(`apply coupon response: ${res.data}`);
+
+      if (res.data) {
+        setTotalAfterDiscount(res.data);
+        //update redux with applied coupon
+      }
+
+      if (res.data.errMsg) {
+        setDiscountError(res.data.errMsg);
+        //update redux with applied coupon
+      }
+    });
   };
 
   // const showAddress = () => {};x
@@ -121,7 +144,10 @@ const Checkout = ({ history }) => {
             value={coupon}
             onChange={handleOnCoupon}
           />
-          <button className="btn btn-sm btn-success mt-3" onClick={applyCoupon}>
+          <button
+            className="btn btn-sm btn-success mt-3"
+            onClick={applyCouponToUserCart}
+          >
             Apply
           </button>
         </div>
@@ -140,7 +166,12 @@ const Checkout = ({ history }) => {
             </div>
           ))}
         <hr />
-        <h4>Total: ${total}</h4>
+        {!totalAfterDiscount ? (
+          <h4>Total: ${total}</h4>
+        ) : (
+          <h4>Total: ${totalAfterDiscount}</h4>
+        )}
+
         <div className="row">
           <div className="col-md-6">
             <button
