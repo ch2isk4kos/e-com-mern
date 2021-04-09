@@ -7,7 +7,7 @@ import {
   removeCoupon,
 } from "../../../api/nodejs/coupons";
 import { toast } from "react-toastify";
-// import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -15,10 +15,17 @@ const CreateCoupon = () => {
   const [name, setName] = useState("");
   const [expiry, setExpiry] = useState(new Date());
   const [discount, setDiscount] = useState("");
-  const [loading, setLoading] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [coupons, setCoupons] = useState([]);
 
   //access user token from redux
   const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    getCoupons().then((res) => {
+      setCoupons(res.data);
+    });
+  }, []);
 
   //   const handleOnChange = (e) => {
   //     console.log({ [e.target.name]: e.target.value });
@@ -34,21 +41,23 @@ const CreateCoupon = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
     //console.log(name, expiry, discount);
 
     createCoupon({ name, expiry, discount }, user.token)
       .then((res) => {
-        setLoading(false);
+        setIsLoading(false);
         setName("");
         setDiscount("");
         setExpiry("");
-        toast.success(`${res.data.name} created successfully`);
+        toast.success(`${res.data.name} coupon created successfully`);
       })
       .catch((err) => {
         console.log("create coupon", err);
       });
   };
+
+  const removeCoupon = (id) => {};
 
   return (
     // <div className="container-fluid">
@@ -58,7 +67,7 @@ const CreateCoupon = () => {
           <AdminNav />
         </div>
         <div className="col-md-8">
-          <h4>Coupon Code</h4>
+          {isLoading ? <h4>Is Loading...</h4> : <h4>Coupon Code</h4>}
           <form onSubmit={handleOnSubmit}>
             <div className="form-group">
               <label className="text-muted">Name</label>
@@ -94,6 +103,33 @@ const CreateCoupon = () => {
             <br></br>
             <button className="btn btn-primary">Save</button>
           </form>
+          <br></br>
+          <h4>{coupons.length} Coupons</h4>
+          <table className="table table-bordered">
+            <thead className="thead-light">
+              <tr>
+                <th scope="col">Coupon</th>
+                <th scope="col">Discount</th>
+                <th scope="col">Expiration</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {coupons.map((c) => (
+                <tr key={c._id}>
+                  <td>{c.name}</td>
+                  <td>{c.discount}</td>
+                  <td>{new Date(c.expiry).toLocaleDateString()}</td>
+                  <td>
+                    <DeleteOutlined
+                      className="text-danger pointer"
+                      onClick={() => removeCoupon(c._id)}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
