@@ -30,6 +30,18 @@ export const emptyUserCart = async (token) => {
   });
 };
 
+export const applyCoupon = async (token, coupon) => {
+  return await axios.post(
+    `${NODE_API}/user/cart/coupon`,
+    { coupon },
+    {
+      headers: {
+        auth: token,
+      },
+    }
+  );
+};
+
 export const userAddress = async (token, address) => {
   return await axios.post(
     `${NODE_API}/user/address`,
