@@ -17,6 +17,9 @@ router.get("/user/cart", authenticateToken, getUserCart);
 router.delete("/user/cart", authenticateToken, emptyUserCart);
 router.post("/user/address", authenticateToken, userAddress);
 
+// user coupons
+router.post("/user/cart/coupon", authenticateToken, applyUserCouponToCart);
+
 // router.get("/user", (req, res) => {
 //   res.json({
 //     data: "User",
