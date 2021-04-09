@@ -197,6 +197,7 @@ const Checkout = ({ history }) => {
             <button
               className="btn btn-sm btn-primary"
               disabled={!isAddress || !products.length}
+              onClick={() => history.push("/payment")}
             >
               Place Order
             </button>
