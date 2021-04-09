@@ -93,12 +93,21 @@ const Checkout = ({ history }) => {
       if (res.data) {
         setTotalAfterDiscount(res.data);
         //update redux with applied coupon
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: true,
+        });
         setCoupon("");
       }
 
       if (res.data.errMsg) {
         setDiscountError(res.data.errMsg);
+        toast.error(`${res.data.errMsg}`);
         //update redux with applied coupon
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
         setDiscountError("");
       } else {
         toast.success("Coupon applied successfully.");
@@ -144,8 +153,8 @@ const Checkout = ({ history }) => {
         </div>
         <br />
         <h4 className="mt-3">Coupon Code</h4>
+        {/* {discountError && toast.error(`${discountError}`)} */}
         <div className="container-fluid">
-          {discountError && toast.error(`${discountError}`)}
           <input
             className="form-control mb-2 pr-5"
             type="text"
