@@ -22,10 +22,14 @@ const CreateCoupon = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
+    getAllCoupons();
+  }, []);
+
+  const getAllCoupons = () => {
     getCoupons().then((res) => {
       setCoupons(res.data);
     });
-  }, []);
+  };
 
   //   const handleOnChange = (e) => {
   //     console.log({ [e.target.name]: e.target.value });
@@ -47,6 +51,7 @@ const CreateCoupon = () => {
     createCoupon({ name, expiry, discount }, user.token)
       .then((res) => {
         setIsLoading(false);
+        getAllCoupons();
         setName("");
         setDiscount("");
         setExpiry("");
@@ -57,7 +62,20 @@ const CreateCoupon = () => {
       });
   };
 
-  const removeCoupon = (id) => {};
+  const handleOnRemove = (couponId) => {
+    if (window.confirm("Delete?")) {
+      setIsLoading(true);
+      removeCoupon(couponId, user.token)
+        .then((res) => {
+          getCoupons().then((res) => setCoupons(res.data));
+          setIsLoading(false);
+          toast.error(`${res.data.name} coupon deleted`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   return (
     // <div className="container-fluid">
@@ -123,7 +141,7 @@ const CreateCoupon = () => {
                   <td>
                     <DeleteOutlined
                       className="text-danger pointer"
-                      onClick={() => removeCoupon(c._id)}
+                      onClick={() => handleOnRemove(c._id)}
                     />
                   </td>
                 </tr>
