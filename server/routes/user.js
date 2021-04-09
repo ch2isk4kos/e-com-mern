@@ -10,6 +10,7 @@ const {
   getUserCart,
   emptyUserCart,
   userAddress,
+  applyCouponToUserCart,
 } = require("../controllers/user");
 
 router.post("/user/cart", authenticateToken, userCart);
@@ -18,7 +19,7 @@ router.delete("/user/cart", authenticateToken, emptyUserCart);
 router.post("/user/address", authenticateToken, userAddress);
 
 // user coupons
-router.post("/user/cart/coupon", authenticateToken, applyUserCouponToCart);
+router.post("/user/cart/coupon", authenticateToken, applyCouponToUserCart);
 
 // router.get("/user", (req, res) => {
 //   res.json({
