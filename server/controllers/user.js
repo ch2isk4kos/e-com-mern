@@ -101,7 +101,7 @@ exports.applyCouponToUserCart = async (req, res) => {
   let { products, totalAmount } = await Cart.findOne({
     orderedBy: user._id,
   })
-    .populate("products.product", "_id title price")
+    .populate("products.product", "_id name price")
     .exec();
 
   console.log("products: ", products);
