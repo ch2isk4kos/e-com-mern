@@ -53,6 +53,7 @@ const Checkout = ({ history }) => {
     emptyUserCart(user.token).then((res) => {
       setProducts([]);
       setTotal(0);
+      setTotalAfterDiscount(0);
       toast.success("Your cart is empty.");
       history.push("/home");
     });
@@ -98,6 +99,8 @@ const Checkout = ({ history }) => {
         setDiscountError(res.data.errMsg);
         //update redux with applied coupon
         setDiscountError("");
+      } else {
+        toast.success("Coupon applied successfully.");
       }
     });
   };
@@ -171,7 +174,10 @@ const Checkout = ({ history }) => {
           ))}
         <hr />
         {totalAfterDiscount > 0 ? (
-          <h4>Total: ${totalAfterDiscount}</h4>
+          <>
+            <h4>Total After Discount:</h4>
+            <h4>${totalAfterDiscount}</h4>
+          </>
         ) : (
           <h4>Total: ${total}</h4>
         )}
