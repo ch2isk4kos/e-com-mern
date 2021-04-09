@@ -8,6 +8,7 @@ const Checkout = ({ history }) => {
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
   const [isAddress, setIsAddress] = useState(false);
+  const [coupon, setCoupon] = useState("");
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
@@ -54,6 +55,11 @@ const Checkout = ({ history }) => {
     setAddress(e.target.value);
   };
 
+  const handleOnCoupon = (e) => {
+    console.log(e.target.value);
+    setCoupon(e.target.value);
+  };
+
   const saveAddress = () => {
     userAddress(user.token, address).then((res) => {
       if (res.data.ok) {
@@ -61,14 +67,20 @@ const Checkout = ({ history }) => {
         setIsAddress(true);
         console.log(user);
         console.log(address);
-        toast.success("Address saved.");
+        toast.success(`Address Saved: ${address}`);
       }
     });
+  };
+
+  const applyCoupon = () => {
+    console.log(`Sending Coupon: ${coupon} to server`);
   };
 
   // const showAddress = () => {};x
 
   // const showProductSummary = () => {};
+
+  // const showApplyCoupon = () => {};
 
   return (
     <div className="row mt-5">
@@ -79,21 +91,21 @@ const Checkout = ({ history }) => {
           <input
             className="form-control mb-2 pr-5"
             type="text"
-            // rows={5}
-            // cols={3}
             value={address}
             onChange={handleOnAddress}
           />
+
           {!isAddress ? (
             <button
-              className="btn btn-sm btn-success btn-block mt-3"
+              className="btn btn-sm btn-success mt-3"
               onClick={saveAddress}
             >
               Save
             </button>
           ) : (
             <button
-              className="btn btn-sm btn-primary btn-block mt-3"
+              // className="btn btn-sm btn-primary btn-block mt-3"
+              className="btn btn-sm btn-primary mt-3"
               onClick={saveAddress}
             >
               Update
@@ -101,10 +113,19 @@ const Checkout = ({ history }) => {
           )}
         </div>
         <br />
-        <h4 className="mt-3">Got Coupon?</h4>
-        coupon input and application
+        <h4 className="mt-3">Coupon Code</h4>
+        <div className="container-fluid">
+          <input
+            className="form-control mb-2 pr-5"
+            type="text"
+            value={coupon}
+            onChange={handleOnCoupon}
+          />
+          <button className="btn btn-sm btn-success mt-3" onClick={applyCoupon}>
+            Apply
+          </button>
+        </div>
         <br />
-        {JSON.stringify(products)}
       </div>
       {/* right side */}
       <div className="col-md-6">
