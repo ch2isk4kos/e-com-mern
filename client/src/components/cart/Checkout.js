@@ -97,6 +97,7 @@ const Checkout = ({ history }) => {
       if (res.data.errMsg) {
         setDiscountError(res.data.errMsg);
         //update redux with applied coupon
+        setDiscountError("");
       }
     });
   };
@@ -139,8 +140,8 @@ const Checkout = ({ history }) => {
         </div>
         <br />
         <h4 className="mt-3">Coupon Code</h4>
-        {discountError && <p className="bg-danger p-2">{discountError}</p>}
         <div className="container-fluid">
+          {discountError && toast.error(`${discountError}`)}
           <input
             className="form-control mb-2 pr-5"
             type="text"
