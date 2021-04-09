@@ -54,6 +54,7 @@ const Checkout = ({ history }) => {
       setProducts([]);
       setTotal(0);
       setTotalAfterDiscount(0);
+      setCoupon("");
       toast.success("Your cart is empty.");
       history.push("/home");
     });
