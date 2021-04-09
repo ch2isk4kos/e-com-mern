@@ -57,29 +57,33 @@ const Checkout = ({ history }) => {
   const saveAddress = () => {
     userAddress(user.token, address).then((res) => {
       if (res.data.ok) {
+        // setAddress();
         setIsAddress(true);
+        console.log(user);
+        console.log(address);
         toast.success("Address saved.");
       }
     });
   };
 
+  // const showAddress = () => {};x
+
+  // const showProductSummary = () => {};
+
   return (
     <div className="row mt-5">
       {/* left side */}
       <div className="col-md-6">
-        <h4>Address</h4>
-        <br />
+        <h4>Delivery Address</h4>
         <div className="container-fluid">
-          <textarea
+          <input
             className="form-control mb-2 pr-5"
             type="text"
-            rows={5}
+            // rows={5}
             // cols={3}
             value={address}
             onChange={handleOnAddress}
           />
-        </div>
-        <div className="container-fluid">
           {!isAddress ? (
             <button
               className="btn btn-sm btn-success btn-block mt-3"
@@ -88,12 +92,16 @@ const Checkout = ({ history }) => {
               Save
             </button>
           ) : (
-            <button className="btn btn-sm btn-primary btn-block mt-3">
+            <button
+              className="btn btn-sm btn-primary btn-block mt-3"
+              onClick={saveAddress}
+            >
               Update
             </button>
           )}
         </div>
-        <h4 className="mt-3">Coupon</h4>
+        <br />
+        <h4 className="mt-3">Got Coupon?</h4>
         coupon input and application
         <br />
         {JSON.stringify(products)}

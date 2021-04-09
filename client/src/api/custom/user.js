@@ -32,7 +32,7 @@ export const emptyUserCart = async (token) => {
 
 export const userAddress = async (token, address) => {
   return await axios.post(
-    `${NODE_API}/user/cart`,
+    `${NODE_API}/user/address`,
     { address },
     {
       headers: {
