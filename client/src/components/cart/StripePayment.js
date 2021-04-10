@@ -57,7 +57,7 @@ const StripePayment = ({ history }) => {
       setProcessing(false);
     } else {
       //get result of payment process success && create/save order to mongo atlas for admin to process
-      // console.log(JSON.stringify(payload, null, 4));
+      console.log(JSON.stringify(payload, null, 4));
       setError(null);
       setProcessing(false);
       setIsSuccess(true);
