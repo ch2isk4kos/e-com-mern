@@ -40,6 +40,7 @@ exports.createPaymentIntent = async (req, res) => {
   res.send({
     clientSecret: paymentIntent.client_secret,
     items: cartItems,
+    totalAfterDiscount,
     payable: purchaseAmount,
   });
 };
