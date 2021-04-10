@@ -7,18 +7,19 @@ const StripePayment = ({ history }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
 
-  const [succeeded, setSucceeded] = useState(false);
-  const [error, setError] = useState(null);
-  const [processing, setProcessing] = useState("");
-  const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState("");
+  const [processing, setProcessing] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [error, setError] = useState(null);
 
   const stripe = useStripe();
   const elements = useElements();
 
   useEffect(() => {
     createPaymentIntent(user.token).then((res) => {
-      console.log(`create payment intent: ${res.data}`);
+      const { payment } = res.data;
+      console.log(`create payment intent: ${payment}`);
       setClientSecret(res.data.clientSecret);
     });
   }, []);
@@ -59,10 +60,14 @@ const StripePayment = ({ history }) => {
         />
         <button
           className="stripe-button"
-          disabled={processing || disabled || succeeded}
+          disabled={processing || isDisabled || isSuccess}
         >
           <span id="button-text">
-            {processing ? <div className="spinner" id="spinner"></div> : "Pay"}
+            {processing ? (
+              <div className="spinner" id="spinner" cursor="pointer"></div>
+            ) : (
+              "Pay"
+            )}
           </span>
         </button>
       </form>
