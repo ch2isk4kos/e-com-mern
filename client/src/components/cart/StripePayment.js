@@ -27,10 +27,34 @@ const StripePayment = ({ history }) => {
 
   const handleOnSubmit = async (e) => {
     //
+    e.preventDefault();
+    setProcessing(true);
+
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: e.target.name.value,
+        },
+      },
+    });
+
+    if (payload.error) {
+      setError(`Payment failed: ${payload.error.message}`);
+      setProcessing(false);
+    } else {
+      //get result of payment process success && create/save order to mongo atlas for admin to process
+      console.log(JSON.stringify(payload, null, 4));
+      setError(null);
+      setIsSuccess(true);
+      //empty cart from redux store and local storage
+    }
   };
 
   const handleOnChange = async (e) => {
-    //
+    //listen for changes in stripe card element && display errors as user inputs data
+    setIsDisabled(e.empty); //disable pay button if error is present
+    setError(e.error ? e.error.message : ""); //show error message
   };
 
   const cartStyle = {
@@ -71,6 +95,12 @@ const StripePayment = ({ history }) => {
             )}
           </span>
         </button>
+        <br />
+        {error && (
+          <div className="card-error" role="alert">
+            {error}
+          </div>
+        )}
       </form>
     </>
   );
