@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { createPaymentIntent } from "../../api/nodejs/stripe";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const StripePayment = ({ history }) => {
   const dispatch = useDispatch();
@@ -77,6 +78,10 @@ const StripePayment = ({ history }) => {
 
   return (
     <>
+      <p className={isSuccess ? "result-message" : "result-message hidden"}>
+        Successful Payment.{" "}
+        <Link to="/user/history">See your purchase history.</Link>
+      </p>
       <form id="payment-form" className="stripe-form" onSubmit={handleOnSubmit}>
         <CardElement
           id="card-element"
