@@ -27,10 +27,8 @@ const StripePayment = ({ history }) => {
   }, []);
 
   const handleOnSubmit = async (e) => {
-    //
     e.preventDefault();
     setProcessing(true);
-
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
@@ -39,14 +37,14 @@ const StripePayment = ({ history }) => {
         },
       },
     });
-
     if (payload.error) {
       setError(`Payment failed: ${payload.error.message}`);
       setProcessing(false);
     } else {
       //get result of payment process success && create/save order to mongo atlas for admin to process
-      console.log(JSON.stringify(payload, null, 4));
+      // console.log(JSON.stringify(payload, null, 4));
       setError(null);
+      setProcessing(false);
       setIsSuccess(true);
       //empty cart from redux store and local storage
     }

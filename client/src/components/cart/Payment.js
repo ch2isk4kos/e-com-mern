@@ -4,8 +4,10 @@ import { Elements } from "@stripe/react-stripe-js";
 import StripePayment from "./StripePayment";
 import "../../styles/stripe.css";
 
+const REACT_API_KEY = process.env.REACT_APP_STRIPE_API_KEY;
+
 //load stripe outside of Payment component to avoid recreating stripe object on each render
-const promise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY);
+const promise = loadStripe(REACT_API_KEY);
 
 const Payment = () => {
   return (
