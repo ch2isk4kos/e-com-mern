@@ -18,8 +18,9 @@ const StripePayment = ({ history }) => {
 
   useEffect(() => {
     createPaymentIntent(user.token).then((res) => {
-      const { payment } = res.data;
-      console.log(`create payment intent: ${payment}`);
+      // const { payment } = res.data;
+      // console.log(`create payment intent: ${payment}`);
+      console.log("create payment intent: ", res.data);
       setClientSecret(res.data.clientSecret);
     });
   }, []);
@@ -64,7 +65,7 @@ const StripePayment = ({ history }) => {
         >
           <span id="button-text">
             {processing ? (
-              <div className="spinner" id="spinner" cursor="pointer"></div>
+              <div className="spinner" id="spinner" pointer="cursor"></div>
             ) : (
               "Pay"
             )}
