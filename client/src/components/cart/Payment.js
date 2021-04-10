@@ -2,7 +2,7 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripePayment from "./StripePayment";
-import "../stripe.css";
+import "../../styles/stripe.css";
 
 //load stripe outside of Payment component to avoid recreating stripe object on each render
 const promise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY);
