@@ -21,6 +21,22 @@ const History = () => {
     });
   };
 
+  const renderOrders = () => {
+    orders.map((o, i) => (
+      <div key={i} className="m-5 p-3 card">
+        Payment Information
+        {renderPaymentTable(o)}
+        <div className="row">
+          <div className="col">
+            <p>PDF Download</p>
+          </div>
+        </div>
+      </div>
+    ));
+  };
+
+  const renderPaymentTable = (order) => {};
+
   return (
     <div className="container-fluid">
       <div className="row">
