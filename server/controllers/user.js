@@ -2,7 +2,9 @@ const User = require("../models/User");
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
 const Coupon = require("../models/Coupon");
+const Order = require("../models/Order");
 
+//user cart
 exports.userCart = async (req, res) => {
   const { cart } = req.body;
   const products = [];
@@ -75,6 +77,7 @@ exports.emptyUserCart = async (req, res) => {
   res.json(cart);
 };
 
+//user address
 exports.userAddress = async (req, res) => {
   const address = await User.findOneAndUpdate(
     { email: req.user.email },
@@ -84,6 +87,7 @@ exports.userAddress = async (req, res) => {
   res.json({ ok: true });
 };
 
+//user coupon
 exports.applyCouponToUserCart = async (req, res) => {
   const { coupon } = req.body;
   console.log("coupon: ", coupon);
@@ -108,8 +112,6 @@ exports.applyCouponToUserCart = async (req, res) => {
   console.log("total amount: ", totalAmount);
   console.log("discount: ", validateCoupon.discount);
 
-  // total after discount calculations
-
   let totalAfterDiscount = (
     totalAmount -
     (totalAmount * validateCoupon.discount) / 100
@@ -122,4 +124,21 @@ exports.applyCouponToUserCart = async (req, res) => {
   ).exec();
 
   res.json(totalAfterDiscount);
+};
+
+//user orders
+exports.createOrder = async (req, res) => {
+  const { paymentIntent } = req.body.stripeResponse;
+
+  const user = await User.findOne({ email: req.user.email }).exec();
+  const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
+
+  let newOrder = await new Order({
+    products: cart.products,
+    paymentIntent,
+    orderedBy: user._id,
+  }).saved();
+
+  console.log("New Order Saved: ", newOrder);
+  res.json({ ok: true });
 };
