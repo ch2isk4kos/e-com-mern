@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { createPaymentIntent } from "../../api/nodejs/stripe";
+import { createOrder, emptyUserCart } from "../../api/custom/user";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Card } from "antd";
@@ -8,7 +9,6 @@ import { CheckOutlined, DollarOutlined } from "@ant-design/icons";
 import Sale from "../../assets/yard-sale.jpg";
 
 const StripePayment = ({ history }) => {
-  const dispatch = useDispatch();
   const { user, coupon } = useSelector((state) => ({ ...state }));
 
   const [clientSecret, setClientSecret] = useState("");
@@ -16,6 +16,8 @@ const StripePayment = ({ history }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -57,11 +59,29 @@ const StripePayment = ({ history }) => {
       setProcessing(false);
     } else {
       //get result of payment process success && create/save order to mongo atlas for admin to process
+      createOrder(user.token, payload).then((res) => {
+        if (res.data.ok === true) {
+          //empty cart from local storage
+          if (typeof window !== undefined) localStorage.removeItem("cart");
+          //empty cart from redux
+          dispatch({
+            type: "ADD_TO_CART",
+            payload: [],
+          });
+          //reset coupon to false
+          dispatch({
+            type: "COUPON_APPLIED",
+            payload: false,
+          });
+          //empty cart from database
+          emptyUserCart(user.token);
+        }
+      });
+
       console.log(JSON.stringify(payload, null, 4));
       setError(null);
       setProcessing(false);
       setIsSuccess(true);
-      //empty cart from redux store and local storage
     }
   };
 
