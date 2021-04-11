@@ -40,7 +40,7 @@ const History = () => {
   const renderPaymentTable = (order) => (
     <table className="table table-bordered">
       <thead className="thead-light">
-        <tr>
+        <tr className="bg-primary text-white">
           <th scope="col">Product</th>
           <th scope="col">Price</th>
           <th scope="col">Brand</th>
@@ -51,8 +51,10 @@ const History = () => {
       </thead>
       <tbody>
         {order.products.map((p, i) => (
-          <tr className={i}>
-            <td>{p.product.name}</td>
+          <tr key={i}>
+            <td>
+              <b>{p.product.name}</b>
+            </td>
             <td>${p.product.price}</td>
             <td>{p.product.brand}</td>
             <td>{p.product.color}</td>
