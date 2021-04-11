@@ -65,3 +65,9 @@ export const createOrder = async (token, stripeResponse) => {
     }
   );
 };
+
+export const getUserOrders = async (token) => {
+  return await axios.get(`${NODE_API}/user/orders`, {
+    headers: { auth: token },
+  });
+};
