@@ -53,3 +53,15 @@ export const userAddress = async (token, address) => {
     }
   );
 };
+
+export const createOrder = async (token, stripeResponse) => {
+  return await axios.post(
+    `${NODE_API}/user/order`,
+    { stripeResponse },
+    {
+      headers: {
+        auth: token,
+      },
+    }
+  );
+};
