@@ -23,7 +23,7 @@ router.post("/user/address", authenticateToken, userAddress);
 router.post("/user/cart/coupon", authenticateToken, applyCouponToUserCart);
 
 //user orders
-router.post("/user/cart/coupon", authenticateToken, createOrder);
+router.post("/user/order", authenticateToken, createOrder);
 
 // router.get("/user", (req, res) => {
 //   res.json({
