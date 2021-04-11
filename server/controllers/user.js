@@ -141,6 +141,20 @@ exports.createOrder = async (req, res) => {
     orderedBy: user._id,
   }).save();
 
+  //decrement quanity/increment purchased from product inventory
+  let bulkOption = products.map((item) => {
+    return {
+      updateOne: {
+        filter: { _id: item.product._id }, //IMPORTANT: item.product
+        // update: { $inc: { quantity: -item.count, purchased: +item.count } }, //mongo atlas error: can not increment purchased value of null -> create new products in admin then test
+        update: { $inc: { quantity: -item.count } },
+      },
+    };
+  });
+
+  let inventory = await Product.bulkWrite(bulkOption, {});
+  console.log("Inventory: ", inventory);
+
   console.log("New Order Saved: ", newOrder);
   res.json({ ok: true });
 };
