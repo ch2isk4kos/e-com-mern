@@ -131,13 +131,15 @@ exports.createOrder = async (req, res) => {
   const { paymentIntent } = req.body.stripeResponse;
 
   const user = await User.findOne({ email: req.user.email }).exec();
-  const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
+  const { products } = await Cart.findOneAndRemove({
+    orderedBy: user._id,
+  }).exec();
 
   let newOrder = await new Order({
-    products: cart.products,
+    products,
     paymentIntent,
     orderedBy: user._id,
-  }).saved();
+  }).save();
 
   console.log("New Order Saved: ", newOrder);
   res.json({ ok: true });
