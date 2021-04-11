@@ -22,12 +22,14 @@ const History = () => {
   };
 
   const renderOrders = () => {
-    orders.map((o, i) => (
+    return orders.map((o, i) => (
       <div key={i} className="m-5 p-3 card">
-        Payment Information
+        <h4>Payment Information</h4>
+        <br />
         {renderPaymentTable(o)}
         <div className="row">
           <div className="col">
+            <br />
             <p>PDF Download</p>
           </div>
         </div>
@@ -35,16 +37,56 @@ const History = () => {
     ));
   };
 
-  const renderPaymentTable = (order) => {};
+  const renderPaymentTable = (order) => (
+    <table className="table table-bordered">
+      <thead className="thead-light">
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Price</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Color</th>
+          <th scope="col">Count</th>
+          <th scope="col">Shipping</th>
+        </tr>
+      </thead>
+      <tbody>
+        {order.products.map((p, i) => (
+          <tr className={i}>
+            <td>{p.product.name}</td>
+            <td>${p.product.price}</td>
+            <td>{p.product.brand}</td>
+            <td>{p.product.color}</td>
+            <td>{p.count}</td>
+            <td>
+              {p.product.shipping === "Yes" ? (
+                <CheckCircleOutlined
+                  style={{
+                    color: "green",
+                  }}
+                />
+              ) : (
+                <CloseCircleOutlined
+                  style={{
+                    color: "red",
+                  }}
+                />
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-md-4">
           <UserNav />
         </div>
         <div className="col-md-6">
-          {orders.length ? <h1>User History</h1> : <h1>No Purchase History</h1>}
+          {orders.length ? <h2>User History</h2> : <h2>No Purchase History</h2>}
+          {renderOrders()}
         </div>
       </div>
     </div>
