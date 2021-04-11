@@ -12,7 +12,7 @@ const {
   userAddress,
   applyCouponToUserCart,
   createOrder,
-  listOrders,
+  orders,
 } = require("../controllers/user");
 
 router.post("/user/cart", authenticateToken, userCart);
@@ -25,7 +25,7 @@ router.post("/user/cart/coupon", authenticateToken, applyCouponToUserCart);
 
 //user orders
 router.post("/user/order", authenticateToken, createOrder);
-router.get("/user/history", authenticateToken, listOrders);
+router.get("/user/orders", authenticateToken, orders);
 
 // router.get("/user", (req, res) => {
 //   res.json({
