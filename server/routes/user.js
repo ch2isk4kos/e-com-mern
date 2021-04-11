@@ -1,16 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-// middleware imports
+//middleware imports
 const { authenticateToken } = require("../middleware/auth.js");
 
-// authentication controller imports
+//authentication controller imports
 const {
   userCart,
   getUserCart,
   emptyUserCart,
   userAddress,
   applyCouponToUserCart,
+  createOrder,
 } = require("../controllers/user");
 
 router.post("/user/cart", authenticateToken, userCart);
@@ -18,8 +19,11 @@ router.get("/user/cart", authenticateToken, getUserCart);
 router.delete("/user/cart", authenticateToken, emptyUserCart);
 router.post("/user/address", authenticateToken, userAddress);
 
-// user coupons
+//user coupons
 router.post("/user/cart/coupon", authenticateToken, applyCouponToUserCart);
+
+//user orders
+router.post("/user/cart/coupon", authenticateToken, createOrder);
 
 // router.get("/user", (req, res) => {
 //   res.json({
