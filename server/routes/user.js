@@ -16,6 +16,9 @@ const {
   applyCouponToUserCart,
   createOrder,
   orders,
+  addToWishlist,
+  wishlist,
+  updateWishlist,
 } = require("../controllers/user");
 
 router.post("/user/cart", authenticateToken, userCart);
