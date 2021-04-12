@@ -10,7 +10,7 @@ const {
 //authentication controller imports
 const { orders, orderStatus } = require("../controllers/admin.js");
 
-router.get("/admin/orders", authenticateToken, orders);
-router.put("/admin/status", authenticateToken, orderStatus);
+router.get("/admin/orders", authenticateToken, authenticateAdmin, orders);
+router.put("/admin/status", authenticateToken, authenticateAdmin, orderStatus);
 
 module.exports = router;
