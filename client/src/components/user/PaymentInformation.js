@@ -50,20 +50,22 @@ const PaymentInformation = ({ order, currentStatus = true }) => {
           )}
         </span>
       </p>
-      {currentStatus && (order.Status === "Not Processed" || "Cancelled") ? (
-        <p>
+      {/* write a case statement to switch bg-colors upon order status update */}
+      {order.orderStatus === "Not Processed" ||
+      order.orderStatus === "Cancelled" ? (
+        <div>
           <b>Order Status: </b>
           <span className="badge bg-danger text-white">
             {order.orderStatus}
           </span>
-        </p>
+        </div>
       ) : (
-        <p>
+        <div>
           <b>Order Status: </b>
-          <span className="badge bg-danger text-white">
+          <span className="badge bg-success text-white">
             {order.orderStatus}
           </span>
-        </p>
+        </div>
       )}
 
       {/* {order.orderStatus === "Not Processed" ? (
