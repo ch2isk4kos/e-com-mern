@@ -71,3 +71,33 @@ export const getUserOrders = async (token) => {
     headers: { auth: token },
   });
 };
+
+export const getUserWishlist = async (token) => {
+  return await axios.get(`${NODE_API}/user/wishlist`, {
+    headers: { auth: token },
+  });
+};
+
+export const addWishlistItem = async (token, productId) => {
+  return await axios.post(
+    `${NODE_API}/user/wishlist`,
+    { productId },
+    {
+      headers: {
+        auth: token,
+      },
+    }
+  );
+};
+
+export const updateUserWishlist = async (token, productId) => {
+  return await axios.put(
+    `${NODE_API}/user/wishlist/${productId}`,
+    {},
+    {
+      headers: {
+        auth: token,
+      },
+    }
+  );
+};
