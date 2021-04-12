@@ -1,12 +1,16 @@
 import React from "react";
+import PaymentInformtion from "../user/PaymentInformation";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 
-const AdminOrders = ({ orders }) => {
+const AdminOrders = ({ orders, handleOnOrderUpdate }) => {
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col"></div>
-      </div>
-    </div>
+    <>
+      {orders.map((o) => (
+        <div key={o._id} className="row pb-5">
+          <PaymentInformtion order={o} />
+        </div>
+      ))}
+    </>
   );
 };
 
