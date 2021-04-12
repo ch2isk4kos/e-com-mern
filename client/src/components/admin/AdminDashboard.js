@@ -17,9 +17,19 @@ const AdminDashboard = () => {
   }, []);
 
   const loadUserOrders = () => {
-    getAdminOrders(user.token)
+    getAdminOrders(user.token).then((res) => {
+      console.log(JSON.stringify(res.data, null, 4));
+      setOrders(res.data);
+    });
+  };
+
+  const updateOrderStatus = (orderId, orderStatus) => {
+    console.log("order id: ", orderId);
+    console.log("order status: ", orderStatus);
+
+    updateAdminOrderStatus(orderId, orderStatus)
       .then((res) => {
-        console.log(JSON.stringify(res.data, null, 4));
+        console.log(res.data, null, 4);
         setOrders(res.data);
         loadUserOrders();
         toast.success("Order status updated.");
@@ -27,16 +37,6 @@ const AdminDashboard = () => {
       .catch((err) => {
         toast.error(`Update failed: ${err}`);
       });
-  };
-
-  const updateOrderStatus = (orderId, orderStatus) => {
-    console.log("order id: ", orderId);
-    console.log("order status: ", orderStatus);
-
-    updateAdminOrderStatus(orderId, orderStatus).then((res) => {
-      console.log(res.data, null, 4);
-      setOrders(res.data);
-    });
   };
 
   return (
