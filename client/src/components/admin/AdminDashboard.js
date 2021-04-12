@@ -28,10 +28,9 @@ const AdminDashboard = () => {
     console.log("order id: ", orderId);
     console.log("order status: ", orderStatus);
 
-    updateAdminOrderStatus(orderId, orderStatus)
+    updateAdminOrderStatus(user.token, orderId, orderStatus)
       .then((res) => {
         console.log(res.data, null, 4);
-        setOrders(res.data);
         loadUserOrders();
         toast.success("Order status updated.");
       })
