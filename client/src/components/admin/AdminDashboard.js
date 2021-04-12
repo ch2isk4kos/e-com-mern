@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AdminNav from "./AdminNav";
-import AdminOrders from "./AminOrders";
+import AdminOrders from "./AdminOrders";
 import {
   getAdminOrders,
   updateAdminOrderStatus,
@@ -47,9 +47,12 @@ const AdminDashboard = () => {
           <AdminNav />
         </div>
         <div className="col">
-          <h1>Admin Dashboard</h1>
+          <h2>All Orders</h2>
           {/* {JSON.stringify(orders)} */}
-          <AdminOrders orders={orders} />
+          <AdminOrders
+            orders={orders}
+            handleOnOrderUpdate={updateOrderStatus}
+          />
         </div>
       </div>
     </div>
