@@ -15,6 +15,8 @@ import {
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import _ from "lodash";
+import { addWishlistItem } from "../../../api/custom/user";
+import { toast } from "react-toastify";
 
 // const { Meta } = Card;
 const { TabPane } = Tabs;
@@ -60,6 +62,17 @@ const ProductInfoCard = ({ product, rating, handleOnRatingSelection }) => {
     console.log("");
   };
 
+  const handleOnAddToWishlist = (e) => {
+    e.preventDefault();
+    addWishlistItem(user.token, product._id)
+      .then((res) => {
+        toast.success(`${product.name} added to wishlist`);
+      })
+      .catch((err) => {
+        toast.error(`Add to wishlist ${err}`);
+      });
+  };
+
   return (
     <>
       <div className="col-md-7">
@@ -94,14 +107,16 @@ const ProductInfoCard = ({ product, rating, handleOnRatingSelection }) => {
           : "No Rating"}
         <Card
           actions={[
-            <Link to={`/user/wishlist`}>
+            //add conditional render to display "Added to Wishlist" on card
+            <a onClick={handleOnAddToWishlist}>
               <HeartOutlined className="text-warning" />
               <br />
               <p>Add to Wishlist</p>
-            </Link>,
+            </a>,
             <>
               <Tooltip title={tooltip}>
                 <a onClick={handleOnAddToCart}>
+                  {}
                   <ShoppingCartOutlined className="text-danger" />
                   <br />
                   <p>Add to Cart</p>
