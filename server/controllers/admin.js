@@ -1,4 +1,3 @@
-const User = require("../models/User");
 const Order = require("../models/Order");
 
 exports.orders = async (req, res) => {
@@ -7,4 +6,16 @@ exports.orders = async (req, res) => {
     .populate("products.product")
     .exec();
   res.json(orders);
+};
+
+exports.orderStatus = async (req, res) => {
+  const { orderId, orderStatus } = req.body;
+
+  let updateOrderStatus = await Order.findByIdAndUpdate(
+    orderId,
+    { orderStatus },
+    { new: true }
+  ).exec();
+
+  res.json(updateOrderStatus);
 };
