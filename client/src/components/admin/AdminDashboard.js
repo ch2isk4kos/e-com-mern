@@ -5,7 +5,7 @@ import {
   getAdminOrders,
   updateAdminOrderStatus,
 } from "../../api/nodejs/admin.js";
-import { toast, toastify } from "react-toastify";
+import { toast } from "react-toastify";
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
