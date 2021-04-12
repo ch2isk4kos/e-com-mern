@@ -94,7 +94,7 @@ const ProductInfoCard = ({ product, rating, handleOnRatingSelection }) => {
           : "No Rating"}
         <Card
           actions={[
-            <Link to={`/`}>
+            <Link to={`/user/wishlist`}>
               <HeartOutlined className="text-warning" />
               <br />
               <p>Add to Wishlist</p>
