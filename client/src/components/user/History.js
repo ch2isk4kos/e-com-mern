@@ -5,6 +5,15 @@ import PaymentInformation from "./PaymentInformation";
 import { getUserOrders } from "../../api/custom/user.js";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+  PDFViewer,
+} from "@react-pdf/renderer";
 
 const History = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -30,10 +39,7 @@ const History = () => {
         <br />
         {renderPaymentTable(o)}
         <div className="row">
-          <div className="col">
-            <br />
-            <p>PDF Download</p>
-          </div>
+          <div className="col">{renderPDFDownload()}</div>
         </div>
       </div>
     ));
@@ -80,6 +86,24 @@ const History = () => {
         ))}
       </tbody>
     </table>
+  );
+
+  const renderPDFDownload = () => (
+    <PDFDownloadLink
+      className="btn btn-sm btn-block btn-outline-primary "
+      document={
+        <Document>
+          <Page size="A4">
+            <View>
+              <Text>Section #1</Text>
+              <Text>Section #2</Text>
+            </View>
+          </Page>
+        </Document>
+      }
+    >
+      PDF Download
+    </PDFDownloadLink>
   );
 
   return (
