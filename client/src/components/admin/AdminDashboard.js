@@ -5,7 +5,7 @@ import {
   getAdminOrders,
   updateAdminOrderStatus,
 } from "../../api/nodejs/admin.js";
-import { toastify } from "react-toastify";
+import { toast, toastify } from "react-toastify";
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -17,8 +17,24 @@ const AdminDashboard = () => {
   }, []);
 
   const loadUserOrders = () => {
-    getAdminOrders(user.token).then((res) => {
-      console.log(JSON.stringify(res.data, null, 4));
+    getAdminOrders(user.token)
+      .then((res) => {
+        console.log(JSON.stringify(res.data, null, 4));
+        setOrders(res.data);
+        loadUserOrders();
+        toast.success("Order status updated.");
+      })
+      .catch((err) => {
+        toast.error(`Update failed: ${err}`);
+      });
+  };
+
+  const updateOrderStatus = (orderId, orderStatus) => {
+    console.log("order id: ", orderId);
+    console.log("order status: ", orderStatus);
+
+    updateAdminOrderStatus(orderId, orderStatus).then((res) => {
+      console.log(res.data, null, 4);
       setOrders(res.data);
     });
   };
