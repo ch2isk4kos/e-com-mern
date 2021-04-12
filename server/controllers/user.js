@@ -184,7 +184,7 @@ exports.addToWishlist = async (req, res) => {
 exports.wishlist = async (req, res) => {
   const userWishlist = await User.findOne({ email: req.user.email })
     .select("wishlist")
-    .populated("wishlist")
+    .populate("wishlist")
     .exec();
 
   res.json(userWishlist);
