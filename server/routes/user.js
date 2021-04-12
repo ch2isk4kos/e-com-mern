@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 //middleware imports
-const { authenticateToken } = require("../middleware/auth.js");
+const {
+  authenticateToken,
+  authenticateAdmin,
+} = require("../middleware/auth.js");
 
 //authentication controller imports
 const {
@@ -26,6 +29,11 @@ router.post("/user/cart/coupon", authenticateToken, applyCouponToUserCart);
 //user orders
 router.post("/user/order", authenticateToken, createOrder);
 router.get("/user/orders", authenticateToken, orders);
+
+//user wishlist
+router.post("/user/wishlist", authenticateToken, addToWishlist);
+router.get("/user/wishlist", authenticateToken, wishlist);
+router.put("/user/wishlist/:productId", authenticateToken, updateWishlist);
 
 // router.get("/user", (req, res) => {
 //   res.json({
