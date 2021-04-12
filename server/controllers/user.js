@@ -191,9 +191,9 @@ exports.wishlist = async (req, res) => {
 };
 
 exports.updateWishlist = async (req, res) => {
-  const productId = req.params;
+  const { productId } = req.params;
 
-  const updateUserWishlist = await User.findOne(
+  const user = await User.findOneAndUpdate(
     { email: req.user.email },
     { $pull: { wishlist: productId } }
   ).exec();
