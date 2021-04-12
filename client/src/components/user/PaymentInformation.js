@@ -1,6 +1,6 @@
 import React from "react";
 
-const PaymentInformation = ({ order }) => {
+const PaymentInformation = ({ order, currentStatus = true }) => {
   return (
     <div>
       <p>
@@ -50,7 +50,7 @@ const PaymentInformation = ({ order }) => {
           )}
         </span>
       </p>
-      {order.orderStatus === "Not Processed" ? (
+      {currentStatus && (order.Status === "Not Processed" || "Cancelled") ? (
         <p>
           <b>Order Status: </b>
           <span className="badge bg-danger text-white">
@@ -60,11 +60,27 @@ const PaymentInformation = ({ order }) => {
       ) : (
         <p>
           <b>Order Status: </b>
-          <span className="badge bg-success text-white">
+          <span className="badge bg-danger text-white">
             {order.orderStatus}
           </span>
         </p>
       )}
+
+      {/* {order.orderStatus === "Not Processed" ? (
+        <p>
+          <b>Order Status: </b>
+          <span className="badge bg-danger text-white">
+            {order.orderStatus}
+          </span>
+        </p>
+      ) : (
+        <p>
+          <b>Order Status: </b>
+          <span className="badge bg-danger text-white">
+            {order.orderStatus}
+          </span>
+        </p>
+      )} */}
     </div>
   );
 };

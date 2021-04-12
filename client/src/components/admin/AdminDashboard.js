@@ -46,8 +46,8 @@ const AdminDashboard = () => {
         <div className="col-md-2">
           <AdminNav />
         </div>
-        <div className="col">
-          <h2>All Orders</h2>
+        <div className="col mt-3">
+          <h1>All Orders</h1>
           {/* {JSON.stringify(orders)} */}
           <AdminOrders
             orders={orders}
